@@ -1,0 +1,153 @@
+/**
+ * DrinkMenu.css
+ *
+ * Inherits the site's cream/ink tokens rather than declaring a palette:
+ *   --ink     body text          --line    hairline rules
+ *   --ink-2   secondary text     --accent  the muted terracotta
+ * The fallbacks below only apply if this component is mounted somewhere those
+ * tokens aren't defined (Storybook, a test harness).
+ */
+
+.dm {
+  --dm-ink:    var(--ink, #23201b);
+  --dm-ink-2:  var(--ink-2, #6b6355);
+  --dm-line:   var(--line, #d6cdbc);
+  --dm-accent: var(--accent, #9c4b2c);
+  --dm-col-w:  2.75rem;
+
+  color: var(--dm-ink);
+  font-family: var(--font-display, Georgia, "Times New Roman", serif);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+/* ---------- heading ---------- */
+.dm-head { margin-bottom: 2rem; }
+.dm-heading {
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.35rem;
+}
+.dm-sub-head {
+  font-family: var(--font-ui, system-ui, sans-serif);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dm-ink-2);
+  margin: 0;
+  text-indent: 0.22em;
+}
+
+/* ---------- sections ---------- */
+.dm-section { margin-bottom: 2rem; }
+.dm-section:last-of-type { margin-bottom: 0; }
+
+.dm-section-title {
+  font-family: var(--font-ui, system-ui, sans-serif);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dm-ink-2);
+  margin: 0 0 0.95rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--dm-line);
+  text-indent: 0.22em;
+}
+
+/* the Glass / Bottle column headers, shown once above the first wine section */
+.dm-cols {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.35rem;
+  margin: -0.5rem 0 0.8rem;
+  font-family: var(--font-ui, system-ui, sans-serif);
+  font-size: 0.56rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dm-ink-2);
+}
+.dm-cols span { width: var(--dm-col-w); text-align: right; }
+
+/* ---------- rows ---------- */
+.dm-row { margin-bottom: 0.95rem; }
+.dm-row:last-child { margin-bottom: 0; }
+
+.dm-line {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+}
+
+.dm-name {
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.dm-vintage {
+  color: var(--dm-ink-2);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* the dotted leader — same idiom as the rest of the site's menu */
+.dm-leader {
+  flex: 1;
+  min-width: 0.9rem;
+  border-bottom: 1px dotted var(--dm-line);
+  transform: translateY(-0.2em);
+}
+
+.dm-price {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.dm-price.dm-col { width: var(--dm-col-w); text-align: right; }
+.dm-price.is-dim { opacity: 0.4; }
+
+.dm-sub {
+  font-size: 0.92rem;
+  font-style: italic;
+  color: var(--dm-ink-2);
+  line-height: 1.45;
+  margin: 0.1rem 0 0;
+  max-width: 52ch;
+}
+
+/* 86'd — greyed and struck rather than removed, so the guest learns something
+   true about the kitchen instead of silently seeing a shorter list */
+.dm-row.is-out { opacity: 0.42; }
+.dm-row.is-out .dm-name { text-decoration: line-through; }
+
+.dm-tag {
+  font-family: var(--font-ui, system-ui, sans-serif);
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  padding: 1px 5px;
+  margin-left: 0.5rem;
+  vertical-align: 2px;
+  white-space: nowrap;
+}
+
+.dm-foot {
+  margin-top: 2.2rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--dm-line);
+  font-family: var(--font-ui, system-ui, sans-serif);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dm-ink-2);
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .dm { font-size: 1rem; }
+  .dm-sub { font-size: 0.88rem; }
+  .dm-cols { gap: 1rem; }
+  .dm { --dm-col-w: 2.4rem; }
+}

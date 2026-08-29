@@ -150,6 +150,8 @@ const money = n => n == null ? '—' : '$' + Number(n).toFixed(0);
 async function load() {
   S = await (await fetch('/api/state')).json();
   $('#env').textContent = S.env || '—';
+  const gt = document.querySelector('.tabs button[data-p="guest.html"]');
+  if (gt) gt.textContent = S.siteDevUrl ? 'guest menu · live site' : 'guest menu';
   if (!S.ready) {
     $('#list').innerHTML = '';
     $('#editor').innerHTML = '<div class="empty">Nothing built yet. Hit <b>Sync &amp; rebuild</b>.</div>';
@@ -319,6 +321,12 @@ async function rebuild() {
 
 function refreshPreview() {
   const tab = document.querySelector('.tabs button[aria-selected=true]');
+  /* With the React site's dev server running, preview the real thing rather
+     than Mise's standalone approximation of it. */
+  if (tab.dataset.p === 'guest.html' && S.siteDevUrl) {
+    $('#frame').src = S.siteDevUrl + (S.siteDevUrl.includes('?') ? '&' : '?') + 't=' + Date.now();
+    return;
+  }
   $('#frame').src = '/preview/' + tab.dataset.p + '?t=' + Date.now();
 }
 

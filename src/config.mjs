@@ -32,6 +32,14 @@ export const square = {
   }[ENV],
 };
 
+/* Once the React site exists, point the studio's guest preview at its dev
+   server so what you see while editing copy is the real site, not Mise's
+   standalone approximation of it. */
+export const site = {
+  repo: process.env.SITE_REPO || '',
+  devUrl: process.env.SITE_DEV_URL || '',
+};
+
 export const webhook = {
   signatureKey: process.env.SQUARE_WEBHOOK_SIGNATURE_KEY || '',
   notificationUrl: process.env.WEBHOOK_NOTIFICATION_URL || '',

@@ -20,7 +20,7 @@ import { join, extname } from 'node:path';
 import { createHmac, timingSafeEqual, randomBytes } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { execFileSync } from 'node:child_process';
-import { ROOT, square as sq } from './config.mjs';
+import { ROOT, square as sq, site } from './config.mjs';
 import { sync } from './sync.mjs';
 import { build } from './build.mjs';
 
@@ -70,7 +70,7 @@ function commit(message) {
 function state() {
   const editorial = readJson(EDITORIAL, { sections: {}, items: {} });
   const menu = readJson(MENU, null);
-  if (!menu) return { ready: false, items: [], stats: null, env: sq.env };
+  if (!menu) return { ready: false, items: [], stats: null, env: sq.env, siteDevUrl: site.devUrl };
 
   const items = menu.sections.flatMap(s => s.items.map(i => ({
     id: i.id,
@@ -98,7 +98,8 @@ function state() {
     squareOwnsCopy: !!(i.menuName && !editorial.items[i.id]?.menu_name),
   })));
 
-  return { ready: true, env: sq.env, stats: menu.stats, generatedAt: menu.generatedAt, items };
+  return { ready: true, env: sq.env, siteDevUrl: site.devUrl,
+           stats: menu.stats, generatedAt: menu.generatedAt, items };
 }
 
 /* ---------- rebuild ---------- */
