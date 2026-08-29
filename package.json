@@ -1,0 +1,20 @@
+{
+  "name": "mise",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Square POS as the single source of truth for every menu Parasol publishes.",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "mock": "node scripts/mock-square.mjs",
+    "seed": "node scripts/seed-sandbox.mjs",
+    "inspect": "node scripts/inspect-catalog.mjs",
+    "sync": "node src/sync.mjs",
+    "build": "node src/build.mjs",
+    "demo": "node scripts/demo.mjs",
+    "webhook": "node src/webhook.mjs",
+    "studio": "node src/studio.mjs"
+  }
+}

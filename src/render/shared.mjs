@@ -1,0 +1,89 @@
+/** shared.mjs — helpers every renderer uses. Renderers read menu.json only. */
+
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { ROOT, publishing } from '../config.mjs';
+
+export const loadMenu = () =>
+  JSON.parse(readFileSync(join(ROOT, 'out', 'menu.json'), 'utf8'));
+
+export const esc = t => String(t ?? '')
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;');
+
+export const money = n => (n == null ? '—' : '$' + Number(n).toFixed(0));
+export const bare  = n => (n == null ? '—' : Number(n).toFixed(0));
+
+/** The guest-facing name. Falls back to nothing — stubs never render here. */
+export const displayName = i => {
+  const base = i.producer
+    ? i.producer + (i.cuvee ? ` ‘${i.cuvee}’` : '')
+    : i.menuName;
+  return base || i.menuName;
+};
+
+export const vintageLabel = i =>
+  i.kind === 'pour' ? (i.vintage ? String(i.vintage) : 'NV') : '';
+
+export const subtitle = i =>
+  i.kind === 'pour'
+    ? [i.grape, i.region].filter(Boolean).join(' · ')
+    : i.description;
+
+/** Publishing rule: guests only ever see items that have copy. */
+export const guestItems = section =>
+  section.items.filter(i => !(publishing.guestRequiresCopy && i.needsReview))
+                .filter(i => publishing.soldOutTreatment === 'hide' ? i.available : true);
+
+export const page = ({ title, style, body, lang = 'en' }) =>
+`<!doctype html>
+<html lang="${lang}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(title)}</title>
+<style>${style}</style>
+</head>
+<body>
+${body}
+</body>
+</html>
+`;
+
+/** Parasol's menu type. Kept in one place so print and web cannot drift. */
+export const PARASOL_CSS = `
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Archivo:wght@400;600&display=swap');
+  :root { --paper:#F3EEE3; --ink:#23201B; --ink2:#6B6355; --rule:#D6CDBC; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink);
+         font-family:"EB Garamond",Georgia,serif; font-size:17px; line-height:1.55; }
+  .sheet { max-width:660px; margin:0 auto; padding:56px 44px 64px; }
+  .brand { text-align:center; padding-bottom:26px; margin-bottom:32px; border-bottom:1px solid var(--rule); }
+  .wm { font-size:2rem; letter-spacing:.34em; text-transform:uppercase; margin:0 0 9px; text-indent:.34em; font-weight:400; }
+  .sub { font-family:Archivo,sans-serif; font-size:.64rem; letter-spacing:.26em;
+         text-transform:uppercase; color:var(--ink2); margin:0; text-indent:.26em; }
+  section { margin-bottom:30px; }
+  h2 { font-family:Archivo,sans-serif; font-size:.64rem; letter-spacing:.22em; text-transform:uppercase;
+       font-weight:600; color:var(--ink2); margin:0 0 15px; padding-bottom:8px;
+       border-bottom:1px solid var(--rule); text-indent:.22em; }
+  .cols { display:flex; justify-content:flex-end; gap:22px; margin:-9px 0 13px;
+          font-family:Archivo,sans-serif; font-size:.56rem; letter-spacing:.16em;
+          text-transform:uppercase; color:var(--ink2); }
+  .cols span { width:44px; text-align:right; }
+  .row { margin-bottom:15px; }
+  .line { display:flex; align-items:baseline; gap:11px; }
+  .nm { font-size:1.05rem; font-weight:500; line-height:1.3; }
+  .vt { color:var(--ink2); font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .dots { flex:1; border-bottom:1px dotted var(--rule); transform:translateY(-3px); min-width:14px; }
+  .pz { font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .pz.col { width:44px; text-align:right; }
+  .pz.dim { opacity:.4; }
+  .dd { font-size:.92rem; font-style:italic; color:var(--ink2); margin-top:2px; max-width:52ch; }
+  .row.out { opacity:.42; }
+  .row.out .nm { text-decoration:line-through; }
+  .tag { font-family:Archivo,sans-serif; font-size:.55rem; letter-spacing:.15em; text-transform:uppercase;
+         border:1px solid currentColor; padding:1px 5px; border-radius:2px; margin-left:8px; vertical-align:2px; }
+  .foot { margin-top:36px; padding-top:18px; border-top:1px solid var(--rule); text-align:center;
+          font-family:Archivo,sans-serif; font-size:.6rem; letter-spacing:.1em;
+          text-transform:uppercase; color:var(--ink2); }
+`;

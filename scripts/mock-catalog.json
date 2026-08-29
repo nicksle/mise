@@ -1,0 +1,1316 @@
+{
+  "objects": [
+    {
+      "type": "CUSTOM_ATTRIBUTE_DEFINITION",
+      "id": "DEF_menu_name",
+      "custom_attribute_definition_data": {
+        "key": "menu_name",
+        "name": "menu_name",
+        "type": "STRING",
+        "allowed_object_types": [
+          "ITEM"
+        ],
+        "seller_visibility": "SELLER_VISIBILITY_READ_WRITE_VALUES"
+      }
+    },
+    {
+      "type": "CUSTOM_ATTRIBUTE_DEFINITION",
+      "id": "DEF_menu_description",
+      "custom_attribute_definition_data": {
+        "key": "menu_description",
+        "name": "menu_description",
+        "type": "STRING",
+        "allowed_object_types": [
+          "ITEM"
+        ],
+        "seller_visibility": "SELLER_VISIBILITY_READ_WRITE_VALUES"
+      }
+    },
+    {
+      "type": "CUSTOM_ATTRIBUTE_DEFINITION",
+      "id": "DEF_allergens",
+      "custom_attribute_definition_data": {
+        "key": "allergens",
+        "name": "allergens",
+        "type": "STRING",
+        "allowed_object_types": [
+          "ITEM"
+        ],
+        "seller_visibility": "SELLER_VISIBILITY_READ_WRITE_VALUES"
+      }
+    },
+    {
+      "type": "CUSTOM_ATTRIBUTE_DEFINITION",
+      "id": "DEF_vintage",
+      "custom_attribute_definition_data": {
+        "key": "vintage",
+        "name": "vintage",
+        "type": "NUMBER",
+        "allowed_object_types": [
+          "ITEM"
+        ],
+        "seller_visibility": "SELLER_VISIBILITY_READ_WRITE_VALUES"
+      }
+    },
+    {
+      "type": "CUSTOM_ATTRIBUTE_DEFINITION",
+      "id": "DEF_vintage_confirmed",
+      "custom_attribute_definition_data": {
+        "key": "vintage_confirmed",
+        "name": "vintage_confirmed",
+        "type": "STRING",
+        "allowed_object_types": [
+          "ITEM"
+        ],
+        "seller_visibility": "SELLER_VISIBILITY_READ_WRITE_VALUES"
+      }
+    },
+    {
+      "type": "CATEGORY",
+      "id": "MOCK_CAT_SPARK",
+      "category_data": {
+        "name": "Sparkling",
+        "category_type": "MENU_CATEGORY"
+      }
+    },
+    {
+      "type": "CATEGORY",
+      "id": "MOCK_CAT_WHITE",
+      "category_data": {
+        "name": "White",
+        "category_type": "MENU_CATEGORY"
+      }
+    },
+    {
+      "type": "CATEGORY",
+      "id": "MOCK_CAT_ORNG",
+      "category_data": {
+        "name": "Orange & Rosé",
+        "category_type": "MENU_CATEGORY"
+      }
+    },
+    {
+      "type": "CATEGORY",
+      "id": "MOCK_CAT_RED",
+      "category_data": {
+        "name": "Red",
+        "category_type": "MENU_CATEGORY"
+      }
+    },
+    {
+      "type": "CATEGORY",
+      "id": "MOCK_CAT_RES",
+      "category_data": {
+        "name": "Reserve",
+        "category_type": "MENU_CATEGORY"
+      }
+    },
+    {
+      "type": "CATEGORY",
+      "id": "MOCK_CAT_OPS",
+      "category_data": {
+        "name": "Operations"
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_CAVA",
+      "item_data": {
+        "name": "CAVA ROSE GLS",
+        "kitchen_name": "CAVA ROSE GLS",
+        "categories": [
+          {
+            "id": "MOCK_CAT_SPARK"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_CAVA_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_CAVA",
+              "name": "Glass",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1600,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_CAVA_V1",
+            "item_variation_data": {
+              "item_id": "MOCK_CAVA",
+              "name": "Bottle",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 6200,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "CAVA ROSE"
+        },
+        "vintage": {
+          "key": "vintage",
+          "custom_attribute_definition_id": "DEF_vintage",
+          "number_value": "2022"
+        },
+        "vintage_confirmed": {
+          "key": "vintage_confirmed",
+          "custom_attribute_definition_id": "DEF_vintage_confirmed",
+          "string_value": "2026-06-02"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_PETNAT",
+      "item_data": {
+        "name": "PET NAT",
+        "kitchen_name": "PET NAT",
+        "categories": [
+          {
+            "id": "MOCK_CAT_SPARK"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_PETNAT_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_PETNAT",
+              "name": "Glass",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1700,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_PETNAT_V1",
+            "item_variation_data": {
+              "item_id": "MOCK_PETNAT",
+              "name": "Bottle",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 6600,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "PET NAT"
+        },
+        "vintage": {
+          "key": "vintage",
+          "custom_attribute_definition_id": "DEF_vintage",
+          "number_value": "2023"
+        },
+        "vintage_confirmed": {
+          "key": "vintage_confirmed",
+          "custom_attribute_definition_id": "DEF_vintage_confirmed",
+          "string_value": "2026-08-01"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_ALBA",
+      "item_data": {
+        "name": "ALBARINO",
+        "kitchen_name": "ALBARINO",
+        "categories": [
+          {
+            "id": "MOCK_CAT_WHITE"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_ALBA_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_ALBA",
+              "name": "Glass",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1600,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_ALBA_V1",
+            "item_variation_data": {
+              "item_id": "MOCK_ALBA",
+              "name": "Bottle",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 6200,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "ALBARINO"
+        },
+        "vintage": {
+          "key": "vintage",
+          "custom_attribute_definition_id": "DEF_vintage",
+          "number_value": "2023"
+        },
+        "vintage_confirmed": {
+          "key": "vintage_confirmed",
+          "custom_attribute_definition_id": "DEF_vintage_confirmed",
+          "string_value": "2026-07-10"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_RIES",
+      "item_data": {
+        "name": "RIES DRY",
+        "kitchen_name": "RIES DRY",
+        "categories": [
+          {
+            "id": "MOCK_CAT_WHITE"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_RIES_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_RIES",
+              "name": "Glass",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1500,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_RIES_V1",
+            "item_variation_data": {
+              "item_id": "MOCK_RIES",
+              "name": "Bottle",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 5800,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "RIES DRY"
+        },
+        "vintage": {
+          "key": "vintage",
+          "custom_attribute_definition_id": "DEF_vintage",
+          "number_value": "2022"
+        },
+        "vintage_confirmed": {
+          "key": "vintage_confirmed",
+          "custom_attribute_definition_id": "DEF_vintage_confirmed",
+          "string_value": "2026-04-02"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_SANC",
+      "item_data": {
+        "name": "SANCERRE GLS",
+        "kitchen_name": "SANCERRE GLS",
+        "categories": [
+          {
+            "id": "MOCK_CAT_WHITE"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_SANC_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_SANC",
+              "name": "Glass",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 2100,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_SANC_V1",
+            "item_variation_data": {
+              "item_id": "MOCK_SANC",
+              "name": "Bottle",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 8400,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "SANCERRE"
+        },
+        "vintage": {
+          "key": "vintage",
+          "custom_attribute_definition_id": "DEF_vintage",
+          "number_value": "2022"
+        },
+        "vintage_confirmed": {
+          "key": "vintage_confirmed",
+          "custom_attribute_definition_id": "DEF_vintage_confirmed",
+          "string_value": "2025-11-20"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_CHARD",
+      "item_data": {
+        "name": "CHARD SCM",
+        "kitchen_name": "CHARD SCM",
+        "categories": [
+          {
+            "id": "MOCK_CAT_WHITE"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_CHARD_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_CHARD",
+              "name": "Glass",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 2400,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_CHARD_V1",
+            "item_variation_data": {
+              "item_id": "MOCK_CHARD",
+              "name": "Bottle",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 9600,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "CHARD"
+        },
+        "vintage": {
+          "key": "vintage",
+          "custom_attribute_definition_id": "DEF_vintage",
+          "number_value": "2021"
+        },
+        "vintage_confirmed": {
+          "key": "vintage_confirmed",
+          "custom_attribute_definition_id": "DEF_vintage_confirmed",
+          "string_value": "2025-06-18"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_ROSE",
+      "item_data": {
+        "name": "ROSE GLS",
+        "kitchen_name": "ROSE GLS",
+        "categories": [
+          {
+            "id": "MOCK_CAT_ORNG"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_ROSE_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_ROSE",
+              "name": "Glass",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1600,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_ROSE_V1",
+            "item_variation_data": {
+              "item_id": "MOCK_ROSE",
+              "name": "Bottle",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 6200,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "ROSE"
+        },
+        "vintage": {
+          "key": "vintage",
+          "custom_attribute_definition_id": "DEF_vintage",
+          "number_value": "2023"
+        },
+        "vintage_confirmed": {
+          "key": "vintage_confirmed",
+          "custom_attribute_definition_id": "DEF_vintage_confirmed",
+          "string_value": "2026-07-01"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_SKIN",
+      "item_data": {
+        "name": "SKIN CONTACT",
+        "kitchen_name": "SKIN CONTACT",
+        "categories": [
+          {
+            "id": "MOCK_CAT_ORNG"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_SKIN_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_SKIN",
+              "name": "Glass",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1800,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_SKIN_V1",
+            "item_variation_data": {
+              "item_id": "MOCK_SKIN",
+              "name": "Bottle",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 7000,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "SKIN CONTACT"
+        },
+        "vintage": {
+          "key": "vintage",
+          "custom_attribute_definition_id": "DEF_vintage",
+          "number_value": "2022"
+        },
+        "vintage_confirmed": {
+          "key": "vintage_confirmed",
+          "custom_attribute_definition_id": "DEF_vintage_confirmed",
+          "string_value": "2026-03-04"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_GAMAY",
+      "item_data": {
+        "name": "GAMAY",
+        "kitchen_name": "GAMAY",
+        "categories": [
+          {
+            "id": "MOCK_CAT_RED"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_GAMAY_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_GAMAY",
+              "name": "Glass",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 2200,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_GAMAY_V1",
+            "item_variation_data": {
+              "item_id": "MOCK_GAMAY",
+              "name": "Bottle",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 8800,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "GAMAY"
+        },
+        "vintage": {
+          "key": "vintage",
+          "custom_attribute_definition_id": "DEF_vintage",
+          "number_value": "2022"
+        },
+        "vintage_confirmed": {
+          "key": "vintage_confirmed",
+          "custom_attribute_definition_id": "DEF_vintage_confirmed",
+          "string_value": "2026-05-11"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_NEBB",
+      "item_data": {
+        "name": "NEBB LANGHE",
+        "kitchen_name": "NEBB LANGHE",
+        "categories": [
+          {
+            "id": "MOCK_CAT_RED"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_NEBB_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_NEBB",
+              "name": "Glass",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1900,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_NEBB_V1",
+            "item_variation_data": {
+              "item_id": "MOCK_NEBB",
+              "name": "Bottle",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 7400,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "NEBB"
+        },
+        "vintage": {
+          "key": "vintage",
+          "custom_attribute_definition_id": "DEF_vintage",
+          "number_value": "2022"
+        },
+        "vintage_confirmed": {
+          "key": "vintage_confirmed",
+          "custom_attribute_definition_id": "DEF_vintage_confirmed",
+          "string_value": "2026-07-15"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_PINOT",
+      "item_data": {
+        "name": "PINOT SONOMA",
+        "kitchen_name": "PINOT SONOMA",
+        "categories": [
+          {
+            "id": "MOCK_CAT_RED"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_PINOT_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_PINOT",
+              "name": "Glass",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 2600,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_PINOT_V1",
+            "item_variation_data": {
+              "item_id": "MOCK_PINOT",
+              "name": "Bottle",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 10400,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "PINOT SONOMA"
+        },
+        "vintage": {
+          "key": "vintage",
+          "custom_attribute_definition_id": "DEF_vintage",
+          "number_value": "2021"
+        },
+        "vintage_confirmed": {
+          "key": "vintage_confirmed",
+          "custom_attribute_definition_id": "DEF_vintage_confirmed",
+          "string_value": "2025-07-22"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_CAB",
+      "item_data": {
+        "name": "CAB SCM",
+        "kitchen_name": "CAB SCM",
+        "categories": [
+          {
+            "id": "MOCK_CAT_RED"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_CAB_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_CAB",
+              "name": "Glass",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 2500,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_CAB_V1",
+            "item_variation_data": {
+              "item_id": "MOCK_CAB",
+              "name": "Bottle",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 10000,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "CAB"
+        },
+        "vintage": {
+          "key": "vintage",
+          "custom_attribute_definition_id": "DEF_vintage",
+          "number_value": "2020"
+        },
+        "vintage_confirmed": {
+          "key": "vintage_confirmed",
+          "custom_attribute_definition_id": "DEF_vintage_confirmed",
+          "string_value": "2025-09-30"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_MONTE",
+      "item_data": {
+        "name": "BTL MONTE BELLO",
+        "kitchen_name": "BTL MONTE BELLO",
+        "categories": [
+          {
+            "id": "MOCK_CAT_RES"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_MONTE_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_MONTE",
+              "name": "Bottle",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 38500,
+                "currency": "USD"
+              },
+              "track_inventory": true,
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "MONTE BELLO"
+        },
+        "vintage": {
+          "key": "vintage",
+          "custom_attribute_definition_id": "DEF_vintage",
+          "number_value": "2019"
+        },
+        "vintage_confirmed": {
+          "key": "vintage_confirmed",
+          "custom_attribute_definition_id": "DEF_vintage_confirmed",
+          "string_value": "2026-06-01"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_KRUG",
+      "item_data": {
+        "name": "BTL KRUG GC",
+        "kitchen_name": "BTL KRUG GC",
+        "categories": [
+          {
+            "id": "MOCK_CAT_RES"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_KRUG_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_KRUG",
+              "name": "Bottle",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 42500,
+                "currency": "USD"
+              },
+              "track_inventory": true,
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "KRUG GC"
+        },
+        "vintage_confirmed": {
+          "key": "vintage_confirmed",
+          "custom_attribute_definition_id": "DEF_vintage_confirmed",
+          "string_value": "2026-08-10"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_MENCIA",
+      "item_data": {
+        "name": "MENCIA",
+        "kitchen_name": "MENCIA",
+        "categories": [
+          {
+            "id": "MOCK_CAT_RED"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_MENCIA_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_MENCIA",
+              "name": "Glass",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1800,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          },
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_MENCIA_V1",
+            "item_variation_data": {
+              "item_id": "MOCK_MENCIA",
+              "name": "Bottle",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 7000,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_MISC",
+      "item_data": {
+        "name": "MISC $1",
+        "kitchen_name": "MISC $1",
+        "categories": [
+          {
+            "id": "MOCK_CAT_OPS"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_MISC_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_MISC",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 100,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_STAFF",
+      "item_data": {
+        "name": "STAFF MEAL",
+        "kitchen_name": "STAFF MEAL",
+        "categories": [
+          {
+            "id": "MOCK_CAT_OPS"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_STAFF_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_STAFF",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 0,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_GIFT",
+      "item_data": {
+        "name": "GIFT CARD",
+        "kitchen_name": "GIFT CARD",
+        "categories": [
+          {
+            "id": "MOCK_CAT_OPS"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_GIFT_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_GIFT",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 5000,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_CORK",
+      "item_data": {
+        "name": "CORKAGE",
+        "kitchen_name": "CORKAGE",
+        "categories": [
+          {
+            "id": "MOCK_CAT_OPS"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_CORK_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_CORK",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 3000,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_SOMM",
+      "item_data": {
+        "name": "SOMM POUR",
+        "kitchen_name": "SOMM POUR",
+        "categories": [
+          {
+            "id": "MOCK_CAT_OPS"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_SOMM_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_SOMM",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 0,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_WASTE",
+      "item_data": {
+        "name": "BTG WASTE",
+        "kitchen_name": "BTG WASTE",
+        "categories": [
+          {
+            "id": "MOCK_CAT_OPS"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_WASTE_V0",
+            "item_variation_data": {
+              "item_id": "MOCK_WASTE",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 0,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "counts": {
+    "MOCK_MONTE_V0": 2,
+    "MOCK_KRUG_V0": 1
+  }
+}

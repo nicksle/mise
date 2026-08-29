@@ -1,0 +1,10 @@
+{
+  "MOCK_MENCIA": {
+    "pos_name": "MENCIA",
+    "first_seen": "2026-08-29T19:21:41.395Z",
+    "needs_review": true,
+    "menu_name": "",
+    "description": "",
+    "note": "Auto-created from the POS. Fill in menu_name to publish to guests."
+  }
+}
