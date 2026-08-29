@@ -33,9 +33,16 @@ export function build() {
   const menu = loadMenu();
   mkdirSync(OUT, { recursive: true });
 
-  const isWine = menu.sections.some(s => s.items.some(i => i.kind === 'pour'));
-  const heading = isWine ? 'Wine' : 'Brunch';
-  const sub = isWine ? 'By the glass · poured this week' : 'Saturday & Sunday · 10 to 3';
+  /* Name the menu after what's actually on it: a wine list, a food menu, or a
+     full drink program with cocktails and beer alongside the pours. */
+  const hasPours = menu.sections.some(s => s.items.some(i => i.kind === 'pour'));
+  const hasOther = menu.sections.some(s => s.items.some(i => i.kind !== 'pour'));
+  const heading = hasPours && hasOther ? 'Drinks' : hasPours ? 'Wine' : 'Brunch';
+  const sub = {
+    Drinks: 'Wine, cocktails & more · list rotates weekly',
+    Wine: 'By the glass · poured this week',
+    Brunch: 'Saturday & Sunday · 10 to 3',
+  }[heading];
   const ref = buildRef();
 
   const files = {

@@ -1,5 +1,4 @@
 {
-  "_comment": "The repo layer. Stable things that don't belong in a POS and don't fit the custom-attribute cap: producer, region, grape, sort order, and the service notes guests never see. Keyed by Square catalog_object_id — run `npm run inspect` to get the real ids, then replace these placeholder keys.",
   "sections": {
     "Sparkling": {
       "sort_index": 0
@@ -7,55 +6,64 @@
     "White": {
       "sort_index": 1
     },
-    "Orange & Rosé": {
+    "Rosé": {
       "sort_index": 2
     },
-    "Red": {
+    "Chilled Red": {
       "sort_index": 3
     },
-    "Reserve": {
+    "Red": {
       "sort_index": 4
     },
-    "Wine BTG": {
-      "sort_index": 10
-    },
-    "Wine Bottle": {
-      "sort_index": 11
-    },
-    "Plates": {
-      "sort_index": 20
-    },
-    "Sweet": {
-      "sort_index": 21
-    },
-    "Sides": {
-      "sort_index": 22
-    },
     "Cocktails": {
-      "sort_index": 23
+      "sort_index": 5
     },
-    "Coffee": {
-      "sort_index": 24
+    "Mocktails": {
+      "sort_index": 6
+    },
+    "Beer & Cider": {
+      "sort_index": 7
+    },
+    "Amaro & Digestif": {
+      "sort_index": 8
     }
   },
   "items": {
     "MOCK_CAVA": {
       "producer": "Raventós i Blanc",
       "cuvee": "de Nit Rosé",
-      "grape": "Xarel·lo, Macabeo",
+      "grape": "Xarel·lo, Macabeo, Monastrell",
       "region": "Conca del Riu Anoia, Spain",
       "importer": "Skurnik",
       "sort_index": 0,
-      "service_note": "Bone dry, high acid. Good opener for anyone who says 'not too sweet'."
+      "service_note": "Bone dry, high acid. The opener for anyone who says \"nothing too sweet\"."
     },
     "MOCK_PETNAT": {
       "producer": "Onward",
-      "cuvee": "DooDoo",
+      "cuvee": "Pétillant Naturel",
       "grape": "Malvasia Bianca",
       "region": "Suisun Valley, California",
       "importer": "direct",
       "sort_index": 1,
-      "service_note": "Cloudy on purpose — warn the table before you pour. Slight funk, very low ABV."
+      "service_note": "Cloudy on purpose — say so before you pour. Low ABV, slight funk, crowd-splitter."
+    },
+    "MOCK_CHAMP": {
+      "producer": "Chartogne-Taillet",
+      "cuvee": "Sainte Anne",
+      "grape": "Chardonnay, Pinot Noir, Meunier",
+      "region": "Champagne, France",
+      "importer": "Terrell",
+      "sort_index": 2,
+      "service_note": "Grower Champagne, not a big house. Worth the upsell from the cava — say \"same family farms it\"."
+    },
+    "MOCK_MOVIA": {
+      "producer": "Movia",
+      "cuvee": "Puro Rosé",
+      "grape": "Pinot Noir",
+      "region": "Brda, Slovenia",
+      "importer": "Blue Danube",
+      "sort_index": 3,
+      "service_note": "Disgorged at the table, upside down, in a bucket. Twenty minutes of theatre — only offer it if you have time."
     },
     "MOCK_ALBA": {
       "producer": "Zárate",
@@ -63,7 +71,7 @@
       "region": "Rías Baixas, Spain",
       "importer": "De Maison",
       "sort_index": 0,
-      "service_note": "Saline, briny. Sell it with anything from the sea."
+      "service_note": "Saline and briny. Sell it with anything from the sea."
     },
     "MOCK_RIES": {
       "producer": "Peter Lauer",
@@ -72,15 +80,24 @@
       "region": "Mosel, Germany",
       "importer": "Vom Boden",
       "sort_index": 1,
-      "service_note": "Off-dry but reads dry. Best pairing on the list for anything spicy."
+      "service_note": "Off-dry but reads dry. Best thing on the list for anything spicy."
+    },
+    "MOCK_MASSICAN": {
+      "producer": "Massican",
+      "cuvee": "Annia",
+      "grape": "Tocai Friulano, Ribolla Gialla, Chardonnay",
+      "region": "Napa Valley",
+      "importer": "direct",
+      "sort_index": 2,
+      "service_note": "Napa making Italian whites. The answer for a table that cannot agree."
     },
     "MOCK_SANC": {
       "producer": "Domaine Vacheron",
       "grape": "Sauvignon Blanc",
       "region": "Sancerre, France",
       "importer": "Kermit Lynch",
-      "sort_index": 2,
-      "service_note": "Benchmark Sancerre. Vintage rolled in June — confirm before quoting it."
+      "sort_index": 3,
+      "service_note": "Benchmark Sancerre, biodynamic. Vintage rolled in June — confirm before you quote it."
     },
     "MOCK_CHARD": {
       "producer": "Ceritas",
@@ -88,25 +105,41 @@
       "grape": "Chardonnay",
       "region": "Santa Cruz Mountains",
       "importer": "direct",
-      "sort_index": 3,
-      "service_note": "No new oak. Say 'not a buttery Chardonnay' — it heads off the objection."
-    },
-    "MOCK_ROSE": {
-      "producer": "Tribute to Grace",
-      "grape": "Grenache Rosé",
-      "region": "Santa Barbara County",
-      "importer": "direct",
-      "sort_index": 0,
-      "service_note": "Pale, bone dry, high altitude fruit."
+      "sort_index": 4,
+      "service_note": "No new oak. Lead with \"not a buttery Chardonnay\" — it heads off the objection."
     },
     "MOCK_SKIN": {
       "producer": "Ruth Lewandowski",
       "cuvee": "Feints",
-      "grape": "Arneis blend",
+      "grape": "Arneis blend, skin contact",
       "region": "Mendocino County",
       "importer": "Jenny & François",
+      "sort_index": 5,
+      "service_note": "Orange wine — tannic for a white. Always offer a taste first. It splits the room."
+    },
+    "MOCK_ROSE": {
+      "producer": "Tribute to Grace",
+      "grape": "Grenache",
+      "region": "Santa Barbara County",
+      "importer": "direct",
+      "sort_index": 0,
+      "service_note": "Pale, bone dry, high-altitude fruit. The default pour on a warm afternoon."
+    },
+    "MOCK_LIEUDIT": {
+      "producer": "Lieu Dit",
+      "grape": "Cabernet Franc",
+      "region": "Santa Ynez Valley",
+      "importer": "direct",
       "sort_index": 1,
-      "service_note": "Skin contact, tannic for a white. Offer a taste first — it splits the room."
+      "service_note": "Herbal, a little savoury. For someone who thinks they dislike rosé."
+    },
+    "MOCK_BANDOL": {
+      "producer": "Domaine Tempier",
+      "grape": "Mourvèdre, Grenache, Cinsault",
+      "region": "Bandol, France",
+      "importer": "Kermit Lynch",
+      "sort_index": 2,
+      "service_note": "The serious one. Structured enough for the chicken. Worth the price, and say why."
     },
     "MOCK_GAMAY": {
       "producer": "Jean Foillard",
@@ -115,7 +148,34 @@
       "region": "Beaujolais, France",
       "importer": "Kermit Lynch",
       "sort_index": 0,
-      "service_note": "Cru Beaujolais, serve with a chill. The gateway red."
+      "service_note": "Cru Beaujolais, served with a chill. The gateway red — it converts white drinkers."
+    },
+    "MOCK_STOUMEN": {
+      "producer": "Martha Stoumen",
+      "cuvee": "Post Flirtation",
+      "grape": "Zinfandel, Petite Sirah",
+      "region": "Mendocino County",
+      "importer": "direct",
+      "sort_index": 1,
+      "service_note": "Juicy, low tannin, drinks like a grown-up soda. Best value red on the list."
+    },
+    "MOCK_BOWARROW": {
+      "producer": "Bow & Arrow",
+      "cuvee": "Rhinestones",
+      "grape": "Gamay Noir, Pinot Noir",
+      "region": "Willamette Valley, Oregon",
+      "importer": "direct",
+      "sort_index": 2,
+      "service_note": "Loire methods in Oregon. Serve it properly cold, not cellar temp."
+    },
+    "MOCK_MENCIA": {
+      "producer": "Envínate",
+      "cuvee": "Lousas Viñas de Aldea",
+      "grape": "Mencía",
+      "region": "Ribeira Sacra, Spain",
+      "importer": "José Pastor",
+      "sort_index": 0,
+      "service_note": "Volcanic, high acid, almost no oak. Serve with a slight chill."
     },
     "MOCK_NEBB": {
       "producer": "G.D. Vajra",
@@ -124,7 +184,7 @@
       "region": "Piedmont, Italy",
       "importer": "Rare Wine Co.",
       "sort_index": 1,
-      "service_note": "Rose petal and tar, grippy. Sell to the Pinot drinker who wants more."
+      "service_note": "Rose petal and tar, grippy. For the Pinot drinker who wants more."
     },
     "MOCK_PINOT": {
       "producer": "Hirsch Vineyards",
@@ -133,7 +193,7 @@
       "region": "Sonoma Coast",
       "importer": "direct",
       "sort_index": 2,
-      "service_note": "Highest-margin pour on the list. Vintage rolled — confirm."
+      "service_note": "Highest-margin pour on the list. Vintage rolled — confirm before quoting."
     },
     "MOCK_CAB": {
       "producer": "Ridge",
@@ -142,7 +202,7 @@
       "region": "Santa Cruz Mountains",
       "importer": "direct",
       "sort_index": 3,
-      "service_note": "Needs air. Decant if the table is staying."
+      "service_note": "Needs air. Decant it if the table is staying for dinner."
     },
     "MOCK_MONTE": {
       "producer": "Ridge",
@@ -150,64 +210,89 @@
       "grape": "Cabernet blend",
       "region": "Santa Cruz Mountains",
       "importer": "direct",
-      "sort_index": 0,
-      "service_note": "Manager approval before opening. Decant one hour."
-    },
-    "MOCK_KRUG": {
-      "producer": "Krug",
-      "cuvee": "Grande Cuvée",
-      "grape": "Champagne blend",
-      "region": "Reims, France",
-      "importer": "direct",
-      "sort_index": 1,
-      "service_note": "Do not list as available if a party of six walks in at 9."
-    },
-    "MOCK_BENNY": {
-      "sort_index": 0,
-      "service_note": "Hollandaise holds 90 minutes — ask expo before promising.",
-      "pairing": "Raventós rosé"
-    },
-    "MOCK_CHKN": {
-      "sort_index": 1,
-      "service_note": "Brined 24h. Spice is mild — fresnos are pickled, not raw.",
-      "pairing": "Peter Lauer Riesling"
-    },
-    "MOCK_SHAK": {
-      "sort_index": 2,
-      "service_note": "Vegetarian as written. Goes vegan without feta and egg — ring it as 'shakshuka VGN'.",
-      "pairing": "Vajra Nebbiolo"
-    },
-    "MOCK_AVO": {
-      "sort_index": 3,
-      "service_note": "Vegan as written.",
-      "pairing": "Zárate Albariño"
-    },
-    "MOCK_DUTCH": {
-      "sort_index": 0,
-      "service_note": "Fired to order, 18 minutes. Warn the table."
-    },
-    "MOCK_GRAN": {
-      "sort_index": 1,
-      "service_note": "Granola has almonds and pecans. Yogurt is whole milk, no substitute."
-    },
-    "MOCK_POT": {
-      "sort_index": 0,
-      "service_note": "Aioli contains egg. Not vegan."
-    },
-    "MOCK_BACON": {
-      "sort_index": 1
+      "sort_index": 4,
+      "service_note": "Two left. Manager approval before opening. Decant a full hour."
     },
     "MOCK_SPRITZ": {
       "sort_index": 0,
-      "service_note": "Build in the glass, no shake."
+      "service_note": "Build in the glass, no shake. House aperitif — offer it first."
+    },
+    "MOCK_PALOMA": {
+      "sort_index": 1,
+      "service_note": "Fresh grapefruit, not soda. Salt the rim unless they say no."
+    },
+    "MOCK_GARDEN": {
+      "sort_index": 2,
+      "service_note": "Low ABV, very drinkable at brunch. Dill is fresh, not syrup."
+    },
+    "MOCK_FIZZ": {
+      "sort_index": 3,
+      "service_note": "Named for the room. Strawberry is macerated in-house, changes with the season."
+    },
+    "MOCK_SOUR": {
+      "sort_index": 4,
+      "service_note": "Contains raw egg white — flag it. Can be made without, ask for a \"dry sour\"."
+    },
+    "MOCK_ESPMART": {
+      "sort_index": 5,
+      "service_note": "Caffeine — do not sell it to a 9pm table without saying so."
     },
     "MOCK_BLOODY": {
-      "sort_index": 1,
-      "service_note": "House mix has Worcestershire — contains anchovy, not vegetarian."
+      "sort_index": 6,
+      "service_note": "House mix has Worcestershire — contains anchovy. Not vegetarian."
     },
-    "MOCK_DRIP": {
+    "MOCK_MIMOSA": {
+      "sort_index": 7,
+      "service_note": "Juice rotates. Ask the bar what is on before you promise anything."
+    },
+    "MOCK_GARDEN0": {
       "sort_index": 0,
-      "service_note": "Rotating single origin. Ask bar which one is on."
+      "service_note": "The best N/A option. Serve it in the same glass as the real spritz — it matters."
+    },
+    "MOCK_GHIA": {
+      "sort_index": 1,
+      "service_note": "Properly bitter. For someone who misses an aperitivo."
+    },
+    "MOCK_SHRUB": {
+      "sort_index": 2,
+      "service_note": "Shrub is made weekly. Sweet-tart, the one kids order."
+    },
+    "MOCK_COCONUT": {
+      "sort_index": 3,
+      "service_note": "Contains coconut. Vegan as made."
+    },
+    "MOCK_KSA": {
+      "sort_index": 0,
+      "service_note": "The house beer. Light, safe, always moving."
+    },
+    "MOCK_PILS": {
+      "sort_index": 1,
+      "service_note": "Brewed in Berkeley to an Austrian recipe. Very dry."
+    },
+    "MOCK_IPA": {
+      "sort_index": 2,
+      "service_note": "8% — mention it. Allocation is limited, check before promising a second."
+    },
+    "MOCK_CIDER": {
+      "sort_index": 3,
+      "service_note": "Naturally gluten-free — the answer for a coeliac table."
+    },
+    "MOCK_NONINO": {
+      "sort_index": 0,
+      "service_note": "Gentle, orange-peel sweet. The one to start someone on."
+    },
+    "MOCK_FERNET": {
+      "sort_index": 1,
+      "service_note": "This is San Francisco. Serve it cold, no ceremony."
+    },
+    "MOCK_CARDA": {
+      "sort_index": 2,
+      "service_note": "Wine-based, low ABV, cardoon and thistle. Good before dinner, not only after."
+    },
+    "MOCK_BRAULIO": {
+      "sort_index": 3,
+      "service_note": "Alpine, minty, almost medicinal. Sell it after something rich."
     }
-  }
+  },
+  "_comment": "Generated by scripts/make-mock-menu.mjs. For a real Square account, run `npm run inspect` to get the true catalog_object_ids and re-key these entries."
 }

@@ -54,8 +54,14 @@ export const curation = {
      (and for sandbox, where it isn't available). Category names that count
      as menu categories, case-insensitive. */
   menuCategoryNames: [
-    'plates', 'sweet', 'sides', 'cocktails', 'coffee',
-    'wine btg', 'wine bottle', 'brunch', 'dinner', 'happy hour',
+    // drinks
+    'sparkling', 'white', 'rosé', 'rose', 'orange', 'skin contact',
+    'chilled red', 'red', 'reserve',
+    'cocktails', 'mocktails', 'beer & cider', 'beer and cider', 'beer',
+    'amaro & digestif', 'amaro and digestif', 'amaro', 'digestif',
+    'wine btg', 'wine bottle',
+    // food
+    'plates', 'sweet', 'sides', 'coffee', 'brunch', 'dinner', 'happy hour',
   ],
 
   /* Belt and braces: never publish an item whose POS name matches these,

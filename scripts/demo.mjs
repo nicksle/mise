@@ -42,11 +42,11 @@ rule('2 · Service happens');
 console.log('   A manager 86s the Sancerre by the glass on the terminal.');
 const a = await fetch(`${MOCK}/_mock/86/SANCERRE%20GLS?variation=glass`, { method: 'POST' });
 console.log('  ', await a.text());
-console.log('\n   The kitchen adds a dish at 4:12pm. Nobody writes copy.');
+console.log('\n   The somm opens something new at 5pm. Nobody writes copy.');
 const b = await fetch(`${MOCK}/_mock/add`, {
   method: 'POST',
   headers: { 'content-type': 'application/json' },
-  body: JSON.stringify({ name: 'SPRING PEA TST', category_id: 'MOCK_CAT_RED', amount: 1700 }),
+  body: JSON.stringify({ name: 'RIES KABINETT', category_id: 'MOCK_CAT_1', amount: 1600 }),
 });
 console.log('  ', await b.text());
 
@@ -58,9 +58,9 @@ rule('What each view did about it');
 console.log(`
   Guest menu     Sancerre still listed, tagged "bottle only", glass price
                  dashed out — the pour blew, the cellar bottle did not.
-                 SPRING PEA TST does not appear at all.
+                 RIES KABINETT does not appear at all.
 
-  Service ref    Both are present. SPRING PEA TST is flagged needs_review
+  Service ref    Both are present. RIES KABINETT is flagged needs_review
                  in amber, because you are selling it tonight.
 
   Print draft    86'd pours omitted; you would not reprint over one blown

@@ -64,7 +64,7 @@ export function renderGuest(menu, { heading = 'Menu', sub = '' } = {}) {
   const notes = [];
   if (s.soldOut && publishing.soldOutTreatment === 'grey')
     notes.push(`${s.soldOut} ${isWineList ? (s.soldOut === 1 ? 'pour' : 'pours') : (s.soldOut === 1 ? 'item' : 'items')} 86’d today`);
-  notes.push(isWineList ? 'list rotates weekly' : 'updated from the kitchen');
+  notes.push(isWineList ? 'ask your server what else is open' : 'updated from the kitchen');
 
   return page({
     title: `${restaurant.name} — ${heading}`,

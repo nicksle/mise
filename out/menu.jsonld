@@ -1,0 +1,484 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Parasol",
+  "url": "https://parasol.sf",
+  "servesCuisine": "Californian",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "2298 Market St",
+    "addressLocality": "San Francisco",
+    "addressRegion": "CA",
+    "postalCode": "94114"
+  },
+  "hasMenu": {
+    "@type": "Menu",
+    "name": "Drinks",
+    "hasMenuSection": [
+      {
+        "@type": "MenuSection",
+        "name": "Sparkling",
+        "hasMenuItem": [
+          {
+            "@type": "MenuItem",
+            "name": "Raventós i Blanc ‘de Nit Rosé’ 2022",
+            "offers": {
+              "@type": "Offer",
+              "price": "16.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Xarel·lo, Macabeo, Monastrell, Conca del Riu Anoia, Spain"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Onward ‘Pétillant Naturel’ 2023",
+            "offers": {
+              "@type": "Offer",
+              "price": "17.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Malvasia Bianca, Suisun Valley, California"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Chartogne-Taillet ‘Sainte Anne’",
+            "offers": {
+              "@type": "Offer",
+              "price": "26.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Chardonnay, Pinot Noir, Meunier, Champagne, France"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Movia ‘Puro Rosé’ 2019",
+            "offers": {
+              "@type": "Offer",
+              "price": "96.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Pinot Noir, Brda, Slovenia"
+          }
+        ]
+      },
+      {
+        "@type": "MenuSection",
+        "name": "White",
+        "hasMenuItem": [
+          {
+            "@type": "MenuItem",
+            "name": "Zárate 2023",
+            "offers": {
+              "@type": "Offer",
+              "price": "16.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Albariño, Rías Baixas, Spain"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Peter Lauer ‘Barrel X’ 2022",
+            "offers": {
+              "@type": "Offer",
+              "price": "15.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Riesling, Mosel, Germany"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Massican ‘Annia’ 2023",
+            "offers": {
+              "@type": "Offer",
+              "price": "19.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Tocai Friulano, Ribolla Gialla, Chardonnay, Napa Valley"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Domaine Vacheron 2022",
+            "offers": {
+              "@type": "Offer",
+              "price": "21.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Sauvignon Blanc, Sancerre, France"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Ceritas ‘Trout Gulch’ 2021",
+            "offers": {
+              "@type": "Offer",
+              "price": "24.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Chardonnay, Santa Cruz Mountains"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Ruth Lewandowski ‘Feints’ 2022",
+            "offers": {
+              "@type": "Offer",
+              "price": "18.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Arneis blend, skin contact, Mendocino County"
+          }
+        ]
+      },
+      {
+        "@type": "MenuSection",
+        "name": "Rosé",
+        "hasMenuItem": [
+          {
+            "@type": "MenuItem",
+            "name": "Tribute to Grace 2023",
+            "offers": {
+              "@type": "Offer",
+              "price": "16.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Grenache, Santa Barbara County"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Lieu Dit 2023",
+            "offers": {
+              "@type": "Offer",
+              "price": "15.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Cabernet Franc, Santa Ynez Valley"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Domaine Tempier 2023",
+            "offers": {
+              "@type": "Offer",
+              "price": "24.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Mourvèdre, Grenache, Cinsault, Bandol, France"
+          }
+        ]
+      },
+      {
+        "@type": "MenuSection",
+        "name": "Chilled Red",
+        "hasMenuItem": [
+          {
+            "@type": "MenuItem",
+            "name": "Jean Foillard ‘Morgon Côte du Py’ 2022",
+            "offers": {
+              "@type": "Offer",
+              "price": "22.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Gamay, Beaujolais, France"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Martha Stoumen ‘Post Flirtation’ 2023",
+            "offers": {
+              "@type": "Offer",
+              "price": "17.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Zinfandel, Petite Sirah, Mendocino County"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Bow & Arrow ‘Rhinestones’ 2023",
+            "offers": {
+              "@type": "Offer",
+              "price": "18.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Gamay Noir, Pinot Noir, Willamette Valley, Oregon"
+          }
+        ]
+      },
+      {
+        "@type": "MenuSection",
+        "name": "Red",
+        "hasMenuItem": [
+          {
+            "@type": "MenuItem",
+            "name": "Envínate ‘Lousas Viñas de Aldea’ 2022",
+            "offers": {
+              "@type": "Offer",
+              "price": "18.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Mencía, Ribeira Sacra, Spain"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "G.D. Vajra ‘Langhe’ 2022",
+            "offers": {
+              "@type": "Offer",
+              "price": "19.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Nebbiolo, Piedmont, Italy"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Hirsch Vineyards ‘San Andreas Fault’ 2021",
+            "offers": {
+              "@type": "Offer",
+              "price": "26.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Pinot Noir, Sonoma Coast"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Ridge ‘Estate’ 2020",
+            "offers": {
+              "@type": "Offer",
+              "price": "25.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Cabernet Sauvignon, Santa Cruz Mountains"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Ridge ‘Monte Bello’ 2019",
+            "offers": {
+              "@type": "Offer",
+              "price": "385.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Cabernet blend, Santa Cruz Mountains"
+          }
+        ]
+      },
+      {
+        "@type": "MenuSection",
+        "name": "Cocktails",
+        "hasMenuItem": [
+          {
+            "@type": "MenuItem",
+            "name": "Parasol Spritz",
+            "offers": {
+              "@type": "Offer",
+              "price": "15.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Aperol, cava, blood orange, soda"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Paloma Fresca",
+            "offers": {
+              "@type": "Offer",
+              "price": "16.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Tequila blanco, grapefruit, lime, salt"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Garden Variety",
+            "offers": {
+              "@type": "Offer",
+              "price": "16.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Gin, cucumber, dill, lime, soda"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Flore Fizz",
+            "offers": {
+              "@type": "Offer",
+              "price": "16.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Vodka, strawberry, lemon, prosecco"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Market Street Sour",
+            "offers": {
+              "@type": "Offer",
+              "price": "17.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Rye, lemon, egg white, Angostura"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Espresso Martini",
+            "offers": {
+              "@type": "Offer",
+              "price": "16.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Vodka, cold brew, demerara"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Bloody Mary",
+            "offers": {
+              "@type": "Offer",
+              "price": "14.00",
+              "priceCurrency": "USD"
+            },
+            "description": "House mix, celery, everything salt"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Mimosa Carafe",
+            "offers": {
+              "@type": "Offer",
+              "price": "32.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Cava, seasonal juice — serves two"
+          }
+        ]
+      },
+      {
+        "@type": "MenuSection",
+        "name": "Mocktails",
+        "hasMenuItem": [
+          {
+            "@type": "MenuItem",
+            "name": "Garden Spritz",
+            "offers": {
+              "@type": "Offer",
+              "price": "12.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Seedlip Garden 108, cucumber, tonic"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Bitter Orange",
+            "offers": {
+              "@type": "Offer",
+              "price": "12.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Ghia, soda, orange twist"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Strawberry Shrub",
+            "offers": {
+              "@type": "Offer",
+              "price": "11.00",
+              "priceCurrency": "USD"
+            },
+            "description": "House shrub, lime, soda"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Coconut Cold Brew",
+            "offers": {
+              "@type": "Offer",
+              "price": "10.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Cold brew, coconut, vanilla"
+          }
+        ]
+      },
+      {
+        "@type": "MenuSection",
+        "name": "Beer & Cider",
+        "hasMenuItem": [
+          {
+            "@type": "MenuItem",
+            "name": "Fort Point ‘KSA’",
+            "offers": {
+              "@type": "Offer",
+              "price": "8.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Kölsch-style ale · San Francisco"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Trumer Pils",
+            "offers": {
+              "@type": "Offer",
+              "price": "8.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Pilsner · Berkeley, California"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Russian River ‘Pliny the Elder’",
+            "offers": {
+              "@type": "Offer",
+              "price": "12.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Double IPA · Santa Rosa, California"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Golden State ‘Mighty Dry’",
+            "offers": {
+              "@type": "Offer",
+              "price": "10.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Cider · Newcastle, California"
+          }
+        ]
+      },
+      {
+        "@type": "MenuSection",
+        "name": "Amaro & Digestif",
+        "hasMenuItem": [
+          {
+            "@type": "MenuItem",
+            "name": "Amaro Nonino",
+            "offers": {
+              "@type": "Offer",
+              "price": "14.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Friuli, Italy"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Fernet-Branca",
+            "offers": {
+              "@type": "Offer",
+              "price": "12.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Milan, Italy"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Cardamaro",
+            "offers": {
+              "@type": "Offer",
+              "price": "12.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Piedmont, Italy"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Braulio",
+            "offers": {
+              "@type": "Offer",
+              "price": "13.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Valtellina, Italy"
+          }
+        ]
+      }
+    ]
+  }
+}

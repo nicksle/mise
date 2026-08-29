@@ -6,5 +6,13 @@
     "menu_name": "",
     "description": "",
     "note": "Auto-created from the POS. Fill in menu_name to publish to guests."
+  },
+  "MOCK_NEWPOUR": {
+    "pos_name": "TROUSSEAU",
+    "first_seen": "2026-08-29T19:58:01.141Z",
+    "needs_review": true,
+    "menu_name": "",
+    "description": "",
+    "note": "Auto-created from the POS. Fill in menu_name to publish to guests."
   }
 }
