@@ -3,3 +3,6 @@ node_modules/
 out/*.png
 scripts/catalog-dump.json
 data/sync-state.json
+
+# macOS
+.DS_Store
