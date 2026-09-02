@@ -248,9 +248,9 @@ function renderList() {
          (alsoOn.length ? `<span class="only">${pick === '*' ? 'on ' : 'also on '}` +
            `${alsoOn.map(esc).join(', ')}</span>` : '') + `</div>`;
     for (const i of items) {
-      const name = i.editorial.producer
-        ? i.editorial.producer + (i.editorial.cuvee ? ` ‘${i.editorial.cuvee}’` : '')
-        : (i.editorial.menu_name || i.menuName || '—');
+      /* Label the row with the name that actually publishes, so editing it
+         is visibly the thing that changes the menu. */
+      const name = i.editorial.menu_name || i.menuName || '—';
       h += `<button class="row${i.needsReview?' stub':''}" data-id="${esc(i.id)}" aria-current="${i.id===selected}">` +
            `<span class="n">${esc(name)}` +
              (i.needsReview ? '<span class="dot stub" title="needs copy"></span>' : '') +
@@ -283,7 +283,7 @@ function select(id, keepScroll) {
 
   $('#editor').innerHTML = `<div class="pad">
     <div class="crumb">${esc(i.section)} &middot; ${esc(i.id)}</div>
-    <h2>${esc(e.producer ? e.producer + (e.cuvee ? ` ‘${e.cuvee}’` : '') : (e.menu_name || q.posName))}</h2>
+    <h2>${esc(e.menu_name || i.menuName || q.posName)}</h2>
 
     ${i.needsReview ? `<div class="banner warn"><b>Held back from the guest menu.</b>
       This came from the POS with no copy. It's already visible to staff in the service

@@ -14,30 +14,19 @@ export const esc = t => String(t ?? '')
 export const money = n => (n == null ? '—' : '$' + Number(n).toFixed(0));
 export const bare  = n => (n == null ? '—' : Number(n).toFixed(0));
 
-/** The guest-facing name. Falls back to nothing — stubs never render here.
+/** The guest-facing name: the menu name string, and nothing else.
  *
- * Order matters and used to be wrong: a wine's name was ALWAYS composed from
- * producer + cuvée, so a menu name typed in the studio never reached the page.
- * Repo-authored copy wins now — an explicit menu name first, then the wine
- * fields composed, then whatever Square carries. */
-export const displayName = i => {
-  const composed = i.producer
-    ? i.producer + (i.cuvee ? ` ‘${i.cuvee}’` : '')
-    : '';
-  if (i.copyFrom === 'repo' && i.menuName) return i.menuName;
-  return composed || i.menuName || '';
-};
+ * This used to compose a wine's name from producer + cuvée, which meant the
+ * name on the page was derived rather than written — and therefore not
+ * editable. Producer, cuvée, grape and region are still carried for the
+ * service reference; they just don't decide what a guest reads any more. */
+export const displayName = i => i.menuName || '';
 
 export const vintageLabel = i =>
   i.kind === 'pour' ? (i.vintage ? String(i.vintage) : 'NV') : '';
 
-/* A wine's second line is built from grape and region, because that is what
-   a list wants. But if someone has actually written a description, the field
-   labelled "what guests read" had better be what guests read. */
-export const subtitle = i =>
-  i.kind === 'pour'
-    ? (i.description || [i.grape, i.region].filter(Boolean).join(' · '))
-    : i.description;
+/** The second line: the description string, for wine and food alike. */
+export const subtitle = i => i.description || '';
 
 /** Publishing rule: guests only ever see items that have copy. */
 export const guestItems = section =>

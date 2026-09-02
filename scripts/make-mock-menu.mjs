@@ -356,8 +356,11 @@ for (const w of WINE) {
   objects.push({ type: 'ITEM', id, item_data: {
     name: w.pos, kitchen_name: w.pos,
     categories: catRefs(w.sec), variations: vars },
+    /* Both strings are written out explicitly. The page reads these; it does
+       not assemble a name out of producer and cuvée behind your back. */
     ...(w.stub ? {} : attrs({
       menu_name: `${w.producer}${w.cuvee ? ` ‘${w.cuvee}’` : ''}`,
+      menu_description: [w.grape, w.region].filter(Boolean).join(' · '),
       vintage: w.vintage, vintage_confirmed: w.conf })) });
 
   if (!w.stub) editorial.items[id] = {

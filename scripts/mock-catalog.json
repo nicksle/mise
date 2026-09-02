@@ -243,6 +243,11 @@
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Raventós i Blanc ‘de Nit Rosé’"
         },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Xarel·lo, Macabeo, Monastrell · Conca del Riu Anoia, Spain"
+        },
         "vintage": {
           "key": "vintage",
           "custom_attribute_definition_id": "DEF_vintage",
@@ -312,6 +317,11 @@
           "key": "menu_name",
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Onward ‘Pétillant Naturel’"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Malvasia Bianca · Suisun Valley, California"
         },
         "vintage": {
           "key": "vintage",
@@ -383,6 +393,11 @@
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Chartogne-Taillet ‘Sainte Anne’"
         },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Chardonnay, Pinot Noir, Meunier · Champagne, France"
+        },
         "vintage_confirmed": {
           "key": "vintage_confirmed",
           "custom_attribute_definition_id": "DEF_vintage_confirmed",
@@ -429,6 +444,11 @@
           "key": "menu_name",
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Movia ‘Puro Rosé’"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Pinot Noir · Brda, Slovenia"
         },
         "vintage": {
           "key": "vintage",
@@ -500,6 +520,11 @@
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Zárate"
         },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Albariño · Rías Baixas, Spain"
+        },
         "vintage": {
           "key": "vintage",
           "custom_attribute_definition_id": "DEF_vintage",
@@ -569,6 +594,11 @@
           "key": "menu_name",
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Peter Lauer ‘Barrel X’"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Riesling · Mosel, Germany"
         },
         "vintage": {
           "key": "vintage",
@@ -640,6 +670,11 @@
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Massican ‘Annia’"
         },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Tocai Friulano, Ribolla Gialla, Chardonnay · Napa Valley"
+        },
         "vintage": {
           "key": "vintage",
           "custom_attribute_definition_id": "DEF_vintage",
@@ -709,6 +744,11 @@
           "key": "menu_name",
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Domaine Vacheron"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Sauvignon Blanc · Sancerre, France"
         },
         "vintage": {
           "key": "vintage",
@@ -780,6 +820,11 @@
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Ceritas ‘Trout Gulch’"
         },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Chardonnay · Santa Cruz Mountains"
+        },
         "vintage": {
           "key": "vintage",
           "custom_attribute_definition_id": "DEF_vintage",
@@ -849,6 +894,11 @@
           "key": "menu_name",
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Ruth Lewandowski ‘Feints’"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Arneis blend, skin contact · Mendocino County"
         },
         "vintage": {
           "key": "vintage",
@@ -920,6 +970,11 @@
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Tribute to Grace"
         },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Grenache · Santa Barbara County"
+        },
         "vintage": {
           "key": "vintage",
           "custom_attribute_definition_id": "DEF_vintage",
@@ -989,6 +1044,11 @@
           "key": "menu_name",
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Lieu Dit"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Cabernet Franc · Santa Ynez Valley"
         },
         "vintage": {
           "key": "vintage",
@@ -1060,6 +1120,11 @@
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Domaine Tempier"
         },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Mourvèdre, Grenache, Cinsault · Bandol, France"
+        },
         "vintage": {
           "key": "vintage",
           "custom_attribute_definition_id": "DEF_vintage",
@@ -1129,6 +1194,11 @@
           "key": "menu_name",
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Jean Foillard ‘Morgon Côte du Py’"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Gamay · Beaujolais, France"
         },
         "vintage": {
           "key": "vintage",
@@ -1200,6 +1270,11 @@
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Martha Stoumen ‘Post Flirtation’"
         },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Zinfandel, Petite Sirah · Mendocino County"
+        },
         "vintage": {
           "key": "vintage",
           "custom_attribute_definition_id": "DEF_vintage",
@@ -1269,6 +1344,11 @@
           "key": "menu_name",
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Bow & Arrow ‘Rhinestones’"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Gamay Noir, Pinot Noir · Willamette Valley, Oregon"
         },
         "vintage": {
           "key": "vintage",
@@ -1340,6 +1420,11 @@
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Envínate ‘Lousas Viñas de Aldea’"
         },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Mencía · Ribeira Sacra, Spain"
+        },
         "vintage": {
           "key": "vintage",
           "custom_attribute_definition_id": "DEF_vintage",
@@ -1409,6 +1494,11 @@
           "key": "menu_name",
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "G.D. Vajra ‘Langhe’"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Nebbiolo · Piedmont, Italy"
         },
         "vintage": {
           "key": "vintage",
@@ -1480,6 +1570,11 @@
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Hirsch Vineyards ‘San Andreas Fault’"
         },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Pinot Noir · Sonoma Coast"
+        },
         "vintage": {
           "key": "vintage",
           "custom_attribute_definition_id": "DEF_vintage",
@@ -1550,6 +1645,11 @@
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Ridge ‘Estate’"
         },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Cabernet Sauvignon · Santa Cruz Mountains"
+        },
         "vintage": {
           "key": "vintage",
           "custom_attribute_definition_id": "DEF_vintage",
@@ -1601,6 +1701,11 @@
           "key": "menu_name",
           "custom_attribute_definition_id": "DEF_menu_name",
           "string_value": "Ridge ‘Monte Bello’"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Cabernet blend · Santa Cruz Mountains"
         },
         "vintage": {
           "key": "vintage",
