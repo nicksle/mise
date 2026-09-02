@@ -315,7 +315,8 @@
     },
     "MOCK_CITRUS": {
       "sort_index": 0,
-      "service_note": "Fruit rotates weekly — ask the kitchen before you describe it."
+      "service_note": "Fruit rotates weekly — ask the kitchen before you describe it.",
+      "menu_name": "Hola"
     },
     "MOCK_YOGHURT": {
       "sort_index": 1,
