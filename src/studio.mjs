@@ -17,7 +17,7 @@
 import { createServer } from 'node:http';
 import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, extname } from 'node:path';
-import { createHmac, timingSafeEqual, randomBytes } from 'node:crypto';
+import { createHmac, timingSafeEqual, randomBytes, createHash } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { execFileSync } from 'node:child_process';
 import { ROOT, square as sq, site, publishing } from './config.mjs';
@@ -137,15 +137,43 @@ function state() {
 /* ---------- rebuild ---------- */
 
 let mock = null;
-function ensureMock() {
+
+const seedHash = () => createHash('md5')
+  .update(readFileSync(join(ROOT, 'scripts', 'mock-catalog.json')))
+  .digest('hex').slice(0, 12);
+
+async function ensureMock() {
   if (sq.env !== 'mock' || mock) return;
+
+  /* Something may already be on the port — a mock left over from an earlier
+     session, holding the catalog as it was when IT booted. Syncing against
+     that produces a menu that disagrees with your files for no visible
+     reason, so check before trusting it. */
+  const info = await fetch(`${sq.base}/_mock/info`)
+    .then(r => r.json()).catch(() => null);
+
+  if (info) {
+    const want = seedHash();
+    if (info.seedHash === want) return;             // same fixture — fine to reuse
+    console.error(`\n  ✗ A mock server is already running on this port and it is STALE.`);
+    console.error(`      it loaded : ${info.seedHash}  (started ${info.startedAt})`);
+    console.error(`      on disk   : ${want}`);
+    console.error(`    It will serve the old catalog and the menu will disagree with your files.`);
+    console.error(`    Stop it and start again:  pkill -f mock-square.mjs\n`);
+    process.exit(1);
+  }
+
   mock = spawn(process.execPath, [join(ROOT, 'scripts', 'mock-square.mjs')],
     { cwd: ROOT, stdio: ['ignore', 'ignore', 'inherit'] });
-  process.on('exit', () => mock?.kill());
+  const stop = () => { try { mock?.kill(); } catch {} };
+  process.on('exit', stop);
+  /* exit handlers don't run on a signal, which is how orphans accumulate. */
+  for (const sig of ['SIGINT', 'SIGTERM', 'SIGHUP'])
+    process.on(sig, () => { stop(); process.exit(0); });
 }
 
 async function rebuild() {
-  ensureMock();
+  await ensureMock();
   await new Promise(r => setTimeout(r, mock ? 700 : 0));
   const menu = await sync({ quiet: true });
   build();

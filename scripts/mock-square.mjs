@@ -16,6 +16,7 @@
 
 import { createServer } from 'node:http';
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -33,6 +34,15 @@ let db = existsSync(SEED)
   ? JSON.parse(readFileSync(SEED, 'utf8'))
   : { objects: [], counts: {} };
 
+/* The fixture is read once and held in memory, so a server left running from
+   an earlier session keeps serving the catalog as it was THEN. That is a very
+   quiet way to lose an afternoon, so the server publishes what it loaded and
+   the studio checks it. */
+const SEED_HASH = existsSync(SEED)
+  ? createHash('md5').update(readFileSync(SEED)).digest('hex').slice(0, 12)
+  : 'none';
+const STARTED_AT = new Date().toISOString();
+
 const persist = () => {
   if (process.env.MOCK_PERSIST === '1') writeFileSync(SEED, JSON.stringify(db, null, 2) + '\n');
 };
@@ -47,6 +57,11 @@ createServer((req, res) => {
   req.on('end', () => {
     const url = new URL(req.url, 'http://x');
     const body = raw ? JSON.parse(raw) : {};
+
+    if (url.pathname === '/_mock/info') return json(res, 200, {
+      pid: process.pid, startedAt: STARTED_AT, seed: SEED,
+      seedHash: SEED_HASH, objects: db.objects.length,
+    });
 
     if (url.pathname === '/v2/locations') return json(res, 200, { locations: [LOCATION] });
 
