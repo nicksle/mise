@@ -15,7 +15,7 @@
  */
 
 import { createServer } from 'node:http';
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, extname } from 'node:path';
 import { createHmac, timingSafeEqual, randomBytes } from 'node:crypto';
 import { spawn } from 'node:child_process';
@@ -152,6 +152,20 @@ async function rebuild() {
   return menu.stats;
 }
 
+/* A stale studio is the single most confusing failure mode here: node holds
+   the modules it loaded at boot, so edited source has no effect until restart,
+   and the editor and the rendered menu drift apart. `npm run studio` runs
+   under --watch so that cannot happen; this stamp makes it visible either way. */
+function sourceStamp() {
+  const dir = join(ROOT, 'src');
+  const files = readdirSync(dir, { withFileTypes: true })
+    .flatMap(d => d.isDirectory()
+      ? readdirSync(join(dir, d.name)).map(n => join(dir, d.name, n))
+      : [join(dir, d.name)]);
+  const newest = Math.max(...files.map(f => statSync(f).mtimeMs));
+  return new Date(newest).toISOString().replace('T', ' ').slice(0, 19);
+}
+
 /* ---------- server ---------- */
 
 const UI = () => readFileSync(join(ROOT, 'src', 'studio-ui.html'), 'utf8');
@@ -222,6 +236,7 @@ createServer(async (req, res) => {
   send(res, 404, { error: 'not found' });
 }).listen(PORT, () => {
   console.log(`\n  Mise Studio  →  http://localhost:${PORT}`);
+  console.log(`  source build: ${sourceStamp()}`);
   console.log(`  source: ${sq.env}${sq.env === 'mock' ? '  (mock POS starts automatically)' : ''}`);
   if (!PASSWORD) {
     console.log(`\n  ⚠  No STUDIO_PASSWORD set — anyone who can reach this port can edit.`);

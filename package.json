@@ -15,7 +15,8 @@
     "build": "node src/build.mjs",
     "demo": "node scripts/demo.mjs",
     "webhook": "node src/webhook.mjs",
-    "studio": "node src/studio.mjs",
-    "export:site": "node scripts/export-site.mjs"
+    "studio": "node --watch src/studio.mjs",
+    "export:site": "node scripts/export-site.mjs",
+    "studio:plain": "node src/studio.mjs"
   }
 }
