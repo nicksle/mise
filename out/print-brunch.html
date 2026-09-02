@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parasol — Brunch (print draft)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Archivo:wght@400;600&display=swap');
+  @page { size: 8.5in 11in; margin: 0.75in; }
+  :root { --ink:#1A1712; --ink2:#6B6355; --rule:#CFC6B4; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#8C8C88; color:var(--ink);
+         font-family:"EB Garamond",Georgia,serif; font-size:11.5pt; line-height:1.42; }
+  .sheet { width:8.5in; min-height:11in; margin:24px auto; background:#fff;
+           padding:0.75in; box-shadow:0 2px 20px rgba(0,0,0,.3); position:relative; }
+  .brand { text-align:center; padding-bottom:16pt; margin-bottom:20pt; border-bottom:.5pt solid var(--rule); }
+  .wm { font-size:22pt; letter-spacing:.34em; text-transform:uppercase; margin:0 0 5pt; text-indent:.34em; font-weight:400; }
+  .sub { font-family:Archivo,sans-serif; font-size:6.5pt; letter-spacing:.26em; text-transform:uppercase;
+         color:var(--ink2); margin:0; text-indent:.26em; }
+  section { margin-bottom:16pt; break-inside:avoid; }
+  h2 { font-family:Archivo,sans-serif; font-size:6.5pt; letter-spacing:.22em; text-transform:uppercase;
+       font-weight:600; color:var(--ink2); margin:0 0 9pt; padding-bottom:4pt;
+       border-bottom:.5pt solid var(--rule); text-indent:.22em; }
+  .cols { display:flex; justify-content:flex-end; gap:16pt; margin:-6pt 0 8pt;
+          font-family:Archivo,sans-serif; font-size:5.5pt; letter-spacing:.16em;
+          text-transform:uppercase; color:var(--ink2); }
+  .cols span { width:30pt; text-align:right; }
+  .row { margin-bottom:8pt; break-inside:avoid; }
+  .line { display:flex; align-items:baseline; gap:8pt; }
+  .nm { font-weight:500; }
+  .vt { color:var(--ink2); font-variant-numeric:tabular-nums; }
+  .dots { flex:1; border-bottom:.5pt dotted var(--rule); transform:translateY(-3pt); }
+  .pz { font-variant-numeric:tabular-nums; }
+  .pz.col { width:30pt; text-align:right; }
+  .pz.dim { opacity:.35; }
+  .dd { font-size:9.5pt; font-style:italic; color:var(--ink2); margin-top:1pt; max-width:52ch; }
+  .colophon { position:absolute; bottom:calc(0.75in / 2); left:0; right:0; text-align:center;
+              font-family:Archivo,sans-serif; font-size:5pt; letter-spacing:.14em;
+              text-transform:uppercase; color:#B9B0A0; }
+  .overset { background:#FBE9E5; border:1pt solid #A83A26; color:#A83A26; padding:10pt 14pt;
+             margin:16px auto; max-width:8.5in; font-family:Archivo,sans-serif; font-size:10pt; }
+  @media print {
+    body { background:#fff; }
+    .sheet { margin:0; box-shadow:none; }
+    .overset { display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet"><div class="brand"><p class="wm">Parasol</p><p class="sub">Saturday &amp; Sunday · 10 to 3</p></div><section><h2>Brunch</h2><div class="row"><div class="line"><span class="nm">Citrus, olive oil, sea salt</span><span class="dots"></span><span class="pz">$9</span></div><div class="dd">Whatever is best that week, cut thick</div></div><div class="row"><div class="line"><span class="nm">Yoghurt, date, sesame</span><span class="dots"></span><span class="pz">$11</span></div><div class="dd">Sheep’s milk, honey, toasted sesame</div></div><div class="row"><div class="line"><span class="nm">The good bread, cultured butter</span><span class="dots"></span><span class="pz">$7</span></div><div class="dd">While it lasts</div></div><div class="row"><div class="line"><span class="nm">Eggs in the pan, harissa, herbs</span><span class="dots"></span><span class="pz">$18</span></div><div class="dd">Two eggs, house harissa, flatbread</div></div><div class="row"><div class="line"><span class="nm">Fried potatoes, aioli, lemon</span><span class="dots"></span><span class="pz">$12</span></div><div class="dd">Twice-cooked, garlic aioli</div></div><div class="row"><div class="line"><span class="nm">Omelette, greens, aged sheep</span><span class="dots"></span><span class="pz">$19</span></div><div class="dd">Folded soft, chard, aged pecorino</div></div></section><section><h2>Sweet</h2><div class="row"><div class="line"><span class="nm">Olive oil cake</span><span class="dots"></span><span class="pz">$12</span></div><div class="dd">Citrus, crème fraîche</div></div><div class="row"><div class="line"><span class="nm">Cheese, one kind, good</span><span class="dots"></span><span class="pz">$14</span></div><div class="dd">Ask what is on</div></div></section><section><h2>Coffee</h2><div class="row"><div class="line"><span class="nm">Coffee</span><span class="dots"></span><span class="pz">$5</span></div><div class="dd">Filter, roasted in Oakland</div></div><div class="row"><div class="line"><span class="nm">Cortado</span><span class="dots"></span><span class="pz">$6</span></div><div class="dd">Double, equal milk</div></div><div class="row"><div class="line"><span class="nm">Cold brew, orange peel</span><span class="dots"></span><span class="pz">$6</span></div><div class="dd">Steeped overnight, orange oil</div></div></section><div class="colophon">2026-09-02 · c002987</div></div>
+</body>
+</html>
