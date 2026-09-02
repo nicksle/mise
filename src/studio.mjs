@@ -108,6 +108,10 @@ function state() {
     },
     /* the repo layer — this is what the studio writes */
     editorial: Object.fromEntries(EDITABLE.map(k => [k, editorial.items[i.id]?.[k] ?? ''])),
+    /* What is live right now, whichever layer supplied it. The editor shows
+       THIS, so the box you type in holds the words currently on the menu
+       rather than sitting empty next to a name you can see on the page. */
+    effective: { menu_name: i.menuName, description: i.description, allergens: i.allergens },
     needsReview: i.needsReview,
     /* Which layer actually supplied the guest-facing name, and whether the
        other one also holds a value — the studio should never let you type

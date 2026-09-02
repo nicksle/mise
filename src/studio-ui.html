@@ -106,6 +106,9 @@ input,textarea{width:100%;font:inherit;font-size:.9rem;padding:8px 10px;border-r
 input:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:transparent}
 textarea{resize:vertical;min-height:62px;line-height:1.5}
 .hint{font-size:.76rem;color:var(--ink3);margin:5px 0 0;line-height:1.45}
+.from{font-family:"JetBrains Mono",monospace;font-size:.55rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink3);background:var(--card2);
+  padding:2px 5px;border-radius:2px;margin-left:6px;vertical-align:1px}
 .ro{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--rule2);font-size:.86rem}
 .ro:last-child{border-bottom:none}
 .ro span:first-child{color:var(--ink3)}
@@ -273,11 +276,20 @@ function select(id, keepScroll) {
   if (!i) return;
 
   const q = i.square, e = i.editorial, wine = q.kind === 'pour';
-  const f = (k, label, ph = '', type = 'input', cls = '') =>
-    `<div class="${cls}"><label for="f_${k}">${esc(label)}</label>` +
-    (type === 'textarea'
-      ? `<textarea id="f_${k}" data-k="${k}" placeholder="${esc(ph)}">${esc(e[k])}</textarea>`
-      : `<input id="f_${k}" data-k="${k}" value="${esc(e[k])}" placeholder="${esc(ph)}">`) + `</div>`;
+  /* Menu copy shows the live value, whichever layer supplied it. Everything
+     else is repo-only, so it shows the repo value. */
+  const eff = i.effective || {};
+  const liveValue = k => (k in eff ? (e[k] || eff[k] || '') : e[k]);
+  const inherited = k => (k in eff) && !e[k] && !!eff[k];
+
+  const f = (k, label, ph = '', type = 'input', cls = '') => {
+    const v = liveValue(k);
+    const tag = inherited(k) ? ` <span class="from">from Square</span>` : '';
+    return `<div class="${cls}"><label for="f_${k}">${esc(label)}${tag}</label>` +
+      (type === 'textarea'
+        ? `<textarea id="f_${k}" data-k="${k}" placeholder="${esc(ph)}">${esc(v)}</textarea>`
+        : `<input id="f_${k}" data-k="${k}" value="${esc(v)}" placeholder="${esc(ph)}">`) + `</div>`;
+  };
 
   const ro = (l, v, cls = '') => `<div class="ro"><span>${esc(l)}</span><span class="${cls}">${v}</span></div>`;
 
@@ -288,12 +300,9 @@ function select(id, keepScroll) {
     ${i.needsReview ? `<div class="banner warn"><b>Held back from the guest menu.</b>
       This came from the POS with no copy. It's already visible to staff in the service
       reference. Give it a name below and it publishes on the next rebuild.</div>` : ''}
-    ${i.squareOwnsCopy ? `<div class="banner info"><b>Menu name is set in Square.</b>
-      The dashboard wins over anything typed here, so what you write below is the fallback.
-      Change <span class="mono">copyOwner</span> in config to make this editor win.</div>` : ''}
-    ${(!i.squareOwnsCopy && i.squareHasName) ? `<div class="banner info"><b>This one is yours.</b>
-      Square also carries a name for this item, but the studio is the editor — what you type
-      below is what guests read.</div>` : ''}
+    ${i.copyFrom === 'square' ? `<div class="banner info"><b>This copy is coming from Square.</b>
+      The boxes below are filled with what is on the menu right now. Edit and save and it
+      becomes yours; clear a box and save and it falls back to Square again.</div>` : ''}
 
     <fieldset class="locked"><legend>From Square — edit in the Square dashboard</legend>
       ${ro('POS button', `<b>${esc(q.posName)}</b>`)}
@@ -319,9 +328,10 @@ function select(id, keepScroll) {
         ${f('description', 'Description', wine ? 'Sauvignon Blanc · Sancerre, France' : 'poached eggs, chive hollandaise', 'textarea', 'full')}
         ${f('allergens', 'Allergens', 'egg, gluten, dairy', 'input', 'full')}
       </div>
-      <p class="hint">These two strings are the menu. The name is what publishes an item
-      to guests — without one it stays in the service reference only — and the description
-      is the line underneath it. Nothing is assembled for you.</p>
+      <p class="hint">These two strings are the menu — the name is the line a guest reads,
+      the description is the line under it. Nothing is assembled for you. A field marked
+      <span class="from">from Square</span> is showing the catalog's value; type over it to
+      take ownership, or clear it to hand it back.</p>
     </fieldset>
 
     <fieldset><legend>Service only — never shown to guests</legend>
