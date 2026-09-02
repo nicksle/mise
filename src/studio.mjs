@@ -165,6 +165,12 @@ async function ensureMock() {
 
   mock = spawn(process.execPath, [join(ROOT, 'scripts', 'mock-square.mjs')],
     { cwd: ROOT, stdio: ['ignore', 'ignore', 'inherit'] });
+
+  /* If the child dies — `pkill -f mock-square.mjs`, a crash, anything — forget
+     it, so the next rebuild starts a fresh one instead of syncing against a
+     server that isn't there. */
+  mock.on('exit', () => { mock = null; });
+
   const stop = () => { try { mock?.kill(); } catch {} };
   process.on('exit', stop);
   /* exit handlers don't run on a signal, which is how orphans accumulate. */
@@ -175,7 +181,14 @@ async function ensureMock() {
 async function rebuild() {
   await ensureMock();
   await new Promise(r => setTimeout(r, mock ? 700 : 0));
-  const menu = await sync({ quiet: true });
+  let menu;
+  try {
+    menu = await sync({ quiet: true });
+  } catch (e) {
+    if (/fetch failed|ECONNREFUSED/i.test(e.message))
+      throw new Error(`can't reach the ${sq.env} catalog at ${sq.base} — is the mock server running?`);
+    throw e;
+  }
   build();
   return menu.stats;
 }
