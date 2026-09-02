@@ -220,7 +220,6 @@
     "MOCK_YOGHURT": {
       "sort_index": 1,
       "service_note": "Contains sesame and honey. Not vegan.",
-      "menu_name": "Food",
       "description": "Sheep’s milk, honey, toasted sesame"
     },
     "MOCK_BREAD": {
