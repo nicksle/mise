@@ -6,5 +6,13 @@
     "menu_name": "",
     "description": "",
     "note": "Auto-created from the POS. Fill in menu_name to publish to guests."
+  },
+  "MOCK_NEW_052GMX": {
+    "pos_name": "RIES KABINETT",
+    "first_seen": "2026-09-02T20:31:29.541Z",
+    "needs_review": true,
+    "menu_name": "",
+    "description": "",
+    "note": "Auto-created from the POS. Fill in menu_name to publish to guests."
   }
 }

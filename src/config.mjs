@@ -81,6 +81,74 @@ export const curation = {
 };
 
 /* ------------------------------------------------------------------ */
+/* Menus — a menu is a COMPOSITION, not a category.                     */
+/*                                                                      */
+/* The category tree belongs to the restaurant: it is how they ring     */
+/* things up and how they report. If a menu had to *be* a category,     */
+/* changing the website would mean reorganising the POS, which is the   */
+/* coupling this project exists to remove. So a menu is an ordered list */
+/* of sources, each rendered as a section.                              */
+/*                                                                      */
+/*   category  the Square category name, matched case-insensitively     */
+/*   as        guest-facing section label, when it differs from the POS */
+/*   kind      'wine' opts the section into the wine-only rules         */
+/*             (vintage confirmation, by-the-glass derivation)          */
+/*                                                                      */
+/* A menu whose sources are all absent from the catalog is skipped, not */
+/* failed — that is a menu this restaurant does not run yet.            */
+/* ------------------------------------------------------------------ */
+export const menus = [
+  {
+    slug: 'drinks',
+    name: 'Drinks',
+    sources: [
+      { category: 'Sparkling',        kind: 'wine' },
+      { category: 'White',            kind: 'wine' },
+      { category: 'Rosé',             kind: 'wine' },
+      { category: 'Chilled Red',      kind: 'wine' },
+      { category: 'Red',              kind: 'wine' },
+      { category: 'Cocktails' },
+      /* POS says Mocktails because that is what a server can find at speed;
+         guests get the label the room actually uses. */
+      { category: 'Mocktails',        as: 'Sober curious' },
+      { category: 'Beer & Cider' },
+      { category: 'Amaro & Digestif', as: 'After' },
+    ],
+  },
+  {
+    slug: 'brunch',
+    name: 'Brunch',
+    sources: [
+      { category: 'Brunch', required: true },
+      { category: 'Sweet' },
+      { category: 'Coffee' },
+    ],
+  },
+  {
+    slug: 'happy-hour',
+    name: 'Happy Hour',
+    /* Happy hour is separate items in the POS at Parasol, so it names its own
+       category — and may legitimately pull the same wine the drinks menu
+       pulls. That is composition working, not a bug. */
+    sources: [
+      /* `required` names the source that defines the menu. Without it the
+         menu is skipped, so happy hour can't quietly become "the cocktail
+         list under a different title" when the catalog has no HH items. */
+      { category: 'Happy Hour', required: true },
+    ],
+  },
+  {
+    slug: 'dinner',
+    name: 'Dinner',
+    sources: [
+      { category: 'Plates', required: true },
+      { category: 'Sides' },
+      { category: 'Sweet' },
+    ],
+  },
+];
+
+/* ------------------------------------------------------------------ */
 /* Price display — the twenty-minute conversation with the GM, written  */
 /* down so it stops being a source of bugs.                             */
 /* ------------------------------------------------------------------ */
@@ -106,7 +174,18 @@ export const publishing = {
   /* Sold-out items: 'grey' keeps them visible and struck through,
      'hide' removes them. JSON-LD always omits them. */
   soldOutTreatment: 'grey',
-  /* Flag a wine whose vintage hasn't been confirmed in this many months. */
+
+  /* Who owns the words a guest reads.
+       'repo'   — Mise is the editor: what you type in the studio wins.
+       'square' — the restaurant's dashboard wins, studio copy is a fallback.
+     Mise is the editor, so 'repo'. Two places to write the same sentence is
+     the drift problem this project exists to kill, and the studio silently
+     losing to a Square attribute is how it comes back.
+     Price, availability and VINTAGE are always Square's, either way —
+     vintage rolls without warning and the somm fixes it from the floor. */
+  copyOwner: 'repo',
+  /* Flag a wine whose vintage hasn't been confirmed in this many months.
+     Scoped to sources marked kind:'wine' — a Negroni has no vintage. */
   staleVintageMonths: 8,
 };
 
@@ -120,6 +199,12 @@ export const checks = {
   /* If more than this fraction of items would publish without copy,
      something is wrong with the enrichment join — stop. */
   maxStubRatio: 0.5,
+  /* Happy hour is separate POS items, so the same drink exists twice and
+     Square has no idea they are related. An item carrying `twin_of` in
+     editorial.json that is live while its twin is 86'd means one of the
+     two is lying to a guest. Warn rather than fail: taking every menu
+     down over one drink is worse than flagging it loudly. */
+  warnOnOrphanedTwin: true,
 };
 
 export const restaurant = {

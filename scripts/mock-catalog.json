@@ -138,6 +138,54 @@
       }
     },
     {
+      "type": "CATEGORY",
+      "id": "MOCK_CAT_9",
+      "category_data": {
+        "name": "Brunch",
+        "category_type": "MENU_CATEGORY"
+      }
+    },
+    {
+      "type": "CATEGORY",
+      "id": "MOCK_CAT_10",
+      "category_data": {
+        "name": "Plates",
+        "category_type": "MENU_CATEGORY"
+      }
+    },
+    {
+      "type": "CATEGORY",
+      "id": "MOCK_CAT_11",
+      "category_data": {
+        "name": "Sides",
+        "category_type": "MENU_CATEGORY"
+      }
+    },
+    {
+      "type": "CATEGORY",
+      "id": "MOCK_CAT_12",
+      "category_data": {
+        "name": "Sweet",
+        "category_type": "MENU_CATEGORY"
+      }
+    },
+    {
+      "type": "CATEGORY",
+      "id": "MOCK_CAT_13",
+      "category_data": {
+        "name": "Coffee",
+        "category_type": "MENU_CATEGORY"
+      }
+    },
+    {
+      "type": "CATEGORY",
+      "id": "MOCK_CAT_14",
+      "category_data": {
+        "name": "Happy Hour",
+        "category_type": "MENU_CATEGORY"
+      }
+    },
+    {
       "type": "ITEM",
       "id": "MOCK_CAVA",
       "item_data": {
@@ -1628,6 +1676,9 @@
         "categories": [
           {
             "id": "MOCK_CAT_5"
+          },
+          {
+            "id": "MOCK_CAT_14"
           }
         ],
         "variations": [
@@ -2536,6 +2587,1064 @@
           "key": "menu_description",
           "custom_attribute_definition_id": "DEF_menu_description",
           "string_value": "Valtellina, Italy"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_CITRUS",
+      "item_data": {
+        "name": "CITRUS OO",
+        "kitchen_name": "CITRUS OO",
+        "categories": [
+          {
+            "id": "MOCK_CAT_9"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_CITRUS_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_CITRUS",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 900,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Citrus, olive oil, sea salt"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Whatever is best that week, cut thick"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_YOGHURT",
+      "item_data": {
+        "name": "YOG DATE",
+        "kitchen_name": "YOG DATE",
+        "categories": [
+          {
+            "id": "MOCK_CAT_9"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_YOGHURT_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_YOGHURT",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1100,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Yoghurt, date, sesame"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Sheep’s milk, honey, toasted sesame"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_BREAD",
+      "item_data": {
+        "name": "BREAD BUTTER",
+        "kitchen_name": "BREAD BUTTER",
+        "categories": [
+          {
+            "id": "MOCK_CAT_9"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_BREAD_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_BREAD",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 700,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "The good bread, cultured butter"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "While it lasts"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_EGGSPAN",
+      "item_data": {
+        "name": "EGGS PAN",
+        "kitchen_name": "EGGS PAN",
+        "categories": [
+          {
+            "id": "MOCK_CAT_9"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_EGGSPAN_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_EGGSPAN",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1800,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Eggs in the pan, harissa, herbs"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Two eggs, house harissa, flatbread"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_POTATO",
+      "item_data": {
+        "name": "FRIED POT",
+        "kitchen_name": "FRIED POT",
+        "categories": [
+          {
+            "id": "MOCK_CAT_9"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_POTATO_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_POTATO",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1200,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Fried potatoes, aioli, lemon"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Twice-cooked, garlic aioli"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_OMELETTE",
+      "item_data": {
+        "name": "OMELETTE",
+        "kitchen_name": "OMELETTE",
+        "categories": [
+          {
+            "id": "MOCK_CAT_9"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_OMELETTE_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_OMELETTE",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1900,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Omelette, greens, aged sheep"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Folded soft, chard, aged pecorino"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_CHICORY",
+      "item_data": {
+        "name": "CHIC ANCHOV",
+        "kitchen_name": "CHIC ANCHOV",
+        "categories": [
+          {
+            "id": "MOCK_CAT_10"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_CHICORY_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_CHICORY",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1600,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Chicories, anchovy, egg"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Bitter leaves, anchovy dressing, jammy egg"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_SQUASH",
+      "item_data": {
+        "name": "SQUASH YOG",
+        "kitchen_name": "SQUASH YOG",
+        "categories": [
+          {
+            "id": "MOCK_CAT_10"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_SQUASH_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_SQUASH",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1500,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Squash, yoghurt, chilli"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Roasted over coals, chilli oil"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_FISH",
+      "item_data": {
+        "name": "WHOLE FISH MP",
+        "kitchen_name": "WHOLE FISH MP",
+        "categories": [
+          {
+            "id": "MOCK_CAT_10"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_FISH_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_FISH",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 4200,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Whole fish, herbs, lemon"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Whatever came in that morning"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_LAMB",
+      "item_data": {
+        "name": "LAMB COALS",
+        "kitchen_name": "LAMB COALS",
+        "categories": [
+          {
+            "id": "MOCK_CAT_10"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_LAMB_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_LAMB",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 4600,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Lamb over coals, for the table"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Shoulder, forty minutes, serves two to three"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_LEEKS",
+      "item_data": {
+        "name": "LEEKS ROMESCO",
+        "kitchen_name": "LEEKS ROMESCO",
+        "categories": [
+          {
+            "id": "MOCK_CAT_10"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_LEEKS_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_LEEKS",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1700,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Burnt leeks, romesco"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Charred whole, almond romesco"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_BEANS",
+      "item_data": {
+        "name": "BEANS",
+        "kitchen_name": "BEANS",
+        "categories": [
+          {
+            "id": "MOCK_CAT_11"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_BEANS_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_BEANS",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1400,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Beans cooked all afternoon"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Gigantes, olive oil, rosemary"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_GREENS",
+      "item_data": {
+        "name": "GREENS SIDE",
+        "kitchen_name": "GREENS SIDE",
+        "categories": [
+          {
+            "id": "MOCK_CAT_11"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_GREENS_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_GREENS",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1100,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Greens, garlic, chilli"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Whatever is in season, hard and fast"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_OOCAKE",
+      "item_data": {
+        "name": "OO CAKE",
+        "kitchen_name": "OO CAKE",
+        "categories": [
+          {
+            "id": "MOCK_CAT_12"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_OOCAKE_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_OOCAKE",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1200,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Olive oil cake"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Citrus, crème fraîche"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_CHEESE",
+      "item_data": {
+        "name": "CHEESE ONE",
+        "kitchen_name": "CHEESE ONE",
+        "categories": [
+          {
+            "id": "MOCK_CAT_12"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_CHEESE_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_CHEESE",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1400,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Cheese, one kind, good"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Ask what is on"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_COFFEE",
+      "item_data": {
+        "name": "COFFEE",
+        "kitchen_name": "COFFEE",
+        "categories": [
+          {
+            "id": "MOCK_CAT_13"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_COFFEE_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_COFFEE",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 500,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Coffee"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Filter, roasted in Oakland"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_CORTADO",
+      "item_data": {
+        "name": "CORTADO",
+        "kitchen_name": "CORTADO",
+        "categories": [
+          {
+            "id": "MOCK_CAT_13"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_CORTADO_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_CORTADO",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 550,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Cortado"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Double, equal milk"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_COLDBREW",
+      "item_data": {
+        "name": "COLD BREW",
+        "kitchen_name": "COLD BREW",
+        "categories": [
+          {
+            "id": "MOCK_CAT_13"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_COLDBREW_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_COLDBREW",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 600,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Cold brew, orange peel"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Steeped overnight, orange oil"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_HHOYST",
+      "item_data": {
+        "name": "HH OYSTERS",
+        "kitchen_name": "HH OYSTERS",
+        "categories": [
+          {
+            "id": "MOCK_CAT_14"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_HHOYST_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_HHOYST",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 200,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Oysters"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Half price until six, each"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_HHANCH",
+      "item_data": {
+        "name": "HH ANCHOVY",
+        "kitchen_name": "HH ANCHOVY",
+        "categories": [
+          {
+            "id": "MOCK_CAT_14"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_HHANCH_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_HHANCH",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 900,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Anchovy, butter, toast"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Cantabrian, on the good bread"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_HHOLIVE",
+      "item_data": {
+        "name": "HH OLIVES",
+        "kitchen_name": "HH OLIVES",
+        "categories": [
+          {
+            "id": "MOCK_CAT_14"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_HHOLIVE_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_HHOLIVE",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 600,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Olives, warm, orange peel"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Castelvetrano, warmed in oil"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_HHSANC",
+      "item_data": {
+        "name": "HH SANCERRE",
+        "kitchen_name": "HH SANCERRE",
+        "categories": [
+          {
+            "id": "MOCK_CAT_14"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_HHSANC_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_HHSANC",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1400,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Sancerre, by the glass"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Happy hour pour"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_HHSPRITZ",
+      "item_data": {
+        "name": "HH SPRITZ",
+        "kitchen_name": "HH SPRITZ",
+        "categories": [
+          {
+            "id": "MOCK_CAT_14"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_HHSPRITZ_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_HHSPRITZ",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1100,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Parasol Spritz"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Happy hour price"
         }
       }
     },

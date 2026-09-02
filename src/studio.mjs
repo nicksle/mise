@@ -20,7 +20,7 @@ import { join, extname } from 'node:path';
 import { createHmac, timingSafeEqual, randomBytes } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { execFileSync } from 'node:child_process';
-import { ROOT, square as sq, site } from './config.mjs';
+import { ROOT, square as sq, site, publishing } from './config.mjs';
 import { sync } from './sync.mjs';
 import { build } from './build.mjs';
 
@@ -72,9 +72,25 @@ function state() {
   const menu = readJson(MENU, null);
   if (!menu) return { ready: false, items: [], stats: null, env: sq.env, siteDevUrl: site.devUrl };
 
+  /* Which menus each section reaches. A section can be on more than one —
+     that is the whole point of composition — so this is a list, not a value. */
+  const menuSlugsBySection = new Map();
+  for (const m of menu.menus || []) {
+    for (const sec of m.sections) {
+      if (!menuSlugsBySection.has(sec.name)) menuSlugsBySection.set(sec.name, []);
+      menuSlugsBySection.get(sec.name).push(m.slug);
+    }
+  }
+
   const items = menu.sections.flatMap(s => s.items.map(i => ({
     id: i.id,
     section: s.name,
+    /* The resolved guest-facing name, whichever layer supplied it. Food gets
+       its copy from Square's custom attributes, so an editorial-only view of
+       the name shows nothing for half the catalog. */
+    menuName: i.menuName,
+    menus: menuSlugsBySection.get(s.name) || [],
+    isWine: !!i.isWine,
     /* from Square — shown, never written */
     square: {
       posName: i.posName,
@@ -94,12 +110,25 @@ function state() {
     /* the repo layer — this is what the studio writes */
     editorial: Object.fromEntries(EDITABLE.map(k => [k, editorial.items[i.id]?.[k] ?? ''])),
     needsReview: i.needsReview,
-    /* true when Square already carries copy, so ours is only a fallback */
-    squareOwnsCopy: !!(i.menuName && !editorial.items[i.id]?.menu_name),
+    /* Which layer actually supplied the guest-facing name, and whether the
+       other one also holds a value — the studio should never let you type
+       into a field that silently loses. */
+    copyFrom: i.copyFrom || 'none',
+    squareHasName: !!i.squareHasName,
+    squareOwnsCopy: i.copyFrom === 'square',
   })));
 
+  const menus = (menu.menus || []).map(m => ({
+    slug: m.slug,
+    name: m.name,
+    sections: m.sections.map(sec => sec.name),
+    count: m.sections.reduce((t, sec) => t + sec.items.length, 0),
+  }));
+
   return { ready: true, env: sq.env, siteDevUrl: site.devUrl,
-           stats: menu.stats, generatedAt: menu.generatedAt, items };
+           copyOwner: publishing.copyOwner,
+           stats: menu.stats, generatedAt: menu.generatedAt,
+           warnings: menu.warnings || [], menus, items };
 }
 
 /* ---------- rebuild ---------- */

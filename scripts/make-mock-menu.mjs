@@ -26,9 +26,21 @@ const LOC = 'LMOCKPARASOL';
  * ------------------------------------------------------------------ */
 
 const SECTIONS = [
+  // drinks
   'Sparkling', 'White', 'Rosé', 'Chilled Red', 'Red',
   'Cocktails', 'Mocktails', 'Beer & Cider', 'Amaro & Digestif',
+  // food
+  'Brunch', 'Plates', 'Sides', 'Sweet', 'Coffee',
+  // its own category, because happy hour is separate items in the POS
+  'Happy Hour',
 ];
+
+/* Guest-facing label where the POS name is written for a terminal instead of
+   a menu. The category stays findable at speed; the guest gets the good word. */
+const SECTION_NAMES = {
+  'Mocktails': 'Sober curious',
+  'Amaro & Digestif': 'After',
+};
 
 /* wines: glass + bottle variations, vintage in Square */
 const WINE = [
@@ -132,7 +144,9 @@ const WINE = [
 /* everything else: one price, no vintage */
 const POURS = [
   // --- Cocktails ---
-  { id:'SPRITZ',  pos:'SPRITZ HOUSE',  sec:'Cocktails', price:1500, sort:0,
+  /* One object, two categories — this is how a single catalog item reaches
+     two menus without being duplicated. */
+  { id:'SPRITZ',  pos:'SPRITZ HOUSE',  sec:['Cocktails','Happy Hour'], price:1500, sort:0,
     name:'Parasol Spritz', desc:'Aperol, cava, blood orange, soda',
     note:'Build in the glass, no shake. House aperitif — offer it first.' },
   { id:'PALOMA',  pos:'PALOMA',        sec:'Cocktails', price:1600, sort:1,
@@ -200,6 +214,89 @@ const POURS = [
     note:'Alpine, minty, almost medicinal. Sell it after something rich.' },
 ];
 
+/* food and happy hour — one price, no vintage */
+const FOOD = [
+  // --- Brunch ---
+  { id:'CITRUS',  pos:'CITRUS OO',      sec:'Brunch', price:900,  sort:0,
+    name:'Citrus, olive oil, sea salt', desc:'Whatever is best that week, cut thick',
+    note:'Fruit rotates weekly — ask the kitchen before you describe it.' },
+  { id:'YOGHURT', pos:'YOG DATE',       sec:'Brunch', price:1100, sort:1,
+    name:'Yoghurt, date, sesame', desc:'Sheep’s milk, honey, toasted sesame',
+    note:'Contains sesame and honey. Not vegan.' },
+  { id:'BREAD',   pos:'BREAD BUTTER',   sec:'Brunch', price:700,  sort:2,
+    name:'The good bread, cultured butter', desc:'While it lasts',
+    note:'Baked next door. Genuinely runs out — do not promise it after 1pm.' },
+  { id:'EGGSPAN', pos:'EGGS PAN',       sec:'Brunch', price:1800, sort:3,
+    name:'Eggs in the pan, harissa, herbs', desc:'Two eggs, house harissa, flatbread',
+    note:'Harissa is properly hot. Warn anyone who asks for mild.' },
+  { id:'POTATO',  pos:'FRIED POT',      sec:'Brunch', price:1200, sort:4,
+    name:'Fried potatoes, aioli, lemon', desc:'Twice-cooked, garlic aioli',
+    note:'Aioli has raw egg. The default side, sells with everything.' },
+  { id:'OMELETTE',pos:'OMELETTE',       sec:'Brunch', price:1900, sort:5,
+    name:'Omelette, greens, aged sheep', desc:'Folded soft, chard, aged pecorino',
+    note:'Cooked to order and slow. Say so on a full room.' },
+
+  // --- Plates (dinner) ---
+  { id:'CHICORY', pos:'CHIC ANCHOV',    sec:'Plates', price:1600, sort:0,
+    name:'Chicories, anchovy, egg', desc:'Bitter leaves, anchovy dressing, jammy egg',
+    note:'Contains anchovy — not vegetarian, and people always assume it is.' },
+  { id:'SQUASH',  pos:'SQUASH YOG',     sec:'Plates', price:1500, sort:1,
+    name:'Squash, yoghurt, chilli', desc:'Roasted over coals, chilli oil',
+    note:'Vegetarian. Can be made vegan without the yoghurt.' },
+  { id:'FISH',    pos:'WHOLE FISH MP',  sec:'Plates', price:4200, sort:2,
+    name:'Whole fish, herbs, lemon', desc:'Whatever came in that morning',
+    note:'Price moves with the market — check the board before quoting it.' },
+  { id:'LAMB',    pos:'LAMB COALS',     sec:'Plates', price:4600, sort:3,
+    name:'Lamb over coals, for the table', desc:'Shoulder, forty minutes, serves two to three',
+    note:'Fire it early. Forty minutes means forty minutes.' },
+  { id:'LEEKS',   pos:'LEEKS ROMESCO',  sec:'Plates', price:1700, sort:4,
+    name:'Burnt leeks, romesco', desc:'Charred whole, almond romesco',
+    note:'Contains almonds. Vegan as made.' },
+  { id:'BEANS',   pos:'BEANS',          sec:'Sides', price:1400, sort:0,
+    name:'Beans cooked all afternoon', desc:'Gigantes, olive oil, rosemary',
+    note:'The thing to add when a table is still hungry.' },
+  { id:'GREENS',  pos:'GREENS SIDE',    sec:'Sides', price:1100, sort:1,
+    name:'Greens, garlic, chilli', desc:'Whatever is in season, hard and fast',
+    note:'Vegan. The fastest thing on the pass.' },
+
+  // --- Sweet ---
+  { id:'OOCAKE',  pos:'OO CAKE',        sec:'Sweet', price:1200, sort:0,
+    name:'Olive oil cake', desc:'Citrus, crème fraîche',
+    note:'Made daily. The one dessert that never comes back.' },
+  { id:'CHEESE',  pos:'CHEESE ONE',     sec:'Sweet', price:1400, sort:1,
+    name:'Cheese, one kind, good', desc:'Ask what is on',
+    note:'One cheese, chosen weekly. Know it before service.' },
+
+  // --- Coffee ---
+  { id:'COFFEE',  pos:'COFFEE',         sec:'Coffee', price:500,  sort:0,
+    name:'Coffee', desc:'Filter, roasted in Oakland',
+    note:'Refills are free. Nobody mentions it and they should.' },
+  { id:'CORTADO', pos:'CORTADO',        sec:'Coffee', price:550,  sort:1,
+    name:'Cortado', desc:'Double, equal milk',
+    note:'The staff drink. Fast to make on a slammed brunch.' },
+  { id:'COLDBREW',pos:'COLD BREW',      sec:'Coffee', price:600,  sort:2,
+    name:'Cold brew, orange peel', desc:'Steeped overnight, orange oil',
+    note:'Strong. Two is a lot.' },
+
+  // --- Happy Hour: separate POS items, deliberately duplicating the real ones.
+  //     `twinOf` is the link Square has no way to record. ---
+  { id:'HHOYST',  pos:'HH OYSTERS',     sec:'Happy Hour', price:200,  sort:0,
+    name:'Oysters', desc:'Half price until six, each',
+    note:'Counter only. Cut off at six sharp, the kitchen counts them.' },
+  { id:'HHANCH',  pos:'HH ANCHOVY',     sec:'Happy Hour', price:900,  sort:1,
+    name:'Anchovy, butter, toast', desc:'Cantabrian, on the good bread',
+    note:'Three to a plate. Contains fish and dairy.' },
+  { id:'HHOLIVE', pos:'HH OLIVES',      sec:'Happy Hour', price:600,  sort:2,
+    name:'Olives, warm, orange peel', desc:'Castelvetrano, warmed in oil',
+    note:'Pits in. Say so before you put them down.' },
+  { id:'HHSANC',  pos:'HH SANCERRE',    sec:'Happy Hour', price:1400, sort:3,
+    twinOf:'SANC', name:'Sancerre, by the glass', desc:'Happy hour pour',
+    note:'Same bottle as the list — if the pour dies, this dies with it.' },
+  { id:'HHSPRITZ',pos:'HH SPRITZ',      sec:'Happy Hour', price:1100, sort:4,
+    twinOf:'SPRITZ', name:'Parasol Spritz', desc:'Happy hour price',
+    note:'Same build as the full-price one. Do not make it smaller.' },
+];
+
 /* what a real catalog is also full of — never reaches a guest */
 const JUNK = [
   ['MISC $1', 100], ['STAFF DRINK', 0], ['GIFT CARD', 5000], ['CORKAGE', 3000],
@@ -222,9 +319,13 @@ for (const k of ATTR_KEYS) objects.push({
 SECTIONS.forEach((name, i) => {
   objects.push({ type: 'CATEGORY', id: 'MOCK_CAT_' + i,
     category_data: { name, category_type: 'MENU_CATEGORY' } });
-  editorial.sections[name] = { sort_index: i };
+  editorial.sections[name] = { sort_index: i,
+    ...(SECTION_NAMES[name] ? { name: SECTION_NAMES[name] } : {}) };
 });
 const catId = name => 'MOCK_CAT_' + SECTIONS.indexOf(name);
+/* `sec` may be a list: an item can sit in more than one category, which is how
+   one catalog object reaches two menus without being duplicated. */
+const catRefs = sec => (Array.isArray(sec) ? sec : [sec]).map(n => ({ id: catId(n) }));
 
 const attrs = map => {
   const out = {};
@@ -254,7 +355,7 @@ for (const w of WINE) {
 
   objects.push({ type: 'ITEM', id, item_data: {
     name: w.pos, kitchen_name: w.pos,
-    categories: [{ id: catId(w.sec) }], variations: vars },
+    categories: catRefs(w.sec), variations: vars },
     ...(w.stub ? {} : attrs({
       menu_name: `${w.producer}${w.cuvee ? ` ‘${w.cuvee}’` : ''}`,
       vintage: w.vintage, vintage_confirmed: w.conf })) });
@@ -265,14 +366,15 @@ for (const w of WINE) {
     sort_index: w.sort, service_note: w.note };
 }
 
-for (const d of POURS) {
+for (const d of [...POURS, ...FOOD]) {
   const id = 'MOCK_' + d.id;
   objects.push({ type: 'ITEM', id, item_data: {
     name: d.pos, kitchen_name: d.pos,
-    categories: [{ id: catId(d.sec) }],
+    categories: catRefs(d.sec),
     variations: [variation(id, 'Regular', d.price)] },
     ...attrs({ menu_name: d.name, menu_description: d.desc }) });
-  editorial.items[id] = { sort_index: d.sort, service_note: d.note };
+  editorial.items[id] = { sort_index: d.sort, service_note: d.note,
+    ...(d.twinOf ? { twin_of: 'MOCK_' + d.twinOf } : {}) };
 }
 
 const opsCat = 'MOCK_CAT_OPS';
@@ -299,6 +401,8 @@ console.log(`
     ${SECTIONS.length} sections   ${SECTIONS.join(' · ')}
     ${WINE.length} wines        ${WINE.filter(w => w.g).length} by the glass, ${WINE.filter(w => !w.g).length} bottle only
     ${POURS.length} other pours  cocktails, mocktails, beer, amaro
+    ${FOOD.length} food items   brunch, plates, sides, sweet, coffee, happy hour
+    ${FOOD.filter(f => f.twinOf).length} HH twins     linked with twin_of — Square cannot record this
     ${JUNK.length} junk items   to prove the curation filter works
     1 stub          TROUSSEAU, no copy — held back from guests
     ${items.length} items total

@@ -43,13 +43,33 @@ button.primary{background:var(--accent);color:var(--paper);border-color:transpar
 button.primary:disabled{opacity:.5;cursor:default}
 button.ghost{border-color:transparent;background:transparent;color:var(--ink2)}
 
-.cols{display:grid;grid-template-columns:300px 1fr 400px;min-height:0}
-@media(max-width:1180px){.cols{grid-template-columns:270px 1fr}.preview{display:none}}
-@media(max-width:800px){.cols{grid-template-columns:1fr}.list{display:none}.cols.showlist .list{display:block}
-  .cols.showlist .editor{display:none}}
+.cols{display:grid;min-height:0;
+  --w-list:300px; --w-preview:620px;
+  grid-template-columns:var(--w-list) 5px minmax(320px,1fr) 5px var(--w-preview)}
+
+/* Drag handles. The hit area is wider than the line so it can be grabbed
+   without precision aiming. */
+.gutter{background:var(--rule2);cursor:col-resize;position:relative;touch-action:none}
+.gutter::after{content:"";position:absolute;top:0;bottom:0;left:-4px;right:-4px}
+.gutter:hover,.gutter.drag{background:var(--accent)}
+/* An iframe eats pointer events, so a drag that crosses the preview would
+   stall halfway. Switch it off for the duration. */
+.cols.resizing{cursor:col-resize;user-select:none}
+.cols.resizing iframe{pointer-events:none}
+
+@media(max-width:1180px){.cols{grid-template-columns:var(--w-list) 5px 1fr}
+  .preview,.gutter[data-g=preview]{display:none}}
+@media(max-width:800px){.cols{grid-template-columns:1fr}.list,.gutter{display:none}
+  .cols.showlist .list{display:block}.cols.showlist .editor{display:none}}
 
 /* ---- list ---- */
-.list{border-right:1px solid var(--rule);overflow-y:auto;background:var(--card)}
+.list{background:var(--card);display:grid;grid-template-rows:auto 1fr;min-height:0;overflow:hidden}
+.list-head{padding:10px 12px;border-bottom:1px solid var(--rule);background:var(--card2)}
+.list-head label{display:block;font-family:"JetBrains Mono",monospace;font-size:.6rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px}
+.list-head select{width:100%;font:inherit;font-size:.86rem;padding:6px 8px;
+  background:var(--card);color:var(--ink);border:1px solid var(--rule);border-radius:3px}
+.list-body{overflow-y:auto;min-height:0}
 .queue{padding:12px 16px;background:var(--warnbg);border-bottom:1px solid var(--rule)}
 .queue h2{margin:0 0 3px;font-size:.78rem;font-weight:700;color:var(--warn)}
 .queue p{margin:0;font-size:.78rem;color:var(--warn);line-height:1.45}
@@ -108,6 +128,9 @@ textarea{resize:vertical;min-height:62px;line-height:1.5}
 .tabs button{border:none;border-radius:0;background:none;padding:10px 15px;font-size:.78rem;
              color:var(--ink3);border-bottom:2px solid transparent;font-family:"JetBrains Mono",monospace}
 .tabs button[aria-selected=true]{color:var(--accent);border-bottom-color:var(--accent)}
+.tabs select{margin:6px 10px 6px 12px;padding:4px 6px;font:inherit;font-size:.78rem;
+  background:var(--card2);color:inherit;border:1px solid var(--rule);border-radius:4px}
+.sec .only{float:right;font-weight:400;opacity:.55;text-transform:none;letter-spacing:0}
 .preview iframe{width:100%;height:100%;border:none;background:#fff}
 .spin{display:inline-block;width:11px;height:11px;border:2px solid currentColor;border-right-color:transparent;
       border-radius:50%;animation:s .7s linear infinite;vertical-align:-1px;margin-right:6px}
@@ -126,13 +149,24 @@ textarea{resize:vertical;min-height:62px;line-height:1.5}
   </header>
 
   <div class="cols" id="cols">
-    <div class="list" id="list"></div>
+    <div class="list">
+      <div class="list-head">
+        <label for="menuPick">Menu</label>
+        <select id="menuPick"></select>
+      </div>
+      <div class="list-body" id="list"></div>
+    </div>
+    <div class="gutter" data-g="list" role="separator" aria-orientation="vertical"
+         aria-label="Resize list" title="Drag to resize · double-click to reset"></div>
     <div class="editor" id="editor"><div class="empty">Select an item.</div></div>
+    <div class="gutter" data-g="preview" role="separator" aria-orientation="vertical"
+         aria-label="Resize preview" title="Drag to resize · double-click to reset"></div>
     <div class="preview">
       <div class="tabs" role="tablist">
-        <button role="tab" aria-selected="true" data-p="guest.html">guest menu</button>
-        <button role="tab" aria-selected="false" data-p="service.html">service</button>
-        <button role="tab" aria-selected="false" data-p="print.html">print draft</button>
+        <button role="tab" aria-selected="true" data-p="guest">guest menu</button>
+        <button role="tab" aria-selected="false" data-p="print">print draft</button>
+        <button role="tab" aria-selected="false" data-p="service">service</button>
+        <button role="tab" aria-selected="false" data-p="index">all menus</button>
       </div>
       <iframe id="frame" title="Preview"></iframe>
     </div>
@@ -150,8 +184,9 @@ const money = n => n == null ? '—' : '$' + Number(n).toFixed(0);
 async function load() {
   S = await (await fetch('/api/state')).json();
   $('#env').textContent = S.env || '—';
-  const gt = document.querySelector('.tabs button[data-p="guest.html"]');
+  const gt = document.querySelector('.tabs button[data-p="guest"]');
   if (gt) gt.textContent = S.siteDevUrl ? 'guest menu · live site' : 'guest menu';
+  renderMenuPick();
   if (!S.ready) {
     $('#list').innerHTML = '';
     $('#editor').innerHTML = '<div class="empty">Nothing built yet. Hit <b>Sync &amp; rebuild</b>.</div>';
@@ -160,6 +195,22 @@ async function load() {
   renderKpis(); renderList();
   if (selected) select(selected, true);
 }
+
+/* The menu axis. One control does two jobs: it picks which menu previews on
+   the right, and it filters the editable list on the left — because "edit the
+   brunch menu" is a thing you actually want to do. */
+function renderMenuPick() {
+  const sel = $('#menuPick');
+  const menus = S.menus || [];
+  const keep = sel.value;
+  sel.innerHTML = menus.map(m =>
+    `<option value="${esc(m.slug)}">${esc(m.name)} · ${m.count}</option>`).join('') +
+    `<option value="*">All menus</option>`;
+  sel.value = menus.some(m => m.slug === keep) || keep === '*'
+    ? keep : (menus[0] ? menus[0].slug : '*');
+}
+
+const currentMenu = () => ($('#menuPick') || {}).value || '*';
 
 function renderKpis() {
   const s = S.stats || {};
@@ -179,17 +230,27 @@ function renderList() {
     h += `<div class="queue"><h2>${stubs.length} need${stubs.length===1?'s':''} copy</h2>` +
          `<p>Staff can see these. Guests can't, until you name them.</p></div>`;
   }
+  const pick = currentMenu();
+  const visible = pick === '*' ? S.items : S.items.filter(i => (i.menus || []).includes(pick));
+
   const bySec = new Map();
-  for (const i of S.items) {
+  for (const i of visible) {
     if (!bySec.has(i.section)) bySec.set(i.section, []);
     bySec.get(i.section).push(i);
   }
+  if (!bySec.size) h += `<div class="queue"><p>Nothing on this menu yet.</p></div>`;
   for (const [sec, items] of bySec) {
-    h += `<div class="sec">${esc(sec)}</div>`;
+    /* A section on more than one menu is worth saying out loud — editing it
+       here changes it everywhere it appears. */
+    const on = (items[0].menus || []);
+    const alsoOn = pick === '*' ? on : on.filter(m => m !== pick);
+    h += `<div class="sec">${esc(sec)}` +
+         (alsoOn.length ? `<span class="only">${pick === '*' ? 'on ' : 'also on '}` +
+           `${alsoOn.map(esc).join(', ')}</span>` : '') + `</div>`;
     for (const i of items) {
       const name = i.editorial.producer
         ? i.editorial.producer + (i.editorial.cuvee ? ` ‘${i.editorial.cuvee}’` : '')
-        : (i.editorial.menu_name || '—');
+        : (i.editorial.menu_name || i.menuName || '—');
       h += `<button class="row${i.needsReview?' stub':''}" data-id="${esc(i.id)}" aria-current="${i.id===selected}">` +
            `<span class="n">${esc(name)}` +
              (i.needsReview ? '<span class="dot stub" title="needs copy"></span>' : '') +
@@ -228,8 +289,11 @@ function select(id, keepScroll) {
       This came from the POS with no copy. It's already visible to staff in the service
       reference. Give it a name below and it publishes on the next rebuild.</div>` : ''}
     ${i.squareOwnsCopy ? `<div class="banner info"><b>Menu name is set in Square.</b>
-      Whoever edits it in the Square dashboard wins over anything typed here — that's deliberate,
-      so the restaurant can always correct its own menu. Anything you type is the fallback.</div>` : ''}
+      The dashboard wins over anything typed here, so what you write below is the fallback.
+      Change <span class="mono">copyOwner</span> in config to make this editor win.</div>` : ''}
+    ${(!i.squareOwnsCopy && i.squareHasName) ? `<div class="banner info"><b>This one is yours.</b>
+      Square also carries a name for this item, but the studio is the editor — what you type
+      below is what guests read.</div>` : ''}
 
     <fieldset class="locked"><legend>From Square — edit in the Square dashboard</legend>
       ${ro('POS button', `<b>${esc(q.posName)}</b>`)}
@@ -300,7 +364,11 @@ async function save() {
   })).json();
   $('#save').disabled = false;
   dirty = false;
-  $('#savedmsg').innerHTML = `<span class="saved">Saved${r.commit ? ' · ' + r.commit : ''}. Rebuild to publish.</span>`;
+  $('#savedmsg').innerHTML = `<span class="saved">Saved${r.commit ? ' · ' + r.commit : ''} · rebuilding…</span>`;
+  /* Saving to the repo layer changes nothing a guest can see until the model
+     is rebuilt, so do it here rather than making it a second deliberate act. */
+  await rebuild();
+  $('#savedmsg').innerHTML = `<span class="saved">Saved${r.commit ? ' · ' + r.commit : ''} · live</span>`;
 }
 
 async function rebuild() {
@@ -321,22 +389,92 @@ async function rebuild() {
 
 function refreshPreview() {
   const tab = document.querySelector('.tabs button[aria-selected=true]');
+  const view = tab.dataset.p;
+  const slug = currentMenu();
+
   /* With the React site's dev server running, preview the real thing rather
      than Mise's standalone approximation of it. */
-  if (tab.dataset.p === 'guest.html' && S.siteDevUrl) {
+  if (view === 'guest' && S.siteDevUrl) {
     $('#frame').src = S.siteDevUrl + (S.siteDevUrl.includes('?') ? '&' : '?') + 't=' + Date.now();
     return;
   }
-  $('#frame').src = '/preview/' + tab.dataset.p + '?t=' + Date.now();
+
+  /* Service is deliberately not split per menu — a server mid-shift wants one
+     searchable document, not four tabs. Same for the index. */
+  const file = view === 'service' ? 'service.html'
+    : view === 'index' ? 'index.html'
+    : slug === '*' ? `${view}-${(S.menus?.[0] || {}).slug || 'drinks'}.html`
+    : `${view}-${slug}.html`;
+
+  $('#frame').src = '/preview/' + file + '?t=' + Date.now();
 }
 
 document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
   document.querySelectorAll('.tabs button').forEach(o => o.setAttribute('aria-selected', String(o === b)));
   refreshPreview();
 }));
+/* Panel widths. Kept on the element as custom properties so the grid stays
+   declarative, and remembered per browser. */
+const DEFAULTS = { list: 300, preview: 620 };
+const MIN = { list: 200, preview: 320 };
+const cols = $('#cols');
+
+function setWidth(which, px) {
+  const room = cols.getBoundingClientRect().width;
+  const other = which === 'list' ? readWidth('preview') : readWidth('list');
+  const max = Math.max(MIN[which], room - other - 340);
+  cols.style.setProperty(`--w-${which}`, Math.round(Math.max(MIN[which], Math.min(max, px))) + 'px');
+}
+const readWidth = which =>
+  parseFloat(getComputedStyle(cols).getPropertyValue(`--w-${which}`)) || DEFAULTS[which];
+
+function saveWidths() {
+  try {
+    localStorage.setItem('mise.panels',
+      JSON.stringify({ list: readWidth('list'), preview: readWidth('preview') }));
+  } catch (e) {}
+}
+
+function initResizers() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('mise.panels') || '{}');
+    for (const k of ['list', 'preview']) if (saved[k]) setWidth(k, saved[k]);
+  } catch (e) {}
+
+  for (const g of document.querySelectorAll('.gutter')) {
+    const which = g.dataset.g;
+
+    g.addEventListener('pointerdown', e => {
+      e.preventDefault();
+      const startX = e.clientX;
+      const start = readWidth(which);
+      g.classList.add('drag');
+      cols.classList.add('resizing');
+
+      const move = ev => {
+        const dx = ev.clientX - startX;
+        setWidth(which, which === 'list' ? start + dx : start - dx);
+      };
+      const up = () => {
+        g.classList.remove('drag');
+        cols.classList.remove('resizing');
+        document.removeEventListener('pointermove', move);
+        document.removeEventListener('pointerup', up);
+        saveWidths();
+      };
+      document.addEventListener('pointermove', move);
+      document.addEventListener('pointerup', up);
+    });
+
+    g.addEventListener('dblclick', () => { setWidth(which, DEFAULTS[which]); saveWidths(); });
+  }
+}
+
+$('#menuPick').addEventListener('change', () => { renderList(); refreshPreview(); });
 $('#rebuild').addEventListener('click', rebuild);
 window.addEventListener('beforeunload', e => { if (dirty) e.preventDefault(); });
 
+initResizers();
 load().then(refreshPreview);
 </script>
 </body>

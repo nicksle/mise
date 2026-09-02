@@ -26,9 +26,11 @@ export function renderJsonLd(menu, { menuName = 'Menu' } = {}) {
               priceCurrency: pricing.currency,
             },
           };
-          const desc = i.kind === 'pour'
+          /* A written description wins here too. The comma separator stays —
+             this is for machines, not for the page. */
+          const desc = i.description || (i.kind === 'pour'
             ? [i.grape, i.region].filter(Boolean).join(', ')
-            : i.description;
+            : '');
           if (desc) node.description = desc;
           if (i.allergens) node.suitableForDiet = undefined; // left for a real mapping
           return node;

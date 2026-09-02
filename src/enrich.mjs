@@ -17,7 +17,7 @@
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { ROOT } from './config.mjs';
+import { ROOT, publishing } from './config.mjs';
 
 const EDITORIAL = join(ROOT, 'data', 'editorial.json');
 const STUBS = join(ROOT, 'data', 'stubs.json');
@@ -51,14 +51,35 @@ export function joinLayers(item, editorial) {
   const ed = editorial.items[item.id] || {};
   const posName = item.item_data?.name || '';
 
-  const menuName = (attrs.menu_name || ed.menu_name || '').trim();
+  /* Presentation layer precedence. Canonical fields below are untouched by
+     this — Square always wins on price, availability and vintage. */
+  const repoWins = publishing.copyOwner !== 'square';
+  const pickCopy = (fromSquare, fromRepo) => {
+    const sqv = (fromSquare || '').trim();
+    const repov = (fromRepo || '').trim();
+    const value = repoWins ? (repov || sqv) : (sqv || repov);
+    const from = !value ? 'none'
+      : repoWins ? (repov ? 'repo' : 'square')
+      : (sqv ? 'square' : 'repo');
+    return { value, from };
+  };
+
+  const name = pickCopy(attrs.menu_name, ed.menu_name);
+  const desc = pickCopy(attrs.menu_description, ed.description);
+  const allerg = pickCopy(attrs.allergens, ed.allergens);
+  const menuName = name.value;
 
   return {
     id: item.id,
     posName,
     menuName,
-    description: (attrs.menu_description || ed.description || '').trim(),
-    allergens: (attrs.allergens || ed.allergens || '').trim(),
+    description: desc.value,
+    allergens: allerg.value,
+
+    /* Which layer supplied the words, so the studio can say so instead of
+       leaving you typing into a field that loses. */
+    copyFrom: name.from,
+    squareHasName: !!(attrs.menu_name || '').trim(),
 
     // wine fields — vintage lives in Square because it rolls without warning
     vintage: attrs.vintage != null ? Number(attrs.vintage) : (ed.vintage ?? null),

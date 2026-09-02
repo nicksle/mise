@@ -10,7 +10,7 @@
  * Built mobile-first: this gets read on a phone, standing up, in the dark.
  */
 
-import { esc, money, bare, displayName, page } from './shared.mjs';
+import { esc, money, bare, displayName, subtitle, page } from './shared.mjs';
 import { restaurant, publishing } from '../config.mjs';
 
 const CSS = `
@@ -84,9 +84,9 @@ export function renderService(menu, { heading = 'Service reference' } = {}) {
       if (i.importer) tags.push(['', i.importer]);
       if (i.allergens) tags.push(['', i.allergens]);
 
-      const meta = i.kind === 'pour'
-        ? [i.grape, i.region].filter(Boolean).join(' · ')
-        : i.description;
+      /* Same rule as the guest menu: a written description wins over the
+         grape/region line, so what you type reaches every view, not some. */
+      const meta = subtitle(i);
 
       body +=
         `<div class="row${i.needsReview ? ' hold' : ''}${!i.available ? ' out' : ''}">` +

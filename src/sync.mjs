@@ -10,7 +10,7 @@
 
 import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { ROOT, square as sq, curation, pricing, checks, publishing } from './config.mjs';
+import { ROOT, square as sq, curation, pricing, checks, publishing, menus as menuDefs } from './config.mjs';
 import { listCatalog, resolveLocation, inventoryCounts } from './square.mjs';
 import { loadEditorial, joinLayers, reconcileStubs, vintageAgeMonths } from './enrich.mjs';
 
@@ -38,15 +38,18 @@ function curate(items, catById) {
   for (const item of items) {
     const name = item.item_data?.name || '';
     const cats = (item.item_data?.categories || []).map(c => catById.get(c.id)).filter(Boolean);
-    const menuCat = cats.find(isMenuCategory);
+    /* Every menu category it sits in, not just the first — an item can
+       legitimately appear on more than one menu (a wine on the drinks list
+       and on happy hour). Composition depends on knowing all of them. */
+    const menuCats = cats.filter(isMenuCategory);
 
     const denied = curation.denyNamePatterns.find(re => re.test(name));
     if (denied) { dropped.push({ item, why: `name matches ${denied}` }); continue; }
-    if (curation.requireMenuCategory && !menuCat) {
+    if (curation.requireMenuCategory && !menuCats.length) {
       dropped.push({ item, why: 'not in a menu category' });
       continue;
     }
-    kept.push({ item, category: menuCat });
+    kept.push({ item, categories: menuCats });
   }
   return { kept, dropped };
 }
@@ -97,8 +100,8 @@ function validate(model) {
   const problems = [];
   const all = model.sections.flatMap(s => s.items);
 
-  if (checks.failOnMissingSection && !model.sections.length)
-    problems.push('no sections produced — the curation filter matched nothing');
+  if (checks.failOnMissingSection && !model.menus.length)
+    problems.push('no menus produced — the curation filter matched nothing');
 
   for (const s of model.sections) {
     if (checks.failOnEmptySection && !s.items.length)
@@ -147,47 +150,116 @@ export async function sync({ quiet = false } = {}) {
 
   const { kept, dropped } = curate(items, catById);
   const editorial = loadEditorial();
-  const { stubs, fresh } = reconcileStubs(kept.map(k => k.item), editorial);
+  const uniqueItems = [...new Map(kept.map(k => [k.item.id, k.item])).values()];
+  const { stubs, fresh } = reconcileStubs(uniqueItems, editorial);
 
   /* merge stub records into the editorial view so joinLayers sees them */
   for (const [id, s] of Object.entries(stubs)) {
     if (!editorial.items[id]) editorial.items[id] = { menu_name: s.menu_name || '' };
   }
 
-  /* group into sections, ordered by the editorial sequence */
-  const bySection = new Map();
-  for (const { item, category } of kept) {
+  /* Which categories are wine, from the menu definitions. The wine-only
+     rules key off this: a cocktail has no vintage to confirm. */
+  const wineCategories = new Set(
+    menuDefs.flatMap(m => m.sources.filter(s => s.kind === 'wine')
+      .map(s => norm(s.category))));
+
+  /* One entry per (item, category) pair. */
+  const byCategory = new Map();
+  for (const { item, categories } of kept) {
     const joined = joinLayers(item, editorial);
     const shape = priceShape(item, soldOutBy, stockBy);
-    const catName = category?.category_data?.name || 'Menu';
-    const sectionName = editorial.sections[catName]?.name || catName;
-
-    const entry = {
-      ...joined, ...shape,
-      vintageAgeMonths: vintageAgeMonths(joined.vintageConfirmed),
-      staleVintage: (() => {
-        const m = vintageAgeMonths(joined.vintageConfirmed);
-        return m != null && m >= publishing.staleVintageMonths;
-      })(),
-    };
-    if (!bySection.has(sectionName)) bySection.set(sectionName, []);
-    bySection.get(sectionName).push(entry);
+    for (const category of categories) {
+      const catName = category?.category_data?.name || 'Menu';
+      const isWine = wineCategories.has(norm(catName));
+      const months = vintageAgeMonths(joined.vintageConfirmed);
+      const entry = {
+        ...joined, ...shape,
+        category: catName,
+        isWine,
+        vintageAgeMonths: isWine ? months : null,
+        staleVintage: isWine && months != null && months >= publishing.staleVintageMonths,
+      };
+      if (!byCategory.has(catName)) byCategory.set(catName, []);
+      byCategory.get(catName).push(entry);
+    }
   }
 
-  const sections = [...bySection.entries()]
-    .map(([name, list]) => ({
-      name,
-      sortIndex: editorial.sections[name]?.sort_index ?? 999,
-      items: list.sort((a, b) => a.sortIndex - b.sortIndex ||
-        a.menuName.localeCompare(b.menuName)),
-    }))
-    .sort((a, b) => a.sortIndex - b.sortIndex || a.name.localeCompare(b.name));
+  /* Compose each menu from its sources, in the order the config lists them. */
+  const catKeyByNorm = new Map([...byCategory.keys()].map(k => [norm(k), k]));
+  const bySortIndex = (a, b) => a.sortIndex - b.sortIndex || a.name.localeCompare(b.name);
+
+  const buildSection = (catName, src) => ({
+    name: src.as || editorial.sections[catName]?.name || catName,
+    category: catName,
+    kind: src.kind || 'plate',
+    sortIndex: editorial.sections[catName]?.sort_index ?? 999,
+    items: [...byCategory.get(catName)].sort((a, b) =>
+      a.sortIndex - b.sortIndex || a.menuName.localeCompare(b.menuName)),
+  });
+
+  const builtMenus = [];
+  const skippedMenus = [];
+  for (const def of menuDefs) {
+    const matched = def.sources
+      .map(src => ({ src, catName: catKeyByNorm.get(norm(src.category)) }));
+
+    /* A menu with a `required` source and no match for it is a menu this
+       restaurant doesn't run yet — skip it rather than assembling something
+       that looks like a menu and isn't. */
+    const missingRequired = matched.some(x => x.src.required && !x.catName);
+    if (missingRequired) { skippedMenus.push(def.slug); continue; }
+
+    const sections = matched
+      .filter(x => x.catName)
+      .map(x => buildSection(x.catName, x.src))
+      .filter(sec => sec.items.length);
+    if (!sections.length) { skippedMenus.push(def.slug); continue; }
+    builtMenus.push({ slug: def.slug, name: def.name, sections });
+  }
+
+  /* Back-compatible flat view: every section that reached a menu, deduped by
+     category. Renderers that predate composition keep working unchanged. */
+  const seenCat = new Set();
+  const sections = builtMenus
+    .flatMap(m => m.sections)
+    .filter(sec => !seenCat.has(sec.category) && seenCat.add(sec.category))
+    .sort(bySortIndex);
+
+  /* Happy-hour twins: the same drink exists twice in the POS and Square does
+     not know they are related. One live while the other is 86'd is a guest
+     being told something untrue. */
+  const warnings = [];
+  if (checks.warnOnOrphanedTwin) {
+    const entries = builtMenus.flatMap(m => m.sections.flatMap(sec => sec.items));
+    const byId = new Map();
+    for (const e of entries) if (!byId.has(e.id)) byId.set(e.id, e);
+    const seenPair = new Set();
+    for (const e of entries) {
+      const twinId = editorial.items[e.id]?.twin_of;
+      if (!twinId) continue;
+      const twin = byId.get(twinId);
+      /* Compare against the twin's POUR, not the item: 86'ing the glass
+         leaves the cellar bottle available, and a happy-hour glass should
+         die with the pour it duplicates. */
+      const twinLive = twin.kind === 'pour' && twin.glassAvailable != null
+        ? twin.glassAvailable : twin.available;
+      if (!twin || !e.available || twinLive) continue;
+      const pair = [e.id, twinId].sort().join('|');
+      if (seenPair.has(pair)) continue;
+      seenPair.add(pair);
+      warnings.push(`"${e.menuName || e.posName}" is live but its twin ` +
+        `"${twin.menuName || twin.posName}" is 86'd — one of them is wrong`);
+    }
+  }
 
   const model = {
     generatedAt: new Date().toISOString(),
     source: `square:${sq.env}`,
     locationId,
+    menus: builtMenus,
     sections,
+    warnings,
     stats: {
       itemsInCatalog: items.length,
       published: sections.flatMap(s => s.items).filter(i => !i.needsReview).length,
@@ -195,6 +267,8 @@ export async function sync({ quiet = false } = {}) {
       filteredOut: dropped.length,
       soldOut: sections.flatMap(s => s.items).filter(i => !i.available).length,
       staleVintages: sections.flatMap(s => s.items).filter(i => i.staleVintage).length,
+      menusPublished: builtMenus.length,
+      menusSkipped: skippedMenus,
     },
     dropped: dropped.map(d => ({ id: d.item.id, name: d.item.item_data?.name, why: d.why })),
   };
@@ -217,11 +291,16 @@ export async function sync({ quiet = false } = {}) {
 
   const s = model.stats;
   say(`  ${s.itemsInCatalog} items in catalog`);
+  say(`  ${s.menusPublished} menu${s.menusPublished === 1 ? '' : 's'} composed: ` +
+      builtMenus.map(m => `${m.name} (${m.sections.length})`).join(', '));
+  if (s.menusSkipped.length)
+    say(`  skipped, nothing in the catalog for them: ${s.menusSkipped.join(', ')}`);
   say(`  ${s.filteredOut} filtered out (not menu items)`);
   say(`  ${s.published} published to guests`);
   if (s.heldBack)      say(`  ${s.heldBack} held back — awaiting copy${fresh.length ? ` (${fresh.length} new this run)` : ''}`);
   if (s.soldOut)       say(`  ${s.soldOut} currently 86'd`);
   if (s.staleVintages) say(`  ${s.staleVintages} wines with a stale vintage — confirm with the somm`);
+  for (const w of warnings) say(`  ! ${w}`);
   say(`  → out/menu.json\n`);
 
   return model;
