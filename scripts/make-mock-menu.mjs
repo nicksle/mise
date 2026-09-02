@@ -363,10 +363,9 @@ for (const w of WINE) {
       menu_description: [w.grape, w.region].filter(Boolean).join(' · '),
       vintage: w.vintage, vintage_confirmed: w.conf })) });
 
-  if (!w.stub) editorial.items[id] = {
-    producer: w.producer, ...(w.cuvee ? { cuvee: w.cuvee } : {}),
-    grape: w.grape, region: w.region, importer: w.importer,
-    sort_index: w.sort, service_note: w.note };
+  /* The wine facts below are authoring material for the two strings above,
+     not a layer of their own — editorial carries order and service notes. */
+  if (!w.stub) editorial.items[id] = { sort_index: w.sort, service_note: w.note };
 }
 
 for (const d of [...POURS, ...FOOD]) {

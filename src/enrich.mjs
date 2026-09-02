@@ -8,7 +8,7 @@
  * Three layers, joined on catalog_object_id:
  *   1. Square catalog        — price, availability, category      (canonical)
  *   2. Square custom attrs   — menu_name, description, vintage    (seller edits)
- *   3. data/editorial.json   — producer, region, sort order, notes (we edit)
+ *   3. data/editorial.json   — menu copy, sort order, service notes (we edit)
  *
  * When an item appears in the POS that we've never seen, we auto-create a stub
  * so nothing is silently dropped. The stub is visible to staff immediately and
@@ -84,12 +84,6 @@ export function joinLayers(item, editorial) {
     // wine fields — vintage lives in Square because it rolls without warning
     vintage: attrs.vintage != null ? Number(attrs.vintage) : (ed.vintage ?? null),
     vintageConfirmed: attrs.vintage_confirmed || ed.vintage_confirmed || null,
-    producer: ed.producer || '',
-    cuvee: ed.cuvee || '',
-    grape: ed.grape || '',
-    region: ed.region || '',
-    importer: ed.importer || '',
-
     // service-only — never rendered to guests
     serviceNote: ed.service_note || '',
     pairing: ed.pairing || '',

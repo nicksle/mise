@@ -33,7 +33,6 @@ const MENU = join(ROOT, 'out', 'menu.json');
 /* fields the studio owns. Everything else comes from Square and is read-only. */
 const EDITABLE = [
   'menu_name', 'description', 'allergens',
-  'producer', 'cuvee', 'grape', 'region', 'importer',
   'service_note', 'pairing', 'sort_index',
 ];
 
@@ -204,7 +203,7 @@ createServer(async (req, res) => {
     else delete editorial.items[id];
 
     writeFileSync(EDITORIAL, JSON.stringify(editorial, null, 2) + '\n');
-    const sha = commit(`studio: ${patch.menu_name || patch.producer || id}`);
+    const sha = commit(`studio: ${patch.menu_name || id}`);
     return send(res, 200, { ok: true, commit: sha });
   }
 

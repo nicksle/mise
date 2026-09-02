@@ -316,24 +316,13 @@ function select(id, keepScroll) {
     <fieldset><legend>Menu copy — what guests read</legend>
       <div class="grid">
         ${f('menu_name', 'Menu name', wine ? 'Domaine Vacheron' : 'Parasol Benedict', 'input', 'full')}
-        ${f('description', 'Description', wine ? 'left blank for wine — grape and region are built from the fields below' : 'poached eggs, chive hollandaise', 'textarea', 'full')}
+        ${f('description', 'Description', wine ? 'Sauvignon Blanc · Sancerre, France' : 'poached eggs, chive hollandaise', 'textarea', 'full')}
         ${f('allergens', 'Allergens', 'egg, gluten, dairy', 'input', 'full')}
       </div>
-      <p class="hint">A menu name is what publishes this to guests. Without one it stays
-      in the service reference only.</p>
+      <p class="hint">These two strings are the menu. The name is what publishes an item
+      to guests — without one it stays in the service reference only — and the description
+      is the line underneath it. Nothing is assembled for you.</p>
     </fieldset>
-
-    ${wine ? `<fieldset><legend>Wine detail</legend>
-      <div class="grid">
-        ${f('producer', 'Producer', 'Domaine Vacheron')}
-        ${f('cuvee', 'Cuvée', 'Barrel X')}
-        ${f('grape', 'Grape', 'Sauvignon Blanc')}
-        ${f('region', 'Region', 'Sancerre, France')}
-        ${f('importer', 'Importer', 'Kermit Lynch')}
-      </div>
-      <p class="hint">Producer and cuvée become the name on the list. Grape and region
-      become the line underneath.</p>
-    </fieldset>` : ''}
 
     <fieldset><legend>Service only — never shown to guests</legend>
       <div class="grid">

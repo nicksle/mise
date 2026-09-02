@@ -26,12 +26,7 @@ export function renderJsonLd(menu, { menuName = 'Menu' } = {}) {
               priceCurrency: pricing.currency,
             },
           };
-          /* A written description wins here too. The comma separator stays —
-             this is for machines, not for the page. */
-          const desc = i.description || (i.kind === 'pour'
-            ? [i.grape, i.region].filter(Boolean).join(', ')
-            : '');
-          if (desc) node.description = desc;
+          if (i.description) node.description = i.description;
           if (i.allergens) node.suitableForDiet = undefined; // left for a real mapping
           return node;
         });

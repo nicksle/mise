@@ -18,8 +18,7 @@ export const bare  = n => (n == null ? '—' : Number(n).toFixed(0));
  *
  * This used to compose a wine's name from producer + cuvée, which meant the
  * name on the page was derived rather than written — and therefore not
- * editable. Producer, cuvée, grape and region are still carried for the
- * service reference; they just don't decide what a guest reads any more. */
+ * editable. Those fields are gone entirely: the menu is two strings. */
 export const displayName = i => i.menuName || '';
 
 export const vintageLabel = i =>

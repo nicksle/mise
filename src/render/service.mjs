@@ -81,7 +81,6 @@ export function renderService(menu, { heading = 'Service reference' } = {}) {
         tags.push([i.staleVintage ? 'warn' : 'ok', `vintage confirmed ${i.vintageAgeMonths}mo ago`]);
       if (i.kind === 'pour' && i.vintageAgeMonths == null && !i.needsReview)
         tags.push(['warn', 'vintage never confirmed']);
-      if (i.importer) tags.push(['', i.importer]);
       if (i.allergens) tags.push(['', i.allergens]);
 
       /* Same rule as the guest menu: a written description wins over the
