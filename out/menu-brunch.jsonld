@@ -41,7 +41,7 @@
           },
           {
             "@type": "MenuItem",
-            "name": "more food",
+            "name": "The good bread, cultured butter",
             "offers": {
               "@type": "Offer",
               "price": "7.00",

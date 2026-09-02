@@ -219,14 +219,11 @@
     },
     "MOCK_YOGHURT": {
       "sort_index": 1,
-      "service_note": "Contains sesame and honey. Not vegan.",
-      "description": "Sheep’s milk, honey, toasted sesame"
+      "service_note": "Contains sesame and honey. Not vegan."
     },
     "MOCK_BREAD": {
       "sort_index": 2,
-      "service_note": "Baked next door. Genuinely runs out — do not promise it after 1pm.",
-      "menu_name": "more food",
-      "description": "While it lasts"
+      "service_note": "Baked next door. Genuinely runs out — do not promise it after 1pm."
     },
     "MOCK_EGGSPAN": {
       "sort_index": 3,

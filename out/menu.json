@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T20:59:37.300Z",
+  "generatedAt": "2026-09-02T20:59:51.492Z",
   "source": "square:mock",
   "locationId": "LMOCKPARASOL",
   "menus": [
@@ -282,7 +282,7 @@
               "staleVintage": false
             },
             {
-              "id": "MOCK_NEW_5FT0M8",
+              "id": "MOCK_NEW_SDPA22",
               "posName": "RIES KABINETT",
               "menuName": "",
               "description": "",
@@ -1195,10 +1195,10 @@
             {
               "id": "MOCK_BREAD",
               "posName": "BREAD BUTTER",
-              "menuName": "more food",
+              "menuName": "The good bread, cultured butter",
               "description": "While it lasts",
               "allergens": "",
-              "copyFrom": "repo",
+              "copyFrom": "square",
               "squareHasName": true,
               "vintage": null,
               "vintageConfirmed": null,
@@ -2085,7 +2085,7 @@
           "staleVintage": false
         },
         {
-          "id": "MOCK_NEW_5FT0M8",
+          "id": "MOCK_NEW_SDPA22",
           "posName": "RIES KABINETT",
           "menuName": "",
           "description": "",
@@ -2992,10 +2992,10 @@
         {
           "id": "MOCK_BREAD",
           "posName": "BREAD BUTTER",
-          "menuName": "more food",
+          "menuName": "The good bread, cultured butter",
           "description": "While it lasts",
           "allergens": "",
-          "copyFrom": "repo",
+          "copyFrom": "square",
           "squareHasName": true,
           "vintage": null,
           "vintageConfirmed": null,
