@@ -225,7 +225,9 @@
     },
     "MOCK_BREAD": {
       "sort_index": 2,
-      "service_note": "Baked next door. Genuinely runs out — do not promise it after 1pm."
+      "service_note": "Baked next door. Genuinely runs out — do not promise it after 1pm.",
+      "menu_name": "more food",
+      "description": "While it lasts"
     },
     "MOCK_EGGSPAN": {
       "sort_index": 3,
