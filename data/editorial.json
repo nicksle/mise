@@ -26,7 +26,8 @@
     },
     "Mocktails": {
       "sort_index": 6,
-      "name": "Sober curious"
+      "name": "Sober curious",
+      "group": "Bar"
     },
     "Beer & Cider": {
       "sort_index": 7
