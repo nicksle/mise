@@ -135,7 +135,9 @@
     },
     "MOCK_SPRITZ": {
       "sort_index": 0,
-      "service_note": "Build in the glass, no shake. House aperitif — offer it first."
+      "service_note": "Build in the glass, no shake. House aperitif — offer it first.",
+      "menu_name": "Small Little Horse",
+      "description": "Aperol, cava, blood orange, soda"
     },
     "MOCK_PALOMA": {
       "sort_index": 1,
