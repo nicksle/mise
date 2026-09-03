@@ -289,7 +289,9 @@
     },
     "MOCK_HHOYST": {
       "sort_index": 0,
-      "service_note": "Counter only. Cut off at six sharp, the kitchen counts them."
+      "service_note": "Counter only. Cut off at six sharp, the kitchen counts them.",
+      "menu_name": "Big Fat Dong",
+      "description": "Half price until six, each"
     },
     "MOCK_HHANCH": {
       "sort_index": 1,
