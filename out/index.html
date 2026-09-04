@@ -19,6 +19,19 @@
   h2 { font-family:Archivo,sans-serif; font-size:.64rem; letter-spacing:.22em; text-transform:uppercase;
        font-weight:600; color:var(--ink2); margin:0 0 15px; padding-bottom:8px;
        border-bottom:1px solid var(--rule); text-indent:.22em; }
+  /* A group heading sits ABOVE its sections, so it has to outrank them rather
+     than look like one more of them: display face, larger, no rule. The
+     sections beneath it indent so the hierarchy reads without a box. */
+  h2.group { font-family:var(--display,Georgia),serif; font-size:1.5rem; letter-spacing:0;
+       text-transform:none; font-weight:400; color:var(--ink); text-indent:0;
+       border-bottom:0; margin:40px 0 18px; padding-bottom:0; }
+  h2.group:first-child { margin-top:0; }
+  section.in-group { margin-left:18px; }
+  @media (max-width:560px) { section.in-group { margin-left:10px; } }
+
+  section > .note { font-family:Archivo,sans-serif; font-size:.72rem; color:var(--ink2);
+       margin:-9px 0 14px; letter-spacing:.01em; }
+
   .cols { display:flex; justify-content:flex-end; gap:22px; margin:-9px 0 13px;
           font-family:Archivo,sans-serif; font-size:.56rem; letter-spacing:.16em;
           text-transform:uppercase; color:var(--ink2); }
@@ -42,6 +55,6 @@
 </style>
 </head>
 <body>
-<div class="sheet"><div class="brand"><p class="wm">Parasol</p><p class="sub">4 menus, composed from the catalog</p></div><section><h2>Menus</h2><div class="row"><div class="line"><span class="nm"><a href="guest-drinks.html">Drinks</a></span><span class="dots"></span><span class="pz">43</span></div><div class="dd">Sparkling · White · Rosé · Chilled Red · Red · Cocktails · Sober curious · Beer &amp; Cider · After &middot; <a href="print-drinks.html">print draft</a></div></div><div class="row"><div class="line"><span class="nm"><a href="guest-brunch.html">Brunch</a></span><span class="dots"></span><span class="pz">11</span></div><div class="dd">Brunch · Sweet · Coffee &middot; <a href="print-brunch.html">print draft</a></div></div><div class="row"><div class="line"><span class="nm"><a href="guest-happy-hour.html">Happy Hour</a></span><span class="dots"></span><span class="pz">6</span></div><div class="dd">Happy Hour &middot; <a href="print-happy-hour.html">print draft</a></div></div><div class="row"><div class="line"><span class="nm"><a href="guest-dinner.html">Dinner</a></span><span class="dots"></span><span class="pz">9</span></div><div class="dd">Plates · Sides · Sweet &middot; <a href="print-dinner.html">print draft</a></div></div></section><div class="foot">built 2026-09-02 · 3f6edb1 &middot; <a href="service.html">service reference</a> covers all menus</div></div>
+<div class="sheet"><div class="brand"><p class="wm">Parasol</p><p class="sub">4 menus, composed from the catalog</p></div><section><h2>Menus</h2><div class="row"><div class="line"><span class="nm"><a href="guest-drinks.html">Drinks</a></span><span class="dots"></span><span class="pz">42</span></div><div class="dd">Sparkling · White · Rosé · Chilled Red · Red · Cocktails · Sober curious · Beer &amp; Cider · After &middot; <a href="print-drinks.html">print draft</a> &middot; <a href="service-drinks.html">service</a></div></div><div class="row"><div class="line"><span class="nm"><a href="guest-brunch.html">Daytime</a></span><span class="dots"></span><span class="pz">18</span></div><div class="dd">Baked · Appetizers · Greens · Sandwiches &middot; <a href="print-brunch.html">print draft</a> &middot; <a href="service-brunch.html">service</a></div></div><div class="row"><div class="line"><span class="nm"><a href="guest-happy-hour.html">Happy Hour</a></span><span class="dots"></span><span class="pz">6</span></div><div class="dd">Happy Hour &middot; <a href="print-happy-hour.html">print draft</a> &middot; <a href="service-happy-hour.html">service</a></div></div><div class="row"><div class="line"><span class="nm"><a href="guest-dinner.html">Dinner</a></span><span class="dots"></span><span class="pz">9</span></div><div class="dd">Plates · Sides · Sweet &middot; <a href="print-dinner.html">print draft</a> &middot; <a href="service-dinner.html">service</a></div></div></section><div class="foot">built 2026-09-04 · 6320782 &middot; <a href="service.html">service reference</a> covers all menus at once</div></div>
 </body>
 </html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parasol — Daytime — service</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root { --paper:#FAFAF7; --card:#fff; --ink:#191A18; --ink2:#55584F; --ink3:#8A8E84;
+          --rule:#DEE0D8; --accent:#2E4E6B; --warn:#8A6321; --warnbg:#F6EDDC;
+          --flag:#A83A26; --flagbg:#F7E9E4; --ok:#2F6A4F; --okbg:#E4F0E9; }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper:#101210; --card:#181B18; --ink:#E9EBE5; --ink2:#AAB0A6; --ink3:#787E76;
+            --rule:#2E332E; --accent:#86AECE; --warn:#D6A94F; --warnbg:#29220F;
+            --flag:#E08066; --flagbg:#2C1B15; --ok:#7FBF9C; --okbg:#16261E; }
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink);
+         font-family:Archivo,system-ui,sans-serif; font-size:15px; line-height:1.5; }
+  .wrap { max-width:720px; margin:0 auto; padding:0 0 60px; }
+  header { padding:26px 18px 18px; border-bottom:2px solid var(--ink); }
+  h1 { margin:0 0 4px; font-size:1.3rem; letter-spacing:-.02em; }
+  header p { margin:0; color:var(--ink2); font-size:.85rem; }
+  .kpis { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+  .kpi { font-family:"JetBrains Mono",monospace; font-size:.66rem; letter-spacing:.05em;
+         padding:4px 9px; border-radius:2px; background:var(--card); border:1px solid var(--rule); color:var(--ink2); }
+  .kpi.warn { background:var(--warnbg); color:var(--warn); border-color:transparent; }
+  .kpi.flag { background:var(--flagbg); color:var(--flag); border-color:transparent; }
+  h2 { position:sticky; top:0; margin:0; padding:11px 18px 8px; background:var(--paper);
+       font-family:"JetBrains Mono",monospace; font-size:.62rem; letter-spacing:.14em;
+       text-transform:uppercase; color:var(--ink3); border-bottom:1px solid var(--rule); z-index:1; }
+  h2.group { position:static; font-family:Georgia,serif; font-size:1.05rem; letter-spacing:0;
+       text-transform:none; color:var(--ink); background:var(--card2);
+       padding:14px 18px 10px; border-bottom:0; }
+  h2.in-group { padding-left:30px; }
+  .row { padding:13px 18px; border-bottom:1px solid var(--rule); background:var(--card); }
+  .row.hold { background:var(--warnbg); }
+  .row.out { opacity:.62; }
+  .top { display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; }
+  .nm { font-size:1rem; font-weight:600; letter-spacing:-.005em; }
+  .row.out .nm { text-decoration:line-through; }
+  .btn { font-family:"JetBrains Mono",monospace; font-size:.65rem; color:var(--ink3);
+         background:var(--paper); border:1px solid var(--rule); padding:1px 6px; border-radius:2px; }
+  .pz { margin-left:auto; font-family:"JetBrains Mono",monospace; font-size:.83rem;
+        font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink2); }
+  .meta { font-size:.85rem; color:var(--ink2); margin-top:3px; }
+  .note { font-size:.87rem; margin-top:7px; }
+  .note b { display:block; font-family:"JetBrains Mono",monospace; font-size:.58rem;
+            letter-spacing:.1em; text-transform:uppercase; color:var(--ink3); font-weight:500; margin-bottom:1px; }
+  .tags { display:flex; flex-wrap:wrap; gap:5px; margin-top:8px; }
+  .t { font-family:"JetBrains Mono",monospace; font-size:.6rem; letter-spacing:.05em;
+       padding:2px 7px; border-radius:2px; background:var(--paper); border:1px solid var(--rule); color:var(--ink2); }
+  .t.warn { background:var(--warnbg); color:var(--warn); border-color:transparent; }
+  .t.flag { background:var(--flagbg); color:var(--flag); border-color:transparent; }
+  .t.ok   { background:var(--okbg); color:var(--ok); border-color:transparent; }
+  .hold-note { font-family:"JetBrains Mono",monospace; font-size:.66rem; color:var(--warn); margin-top:8px; line-height:1.5; }
+  footer { padding:20px 18px; color:var(--ink3); font-size:.78rem; }
+</style>
+</head>
+<body>
+<div class="wrap"><header><h1>Daytime — service</h1><p>Internal. Not for guests.</p><div class="kpis"><span class="kpi ">18 on the menu</span></div></header><h2>Baked</h2><div class="row"><div class="top"><span class="nm">Cheese Borek</span><span class="btn">CHEESE BOREK</span><span class="pz">$4</span></div><div class="meta">Armenian style savory pastry</div></div><div class="row"><div class="top"><span class="nm">Croissant</span><span class="btn">CROISSANT</span><span class="pz">$5</span></div></div><div class="row"><div class="top"><span class="nm">Almond Croissant</span><span class="btn">ALM CROISSANT</span><span class="pz">$6</span></div></div><div class="row"><div class="top"><span class="nm">Ham and Cheese Croissant</span><span class="btn">HAM CH CROIS</span><span class="pz">$6</span></div></div><div class="row"><div class="top"><span class="nm">Apricot Danish</span><span class="btn">APRICOT DANISH</span><span class="pz">$6</span></div><div class="meta">Pistachio, cream cheese</div></div><div class="row"><div class="top"><span class="nm">Bacon and Goat Cheese Savory Danish</span><span class="btn">BACON GC DANISH</span><span class="pz">$8</span></div><div class="meta">Tomato jam</div></div><h2>Appetizers</h2><div class="row"><div class="top"><span class="nm">Olive Medley</span><span class="btn">OLIVE MEDLEY</span><span class="pz">$7</span></div><div class="meta">Mediterranean blend</div></div><div class="row"><div class="top"><span class="nm">Stuffed Dates</span><span class="btn">STUFFED DATES</span><span class="pz">$7</span></div><div class="meta">Goat cheese, pistachio, honey</div></div><div class="row"><div class="top"><span class="nm">Crispy Halloumi</span><span class="btn">CRISPY HALLOUMI</span><span class="pz">$13</span></div><div class="meta">Wildflower honey, aleppo chili, truffle oil, lemon zest</div></div><div class="row"><div class="top"><span class="nm">French Fries</span><span class="btn">FRENCH FRIES</span><span class="pz">$9</span></div><div class="meta">Parasol seasoning, garlic toum, herby dip</div></div><div class="row"><div class="top"><span class="nm">Burrata</span><span class="btn">BURRATA</span><span class="pz">$17</span></div><div class="meta">Seasonal fruit, basil, pistachio, extra virgin olive oil</div></div><div class="row"><div class="top"><span class="nm">Rainbow Carrots</span><span class="btn">RNBW CARROTS</span><span class="pz">$15</span></div><div class="meta">Walnut piperade, balsamic drizzle</div></div><div class="row"><div class="top"><span class="nm">Brussels Sprouts</span><span class="btn">BRUSSELS</span><span class="pz">$16</span></div><div class="meta">Tahina, pomegranate molasses, garlic</div></div><h2>Greens</h2><div class="row"><div class="top"><span class="nm">Parasol Caesar</span><span class="btn">PARASOL CAESAR</span><span class="pz">$16</span></div><div class="meta">Little gem, white anchovy, fried capers, sourdough croutons</div></div><div class="row"><div class="top"><span class="nm">Spring Salad</span><span class="btn">SPRING SALAD</span><span class="pz">$12</span></div><div class="meta">Shaved veg, arugula, lemon, EVOO</div></div><h2>Sandwiches</h2><div class="row"><div class="top"><span class="nm">BLT</span><span class="btn">BLT</span><span class="pz">$16</span></div><div class="meta">Peppered bacon, aioli, little gem, tomato, with fries</div></div><div class="row"><div class="top"><span class="nm">Chicken Sandwich</span><span class="btn">CHICKEN SANDO</span><span class="pz">$17</span></div><div class="meta">Brioche bun, lettuce, tomato, dijon aioli, with salad</div></div><div class="row"><div class="top"><span class="nm">Burger</span><span class="btn">BURGER</span><span class="pz">$18</span></div><div class="meta">Gruyère, tomato jam, aioli, with fries, 5oz beef patty</div></div><footer>Generated 2026-09-04T08:05:29.685Z from square:mock. Stale vintage = unconfirmed for 8+ months.</footer></div>
+</body>
+</html>

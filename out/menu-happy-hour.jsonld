@@ -21,23 +21,23 @@
         "hasMenuItem": [
           {
             "@type": "MenuItem",
-            "name": "Oysters",
-            "offers": {
-              "@type": "Offer",
-              "price": "2.00",
-              "priceCurrency": "USD"
-            },
-            "description": "Half price until six, each"
-          },
-          {
-            "@type": "MenuItem",
-            "name": "Parasol Spritz",
+            "name": "Halloumi",
             "offers": {
               "@type": "Offer",
               "price": "15.00",
               "priceCurrency": "USD"
             },
             "description": "Aperol, cava, blood orange, soda"
+          },
+          {
+            "@type": "MenuItem",
+            "name": "Olive Medley",
+            "offers": {
+              "@type": "Offer",
+              "price": "2.00",
+              "priceCurrency": "USD"
+            },
+            "description": "Half price until six, each"
           },
           {
             "@type": "MenuItem",
