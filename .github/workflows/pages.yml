@@ -1,0 +1,45 @@
+name: Publish out/ to GitHub Pages
+
+# Mise's renderers write plain HTML into out/, and out/ is committed — so
+# there is nothing to build here. This just serves the folder.
+#
+# BEFORE POINTING THIS AT A REAL SQUARE CATALOG, READ THIS:
+# out/service*.html is the internal reference. It carries service notes,
+# held-back stubs and staff-facing prep detail, and it says "Internal. Not for
+# guests." at the top. On a public Pages site it is one URL away from anyone.
+# That is fine today because the catalog is scripts/mock-catalog.json — every
+# dish, price and note in it is invented. It stops being fine the moment
+# SQUARE_TOKEN is set and a real sync runs.
+#
+# When that day comes, either make the repo private (Pages on a private repo
+# needs a paid plan) or add an exclusion step here that deletes out/service*
+# before upload.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+      - id: deployment
+        uses: actions/deploy-pages@v4
