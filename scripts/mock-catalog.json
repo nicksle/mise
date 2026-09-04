@@ -4023,6 +4023,905 @@
           }
         ]
       }
+    },
+    {
+      "type": "CATEGORY",
+      "id": "MOCK_CAT_20",
+      "category_data": {
+        "name": "Baked",
+        "category_type": "MENU_CATEGORY"
+      }
+    },
+    {
+      "type": "CATEGORY",
+      "id": "MOCK_CAT_21",
+      "category_data": {
+        "name": "Appetizers",
+        "category_type": "MENU_CATEGORY"
+      }
+    },
+    {
+      "type": "CATEGORY",
+      "id": "MOCK_CAT_22",
+      "category_data": {
+        "name": "Greens",
+        "category_type": "MENU_CATEGORY"
+      }
+    },
+    {
+      "type": "CATEGORY",
+      "id": "MOCK_CAT_23",
+      "category_data": {
+        "name": "Sandwiches",
+        "category_type": "MENU_CATEGORY"
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_BOREK",
+      "item_data": {
+        "name": "CHEESE BOREK",
+        "kitchen_name": "CHEESE BOREK",
+        "categories": [
+          {
+            "id": "MOCK_CAT_20"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_BOREK_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_BOREK",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 400,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Cheese Borek"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Armenian style savory pastry"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_CROIS",
+      "item_data": {
+        "name": "CROISSANT",
+        "kitchen_name": "CROISSANT",
+        "categories": [
+          {
+            "id": "MOCK_CAT_20"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_CROIS_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_CROIS",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 500,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Croissant"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_ALMCROIS",
+      "item_data": {
+        "name": "ALM CROISSANT",
+        "kitchen_name": "ALM CROISSANT",
+        "categories": [
+          {
+            "id": "MOCK_CAT_20"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_ALMCROIS_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_ALMCROIS",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 550,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Almond Croissant"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_HAMCROIS",
+      "item_data": {
+        "name": "HAM CH CROIS",
+        "kitchen_name": "HAM CH CROIS",
+        "categories": [
+          {
+            "id": "MOCK_CAT_20"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_HAMCROIS_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_HAMCROIS",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 600,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Ham and Cheese Croissant"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_APRDAN",
+      "item_data": {
+        "name": "APRICOT DANISH",
+        "kitchen_name": "APRICOT DANISH",
+        "categories": [
+          {
+            "id": "MOCK_CAT_20"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_APRDAN_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_APRDAN",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 600,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Apricot Danish"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Pistachio, cream cheese"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_BGCDAN",
+      "item_data": {
+        "name": "BACON GC DANISH",
+        "kitchen_name": "BACON GC DANISH",
+        "categories": [
+          {
+            "id": "MOCK_CAT_20"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_BGCDAN_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_BGCDAN",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 750,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Bacon and Goat Cheese Savory Danish"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Tomato jam"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_OLIVES",
+      "item_data": {
+        "name": "OLIVE MEDLEY",
+        "kitchen_name": "OLIVE MEDLEY",
+        "categories": [
+          {
+            "id": "MOCK_CAT_21"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_OLIVES_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_OLIVES",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 700,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Olive Medley"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Mediterranean blend"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_DATES",
+      "item_data": {
+        "name": "STUFFED DATES",
+        "kitchen_name": "STUFFED DATES",
+        "categories": [
+          {
+            "id": "MOCK_CAT_21"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_DATES_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_DATES",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 700,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Stuffed Dates"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Goat cheese, pistachio, honey"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_HALLOUMI",
+      "item_data": {
+        "name": "CRISPY HALLOUMI",
+        "kitchen_name": "CRISPY HALLOUMI",
+        "categories": [
+          {
+            "id": "MOCK_CAT_21"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_HALLOUMI_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_HALLOUMI",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1300,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Crispy Halloumi"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Wildflower honey, aleppo chili, truffle oil, lemon zest"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_FRIES",
+      "item_data": {
+        "name": "FRENCH FRIES",
+        "kitchen_name": "FRENCH FRIES",
+        "categories": [
+          {
+            "id": "MOCK_CAT_21"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_FRIES_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_FRIES",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 900,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "French Fries"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Parasol seasoning, garlic toum, herby dip"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_BURRATA",
+      "item_data": {
+        "name": "BURRATA",
+        "kitchen_name": "BURRATA",
+        "categories": [
+          {
+            "id": "MOCK_CAT_21"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_BURRATA_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_BURRATA",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1700,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Burrata"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Seasonal fruit, basil, pistachio, extra virgin olive oil"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_CARROTS",
+      "item_data": {
+        "name": "RNBW CARROTS",
+        "kitchen_name": "RNBW CARROTS",
+        "categories": [
+          {
+            "id": "MOCK_CAT_21"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_CARROTS_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_CARROTS",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1500,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Rainbow Carrots"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Walnut piperade, balsamic drizzle"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_SPROUTS",
+      "item_data": {
+        "name": "BRUSSELS",
+        "kitchen_name": "BRUSSELS",
+        "categories": [
+          {
+            "id": "MOCK_CAT_21"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_SPROUTS_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_SPROUTS",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1600,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Brussels Sprouts"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Tahina, pomegranate molasses, garlic"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_CAESAR",
+      "item_data": {
+        "name": "PARASOL CAESAR",
+        "kitchen_name": "PARASOL CAESAR",
+        "categories": [
+          {
+            "id": "MOCK_CAT_22"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_CAESAR_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_CAESAR",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1600,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Parasol Caesar"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Little gem, white anchovy, fried capers, sourdough croutons"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_SPRINGSAL",
+      "item_data": {
+        "name": "SPRING SALAD",
+        "kitchen_name": "SPRING SALAD",
+        "categories": [
+          {
+            "id": "MOCK_CAT_22"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_SPRINGSAL_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_SPRINGSAL",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1200,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Spring Salad"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Shaved veg, arugula, lemon, EVOO"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_BLT",
+      "item_data": {
+        "name": "BLT",
+        "kitchen_name": "BLT",
+        "categories": [
+          {
+            "id": "MOCK_CAT_23"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_BLT_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_BLT",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1600,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "BLT"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Peppered bacon, aioli, little gem, tomato, with fries"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_CHIXSAND",
+      "item_data": {
+        "name": "CHICKEN SANDO",
+        "kitchen_name": "CHICKEN SANDO",
+        "categories": [
+          {
+            "id": "MOCK_CAT_23"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_CHIXSAND_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_CHIXSAND",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1700,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Chicken Sandwich"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Brioche bun, lettuce, tomato, dijon aioli, with salad"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_BURGER",
+      "item_data": {
+        "name": "BURGER",
+        "kitchen_name": "BURGER",
+        "categories": [
+          {
+            "id": "MOCK_CAT_23"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_BURGER_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_BURGER",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1800,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Burger"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Gruyère, tomato jam, aioli, with fries, 5oz beef patty"
+        }
+      }
+    },
+    {
+      "type": "ITEM",
+      "id": "MOCK_CARDBP",
+      "item_data": {
+        "name": "CARD BREAD PUD",
+        "kitchen_name": "CARD BREAD PUD",
+        "categories": [
+          {
+            "id": "MOCK_CAT_24"
+          }
+        ],
+        "variations": [
+          {
+            "type": "ITEM_VARIATION",
+            "id": "MOCK_CARDBP_REGULAR",
+            "item_variation_data": {
+              "item_id": "MOCK_CARDBP",
+              "name": "Regular",
+              "pricing_type": "FIXED_PRICING",
+              "price_money": {
+                "amount": 1200,
+                "currency": "USD"
+              },
+              "location_overrides": [
+                {
+                  "location_id": "LMOCKPARASOL",
+                  "sold_out": false
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "custom_attribute_values": {
+        "menu_name": {
+          "key": "menu_name",
+          "custom_attribute_definition_id": "DEF_menu_name",
+          "string_value": "Cardamom Croissant Bread Pudding"
+        },
+        "menu_description": {
+          "key": "menu_description",
+          "custom_attribute_definition_id": "DEF_menu_description",
+          "string_value": "Almond, date caramel"
+        }
+      }
+    },
+    {
+      "type": "CATEGORY",
+      "id": "MOCK_CAT_24",
+      "category_data": {
+        "name": "Sweets",
+        "category_type": "MENU_CATEGORY"
+      }
     }
   ],
   "counts": {

@@ -14,11 +14,24 @@ export function renderGuest(menu, { heading = 'Menu', sub = '' } = {}) {
   let body = '';
   let first = true;
 
+  /* A group heading is emitted when the group CHANGES, not per section, so
+     "Wine" appears once above Sparkling / White / Red rather than over each.
+     sync.mjs guarantees a group's sections are contiguous, which is what
+     makes that safe. */
+  let group = null;
+
   for (const section of menu.sections) {
     const items = guestItems(section);
     if (!items.length) continue;
 
-    body += `<section><h2>${esc(section.name)}</h2>`;
+    if ((section.group || null) !== group) {
+      group = section.group || null;
+      if (group) body += `<h2 class="group">${esc(group)}</h2>`;
+    }
+
+    body += `<section${section.group ? ' class="in-group"' : ''}>` +
+            `<h2>${esc(section.name)}</h2>` +
+            (section.note ? `<p class="note">${esc(section.note)}</p>` : '');
     const pours = items.some(i => i.kind === 'pour');
     if (pours && first) body += `<div class="cols"><span>Glass</span><span>Bottle</span></div>`;
     if (pours) first = false;

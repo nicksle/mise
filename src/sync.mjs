@@ -189,8 +189,38 @@ export async function sync({ quiet = false } = {}) {
   const catKeyByNorm = new Map([...byCategory.keys()].map(k => [norm(k), k]));
   const bySortIndex = (a, b) => a.sortIndex - b.sortIndex || a.name.localeCompare(b.name);
 
+  /* Keep a group's members together, anchored at whichever of them comes
+     first. An ungrouped section is its own anchor, which is what lets grouped
+     and ungrouped sections interleave on one menu without a special case —
+     and what pulls a section OUT of the middle of a group the moment you
+     clear its group, instead of splitting the heading in two.
+
+     Used for both the per-menu sections and the flat back-compat list, so the
+     studio's list and the rendered menu can never disagree about the order. */
+  const groupContiguous = (list) => {
+    const anchor = new Map();
+    list.forEach((sec, i) => {
+      const key = sec.group || `\u0000${sec.category}`;
+      if (!anchor.has(key)) anchor.set(key, i);
+    });
+    return list
+      .map((sec, i) => ({ sec, i, key: sec.group || `\u0000${sec.category}` }))
+      .sort((a, b) => (anchor.get(a.key) - anchor.get(b.key)) || (a.i - b.i))
+      .map(({ sec }) => sec);
+  };
+
   const buildSection = (catName, src) => ({
-    name: src.as || editorial.sections[catName]?.name || catName,
+    name: editorial.sections[catName]?.name || catName,
+    /* Optional heading ABOVE the section — "Wine" over Sparkling / White /
+       Red. Rare, so it stays a plain string rather than a first-class object:
+       renderers that ignore it keep working, and a group with one member is
+       indistinguishable from no group at all. */
+    group: editorial.sections[catName]?.group || null,
+    /* A line under the section heading. Exists because add-ons are MODIFIERS
+       in Square, not menu items — they print on the menu but must never be
+       curated in as dishes. Editorial, because the catalog has no field that
+       means "say this under the sandwiches". */
+    note: editorial.sections[catName]?.note || null,
     category: catName,
     kind: src.kind || 'plate',
     sortIndex: editorial.sections[catName]?.sort_index ?? 999,
@@ -210,10 +240,23 @@ export async function sync({ quiet = false } = {}) {
     const missingRequired = matched.some(x => x.src.required && !x.catName);
     if (missingRequired) { skippedMenus.push(def.slug); continue; }
 
-    const sections = matched
+    /* Section order within a menu is editorial, not structural: it is the
+       same class of judgement as which wine pours before which. An explicit
+       sort_index in editorial.json wins; the order the config lists the
+       sources is the fallback, which keeps a newly added source where you
+       put it instead of sending every unnumbered 999 to the bottom in
+       alphabetical order.
+
+       One sort_index per category, so a category on two menus (Sweet is on
+       both Brunch and Dinner) takes one position on each. If that ever needs
+       to differ per menu, the number moves onto the source. */
+    const ordered = matched
       .filter(x => x.catName)
-      .map(x => buildSection(x.catName, x.src))
-      .filter(sec => sec.items.length);
+      .map((x, pos) => ({ pos, sec: buildSection(x.catName, x.src) }))
+      .filter(({ sec }) => sec.items.length)
+      .sort((a, b) => (a.sec.sortIndex - b.sec.sortIndex) || (a.pos - b.pos));
+
+    const sections = groupContiguous(ordered.map(e => e.sec));
     if (!sections.length) { skippedMenus.push(def.slug); continue; }
     builtMenus.push({ slug: def.slug, name: def.name, sections });
   }
@@ -221,10 +264,11 @@ export async function sync({ quiet = false } = {}) {
   /* Back-compatible flat view: every section that reached a menu, deduped by
      category. Renderers that predate composition keep working unchanged. */
   const seenCat = new Set();
-  const sections = builtMenus
-    .flatMap(m => m.sections)
-    .filter(sec => !seenCat.has(sec.category) && seenCat.add(sec.category))
-    .sort(bySortIndex);
+  const sections = groupContiguous(
+    builtMenus
+      .flatMap(m => m.sections)
+      .filter(sec => !seenCat.has(sec.category) && seenCat.add(sec.category))
+      .sort(bySortIndex));
 
   /* Happy-hour twins: the same drink exists twice in the POS and Square does
      not know they are related. One live while the other is 86'd is a guest

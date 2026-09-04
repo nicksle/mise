@@ -70,6 +70,7 @@ export const curation = {
     'wine btg', 'wine bottle',
     // food
     'plates', 'sweet', 'sides', 'coffee', 'brunch', 'dinner', 'happy hour',
+    'baked', 'appetizers', 'greens', 'sandwiches', 'sweets',
   ],
 
   /* Belt and braces: never publish an item whose POS name matches these,
@@ -90,7 +91,10 @@ export const curation = {
 /* of sources, each rendered as a section.                              */
 /*                                                                      */
 /*   category  the Square category name, matched case-insensitively     */
-/*   as        guest-facing section label, when it differs from the POS */
+/*             The guest-facing label, when it differs from the POS,    */
+/*             now lives in data/editorial.json — one home, and the     */
+/*             studio can edit it. It used to be duplicated here, which */
+/*             gave this file a silent veto over the editor.            */
 /*   kind      'wine' opts the section into the wine-only rules         */
 /*             (vintage confirmation, by-the-glass derivation)          */
 /*                                                                      */
@@ -109,19 +113,29 @@ export const menus = [
       { category: 'Red',              kind: 'wine' },
       { category: 'Cocktails' },
       /* POS says Mocktails because that is what a server can find at speed;
-         guests get the label the room actually uses. */
-      { category: 'Mocktails',        as: 'Sober curious' },
+         guests get the label the room actually uses. That rename lives in
+         editorial.json: Mocktails -> "Sober curious", Amaro -> "After". */
+      { category: 'Mocktails' },
       { category: 'Beer & Cider' },
-      { category: 'Amaro & Digestif', as: 'After' },
+      { category: 'Amaro & Digestif' },
     ],
   },
   {
+    /* The printed menu calls this the DAYTIME MENU, Wed–Sun 9:00–3:00 — it is
+       the service Parasol actually runs right now, and it is not a brunch
+       menu. The slug stays `brunch` so existing links and the site's route
+       keep working; the label is what changed. */
     slug: 'brunch',
-    name: 'Brunch',
+    name: 'Daytime',
     sources: [
-      { category: 'Brunch', required: true },
-      { category: 'Sweet' },
-      { category: 'Coffee' },
+      { category: 'Baked', required: true },
+      { category: 'Appetizers' },
+      { category: 'Greens' },
+      { category: 'Sandwiches' },
+      /* Sweets is off the daytime menu. The category and the bread pudding
+         stay in the catalog — nothing sources them, so nothing publishes.
+         Putting it back is this line, uncommented.
+      { category: 'Sweets' }, */
     ],
   },
   {

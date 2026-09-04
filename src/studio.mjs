@@ -36,6 +36,12 @@ const EDITABLE = [
   'service_note', 'pairing', 'sort_index',
 ];
 
+/* Sections are keyed by their SQUARE category name — that is the join, and it
+   is the one thing here the studio must never rewrite. `name` is the label a
+   guest reads; `sort_index` is where the section sits on every menu that
+   pulls that category. */
+const SECTION_EDITABLE = ['name', 'sort_index', 'group', 'note'];
+
 const readJson = (p, fb) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : fb);
 const send = (res, code, body, type = 'application/json') => {
   res.writeHead(code, { 'content-type': type, 'cache-control': 'no-store' });
@@ -84,6 +90,10 @@ function state() {
   const items = menu.sections.flatMap(s => s.items.map(i => ({
     id: i.id,
     section: s.name,
+    /* The POS category is the key the section routes are addressed by, so the
+       list needs it to rename or reorder from a header. */
+    sectionCategory: s.category,
+    sectionGroup: s.group || '',
     /* The resolved guest-facing name, whichever layer supplied it. Food gets
        its copy from Square's custom attributes, so an editorial-only view of
        the name shows nothing for half the catalog. */
@@ -124,7 +134,25 @@ function state() {
   const menus = (menu.menus || []).map(m => ({
     slug: m.slug,
     name: m.name,
-    sections: m.sections.map(sec => sec.name),
+    /* Enough to render an editable, reorderable list: the category is the
+       key to PUT back, `name` is what is live now whichever layer supplied
+       it, and `editorial` is what this repo has actually written — so a box
+       can show the live label while making clear whether it is yours or
+       Square's. */
+    sections: m.sections.map(sec => ({
+      category: sec.category,
+      name: sec.name,
+      group: sec.group || '',
+      note: sec.note || '',
+      sortIndex: sec.sortIndex,
+      count: sec.items.length,
+      renamed: (editorial.sections[sec.category]?.name || '') !== '',
+      editorial: {
+        name: editorial.sections[sec.category]?.name ?? '',
+        group: editorial.sections[sec.category]?.group ?? '',
+        sort_index: editorial.sections[sec.category]?.sort_index ?? '',
+      },
+    })),
     count: m.sections.reduce((t, sec) => t + sec.items.length, 0),
   }));
 
@@ -263,6 +291,34 @@ createServer(async (req, res) => {
 
     writeFileSync(EDITORIAL, JSON.stringify(editorial, null, 2) + '\n');
     const sha = commit(`studio: ${patch.menu_name || id}`);
+    return send(res, 200, { ok: true, commit: sha });
+  }
+
+  /* Sections: rename and reorder. Same shape as the item route — writes only
+     to data/editorial.json, commits, leaves Square alone. Deleting the last
+     field drops the entry so the section falls back to its POS name. */
+  if (p.startsWith('/api/section/') && req.method === 'PUT') {
+    let raw = ''; for await (const c of req) raw += c;
+    const category = decodeURIComponent(p.slice('/api/section/'.length));
+    const patch = JSON.parse(raw || '{}');
+    if (!category) return send(res, 400, { error: 'no category' });
+
+    const editorial = readJson(EDITORIAL, { sections: {}, items: {} });
+    if (!editorial.sections) editorial.sections = {};
+    const entry = editorial.sections[category] || {};
+    for (const k of SECTION_EDITABLE) {
+      if (!(k in patch)) continue;
+      const v = k === 'sort_index'
+        ? (patch[k] === '' ? undefined : Number(patch[k]))
+        : String(patch[k]).trim();
+      if (v === '' || v === undefined || Number.isNaN(v)) delete entry[k];
+      else entry[k] = v;
+    }
+    if (Object.keys(entry).length) editorial.sections[category] = entry;
+    else delete editorial.sections[category];
+
+    writeFileSync(EDITORIAL, JSON.stringify(editorial, null, 2) + '\n');
+    const sha = commit(`studio: section ${patch.name || category}`);
     return send(res, 200, { ok: true, commit: sha });
   }
 

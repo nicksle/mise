@@ -38,6 +38,10 @@ const CSS = `
   h2 { position:sticky; top:0; margin:0; padding:11px 18px 8px; background:var(--paper);
        font-family:"JetBrains Mono",monospace; font-size:.62rem; letter-spacing:.14em;
        text-transform:uppercase; color:var(--ink3); border-bottom:1px solid var(--rule); z-index:1; }
+  h2.group { position:static; font-family:Georgia,serif; font-size:1.05rem; letter-spacing:0;
+       text-transform:none; color:var(--ink); background:var(--card2);
+       padding:14px 18px 10px; border-bottom:0; }
+  h2.in-group { padding-left:30px; }
   .row { padding:13px 18px; border-bottom:1px solid var(--rule); background:var(--card); }
   .row.hold { background:var(--warnbg); }
   .row.out { opacity:.62; }
@@ -65,9 +69,15 @@ const CSS = `
 export function renderService(menu, { heading = 'Service reference' } = {}) {
   let body = '';
 
+  let group = null;
+
   for (const section of menu.sections) {
     if (!section.items.length) continue;
-    body += `<h2>${esc(section.name)}</h2>`;
+    if ((section.group || null) !== group) {
+      group = section.group || null;
+      if (group) body += `<h2 class="group">${esc(group)}</h2>`;
+    }
+    body += `<h2${section.group ? ' class="in-group"' : ''}>${esc(section.name)}</h2>`;
 
     for (const i of section.items) {
       const price = i.kind === 'pour'

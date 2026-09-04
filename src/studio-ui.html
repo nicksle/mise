@@ -26,12 +26,17 @@ body{margin:0;background:var(--paper);color:var(--ink);
 
 /* ---- shell ---- */
 .app{display:grid;grid-template-rows:auto 1fr;height:100vh}
-header{display:flex;align-items:center;gap:14px;padding:11px 18px;
+/* The app bar. Scoped to the direct child of .app rather than written as a
+   bare `header`, because the editor pane has a header of its own now and a
+   bare element selector silently laid this flex row over it — crumb and title
+   collapsed onto one line, which is exactly the kind of collision an element
+   selector for a global chrome element invites. */
+.app > header{display:flex;align-items:center;gap:14px;padding:11px 18px;
        border-bottom:1px solid var(--rule);background:var(--card)}
-header h1{margin:0;font-size:.95rem;font-weight:700;letter-spacing:-.01em}
-header .env{font-family:"JetBrains Mono",monospace;font-size:.63rem;letter-spacing:.1em;
+.app > header h1{margin:0;font-size:.95rem;font-weight:700;letter-spacing:-.01em}
+.app > header .env{font-family:"JetBrains Mono",monospace;font-size:.63rem;letter-spacing:.1em;
             text-transform:uppercase;padding:3px 8px;border-radius:2px;background:var(--card2);color:var(--ink3)}
-header .grow{flex:1}
+.app > header .grow{flex:1}
 .kpi{font-family:"JetBrains Mono",monospace;font-size:.66rem;padding:4px 9px;border-radius:2px;
      background:var(--card2);color:var(--ink2);white-space:nowrap}
 .kpi.warn{background:var(--warnbg);color:var(--warn)}
@@ -63,7 +68,9 @@ button.ghost{border-color:transparent;background:transparent;color:var(--ink2)}
   .cols.showlist .list{display:block}.cols.showlist .editor{display:none}}
 
 /* ---- list ---- */
-.list{background:var(--card);display:grid;grid-template-rows:auto 1fr;min-height:0;overflow:hidden}
+/* head · section status · scrolling body. The status line is its own row —
+   left out of the template it claimed the 1fr and pushed the list down. */
+.list{background:var(--card);display:grid;grid-template-rows:auto auto 1fr;min-height:0;overflow:hidden}
 .list-head{padding:10px 12px;border-bottom:1px solid var(--rule);background:var(--card2)}
 .list-head label{display:block;font-family:"JetBrains Mono",monospace;font-size:.6rem;
   letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px}
@@ -73,9 +80,60 @@ button.ghost{border-color:transparent;background:transparent;color:var(--ink2)}
 .queue{padding:12px 16px;background:var(--warnbg);border-bottom:1px solid var(--rule)}
 .queue h2{margin:0 0 3px;font-size:.78rem;font-weight:700;color:var(--warn)}
 .queue p{margin:0;font-size:.78rem;color:var(--warn);line-height:1.45}
-.sec{font-family:"JetBrains Mono",monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
-     color:var(--ink3);padding:13px 16px 6px;position:sticky;top:0;background:var(--card);
+/* Every stub is a link to the thing that fixes it. The queue is the one panel
+   in this tool that is telling you to do something, so it does not get to be
+   read-only. */
+.qlist{display:flex;flex-direction:column;gap:1px;margin-top:8px}
+.qrow{display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  width:100%;text-align:left;padding:5px 8px;font:inherit;font-size:.78rem;
+  color:var(--warn);background:rgba(255,255,255,.5);
+  border:1px solid var(--rule);border-radius:3px;cursor:pointer}
+.qrow:hover,.qrow:focus-visible{background:#fff;border-color:var(--warn)}
+.qsec{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;opacity:.7;
+  white-space:nowrap}
+.qelse{margin-top:8px;opacity:.8}
+/* Section header. Doubles as the reorder handle and the rename field, so the
+   list is the only place sections are managed — no second panel showing the
+   same thing. Sticky is dropped while dragging: a sticky row and a dragged
+   row disagree about where they are. */
+.sec{display:flex;align-items:center;gap:6px;
+     font-family:"JetBrains Mono",monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
+     color:var(--ink3);padding:9px 10px 8px 8px;position:sticky;top:0;background:var(--card);
      border-bottom:1px solid var(--rule2);z-index:1}
+.list.dragging .sec{position:static}
+.sec .grip{cursor:grab;color:var(--rule);font-size:.8rem;letter-spacing:0;padding:2px 2px;
+     user-select:none;flex:0 0 auto}
+.sec .grip:hover{color:var(--ink3)}
+.sec:hover .grip{color:var(--ink3)}
+.sec .chev{flex:0 0 auto;width:11px;text-align:center;color:var(--ink3);
+     transition:transform .16s ease;font-size:.7rem;letter-spacing:0}
+.sec.open .chev{transform:rotate(90deg)}
+.sec .fold{display:flex;align-items:center;gap:6px;flex:1 1 auto;min-width:0;
+     background:none;border:0;padding:0;color:inherit;font:inherit;letter-spacing:inherit;
+     text-transform:inherit;cursor:pointer;text-align:left}
+.sec .label{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+     font:inherit;letter-spacing:inherit;text-transform:inherit;color:var(--ink2);
+     background:transparent;border:1px solid transparent;border-radius:2px;padding:2px 4px}
+.sec .label:hover{border-color:var(--rule)}
+.sec .label:focus{outline:none;border-color:var(--accent);background:var(--paper);
+     color:var(--ink);text-transform:none;letter-spacing:.02em}
+.sec .n{flex:0 0 auto;color:var(--ink3);letter-spacing:.06em}
+.sec .only{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* Group: a heading ABOVE a run of sections. Rare, so the input that sets it
+   stays out of the way until you hover the header or it already has a value. */
+.grp{display:flex;align-items:center;gap:6px;padding:11px 10px 5px 8px;
+     font-family:Georgia,serif;font-size:.92rem;letter-spacing:-.01em;color:var(--ink);
+     background:var(--card);border-bottom:1px solid var(--rule2)}
+.sec.in-group{padding-left:22px}
+.sec .grp-in{flex:0 0 auto;width:14px;font:inherit;font-size:.58rem;letter-spacing:.1em;
+     padding:2px 3px;border:1px solid transparent;border-radius:2px;background:transparent;
+     color:var(--ink3);opacity:0;transition:opacity .14s ease,width .14s ease}
+.sec:hover .grp-in,.sec .grp-in:focus{opacity:1;width:7ch;border-color:var(--rule)}
+.sec .grp-in.has{opacity:1;width:7ch;color:var(--accent)}
+.sec .grp-in:focus{outline:none;border-color:var(--accent);background:var(--paper);color:var(--ink)}
+.sec.dragging{opacity:.35}
+.sec.over{box-shadow:inset 0 2px 0 var(--accent)}
+.sec .dot{margin-left:0}
 .row{display:block;width:100%;text-align:left;border:none;border-bottom:1px solid var(--rule2);
      border-radius:0;background:none;padding:9px 16px}
 .row:hover{background:var(--card2)}
@@ -87,17 +145,103 @@ button.ghost{border-color:transparent;background:transparent;color:var(--ink2)}
 .dot.stub{background:var(--warn)} .dot.out{background:var(--flag)} .dot.stale{background:var(--warn);opacity:.55}
 
 /* ---- editor ---- */
-.editor{overflow-y:auto;padding:0 0 60px}
-.pad{padding:20px 26px 28px;max-width:640px}
+/* No bottom padding here. .bar is sticky to this scroll container, and a
+   scrollport's sticky rect stops at the padding edge — so 60px of padding
+   parked the Save bar 60px up from the bottom of the pane with a strip of
+   empty card below it. The space the padding was buying belongs to .pad,
+   which is the thing that actually needs to clear the bar. */
+.editor{overflow-y:auto;padding:0}
+.pad{padding:16px 26px 32px;max-width:640px}
 .empty{color:var(--ink3);padding:60px 26px;text-align:center}
-.crumb{font-family:"JetBrains Mono",monospace;font-size:.64rem;letter-spacing:.1em;
+
+/* ---- editor header ----
+   Where you are and what you are editing, pinned. The dish name used to scroll
+   away about a fieldset in, which matters here because the fields below are
+   generic — "Menu name", "Description", "Service note" say nothing about which
+   of seventy-five items you are typing into. Sticky at both ends now: this at
+   the top, .bar at the bottom, and the form scrolls between them.
+
+   Mirrors .bar deliberately — same card fill, same hairline, same shadow, one
+   pointing down and one pointing up — so the pane reads as a form with a head
+   and a foot rather than as a page with two floating strips. */
+.ed-head{position:sticky;top:0;z-index:20;
+  padding:16px 26px 12px;background:var(--card);
+  border-bottom:1px solid var(--rule)}
+.ed-head::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px;
+  pointer-events:none;opacity:0;transition:opacity .15s ease;
+  background:linear-gradient(rgba(0,0,0,.13),transparent)}
+.editor.scrolled .ed-head::after{opacity:1}
+@media (prefers-reduced-motion:reduce){.ed-head::after{transition:none}}
+
+.crumb{display:flex;align-items:center;gap:8px;
+       font-family:"JetBrains Mono",monospace;font-size:.64rem;letter-spacing:.1em;
        text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
-.editor h2{margin:0 0 16px;font-size:1.5rem;letter-spacing:-.025em}
+.crumb .where{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ---- alerts as crumb chips ----
+   These were full-width banners at the top of the editor. Two of them stacked
+   pushed the actual fields below the fold, and they said the same paragraph
+   every time you selected a wine — so they stopped being read within about a
+   minute of use. As chips they stay visible and countable at a glance and give
+   their paragraph back on hover, which is the right trade for a message you
+   need once and then know. */
+.alerts{display:flex;align-items:center;gap:5px;margin-left:auto}
+.alert{position:relative;display:inline-flex;align-items:center;justify-content:center;
+  width:20px;height:20px;padding:0;font:inherit;line-height:1;cursor:help;
+  border:1px solid currentColor;border-radius:50%;background:transparent}
+.alert svg{width:11px;height:11px;display:block}
+.alert.warn{color:var(--warn);background:var(--warnbg)}
+.alert.info{color:var(--accent);background:var(--accentbg)}
+.alert.flag{color:var(--flag);background:var(--flagbg)}
+.alert:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* The tooltip. Anchored to the chip, opening left so it never leaves the pane
+   — the chips sit hard against the right edge of a 640px column. */
+.alert .tip{position:absolute;top:calc(100% + 7px);right:-1px;z-index:30;
+  width:max-content;max-width:320px;
+  /* Never eat a click. It floats directly over the From Square fold line, and
+     a tooltip that swallows the control underneath it is a trap — caught by
+     the walkthrough, which could not open the panel while a chip was hovered. */
+  pointer-events:none;
+  padding:9px 11px;border-radius:3px;text-align:left;
+  font-family:system-ui,sans-serif;font-size:.78rem;letter-spacing:0;
+  text-transform:none;line-height:1.5;
+  color:var(--ink);background:var(--card);
+  border:1px solid var(--rule);box-shadow:0 8px 22px -10px rgba(0,0,0,.5);
+  opacity:0;visibility:hidden;transform:translateY(-3px);
+  transition:opacity .12s ease,transform .12s ease,visibility .12s}
+.alert .tip b{color:inherit}
+.alert:hover .tip,.alert:focus-visible .tip,.alert[aria-expanded="true"] .tip{
+  opacity:1;visibility:visible;transform:none}
+@media (prefers-reduced-motion:reduce){.alert .tip{transition:none}}
+.editor h2{margin:0;font-size:1.5rem;letter-spacing:-.025em;
+  /* one line, ellipsised: a long cuvée must not grow the pinned header */
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 fieldset{border:1px solid var(--rule);border-radius:3px;padding:16px 18px 18px;margin:0 0 18px;background:var(--card)}
 legend{font-family:"JetBrains Mono",monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
        color:var(--ink3);padding:0 7px}
 fieldset.locked{background:var(--card2)}
 fieldset.locked legend{color:var(--accent)}
+
+/* ---- the Square panel, folded ----
+   Six read-only rows sat above every editable field, so the thing you came to
+   change was always below the thing you cannot. Folded by default, with the
+   numbers that matter — price, availability, vintage — restated on the summary
+   line, so closing it costs no information you were actually reading. */
+.sq{border:1px solid var(--rule);border-radius:3px;margin:0 0 18px;background:var(--card2)}
+.sq > summary{display:flex;align-items:center;gap:9px;padding:9px 14px;cursor:pointer;
+  list-style:none;font-family:"JetBrains Mono",monospace;font-size:.62rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.sq > summary::-webkit-details-marker{display:none}
+.sq > summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.sq .chev{transition:transform .14s ease;opacity:.75}
+.sq[open] .chev{transform:rotate(90deg)}
+.sq .sum{margin-left:auto;display:flex;gap:10px;align-items:baseline;
+  font-variant-numeric:tabular-nums;letter-spacing:.06em;color:var(--ink2)}
+.sq .sum .bad{color:var(--flag)} .sq .sum .warnv{color:var(--warn)}
+.sq[open] .sum{display:none}          /* the rows below say it in full */
+.sq .body{padding:2px 16px 14px}
+@media (prefers-reduced-motion:reduce){.sq .chev{transition:none}}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:13px}
 label{display:block;font-size:.72rem;font-weight:600;color:var(--ink3);
       text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
@@ -119,6 +263,9 @@ textarea{resize:vertical;min-height:62px;line-height:1.5}
      background:var(--card);border-top:1px solid var(--rule);
      box-shadow:0 -10px 18px -14px rgba(0,0,0,.45)}
 .saved{font-size:.8rem;color:var(--ok)}
+/* Kept, unused. The editor's two banners became crumb chips; this is still the
+   right treatment for a message that is about the whole pane rather than about
+   one item, so the next one that needs saying has somewhere to go. */
 .banner{padding:11px 14px;border-radius:3px;font-size:.85rem;margin-bottom:16px;line-height:1.5}
 .banner.warn{background:var(--warnbg);color:var(--warn)}
 .banner.info{background:var(--accentbg);color:var(--accent)}
@@ -139,6 +286,14 @@ textarea{resize:vertical;min-height:62px;line-height:1.5}
       border-radius:50%;animation:s .7s linear infinite;vertical-align:-1px;margin-right:6px}
 @keyframes s{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.spin{animation:none}}
+
+/* Collapse-all lives in the list head; everything else about sections is on
+   the headers themselves. */
+.sec-toggle{width:100%;margin-top:7px;font-size:.74rem;padding:5px 8px;text-align:left;
+  color:var(--ink2);background:var(--card);display:flex;align-items:center;gap:7px}
+.sec-msg{padding:6px 12px;font-size:.68rem;color:var(--ink3);border-bottom:1px solid var(--rule2);
+  background:var(--card2);min-height:1.2em}
+.sec-msg:empty{display:none}
 </style>
 </head>
 <body>
@@ -156,7 +311,11 @@ textarea{resize:vertical;min-height:62px;line-height:1.5}
       <div class="list-head">
         <label for="menuPick">Menu</label>
         <select id="menuPick"></select>
+        <button class="sec-toggle" id="collapseAll">
+          <span aria-hidden="true">&#8862;</span><span id="collapseAllLabel">Collapse all</span>
+        </button>
       </div>
+      <p class="sec-msg" id="secMsg"></p>
       <div class="list-body" id="list"></div>
     </div>
     <div class="gutter" data-g="list" role="separator" aria-orientation="vertical"
@@ -181,6 +340,13 @@ textarea{resize:vertical;min-height:62px;line-height:1.5}
 const $ = s => document.querySelector(s);
 let S = { items: [], stats: null }, selected = null, dirty = false;
 
+/* Whether the From Square panel is folded open. Sticky across selections and
+   across reloads: someone doing a pricing pass opens it once and wants it to
+   stay open for the next forty items, and someone writing copy never wants to
+   see it. Closed is the default because the fields you can edit are the point
+   of the pane. */
+let sqOpen = localStorage.getItem('mise.sqOpen') === '1';
+
 const esc = t => String(t ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const money = n => n == null ? '—' : '$' + Number(n).toFixed(0);
 
@@ -196,7 +362,18 @@ async function load() {
     return;
   }
   renderKpis(); renderList();
-  if (selected) select(selected, true);
+  if (selected) { select(selected, true); return; }
+
+  /* Open on something rather than on "Select an item." A third of the screen
+     empty is a bad first frame for a tool you are demonstrating, and it hides
+     what the middle pane is for until someone clicks.
+
+     A stub first when there is one — that is the work — otherwise the first
+     item on the menu. */
+  const pick = currentMenu();
+  const onMenu = pick === '*' ? S.items : S.items.filter(i => (i.menus || []).includes(pick));
+  const first = onMenu.find(i => i.needsReview) || onMenu[0];
+  if (first) select(first.id, true);
 }
 
 /* The menu axis. One control does two jobs: it picks which menu previews on
@@ -215,6 +392,24 @@ function renderMenuPick() {
 
 const currentMenu = () => ($('#menuPick') || {}).value || '*';
 
+/* Slugs are what the data carries; names are what the room says. Anywhere a
+   menu is mentioned in prose ("1 more on Drinks") it has to be the name. */
+const menuName = (slug) =>
+  ((S.menus || []).find(m => m.slug === slug) || {}).name || slug;
+
+/* Jump to an item wherever it lives: if it is not on the menu currently
+   filtered, switch to one that has it first, or the click selects a row the
+   list is not showing. */
+function jumpTo(id) {
+  const it = (S.items || []).find(x => x.id === id);
+  const pick = currentMenu();
+  if (it && pick !== '*' && !(it.menus || []).includes(pick)) {
+    const to = (it.menus || [])[0];
+    if (to) { $('#menuPick').value = to; renderList(); refreshPreview(); }
+  }
+  select(id);
+}
+
 function renderKpis() {
   const s = S.stats || {};
   const bits = [
@@ -227,14 +422,41 @@ function renderKpis() {
 }
 
 function renderList() {
-  const stubs = S.items.filter(i => i.needsReview);
-  let h = '';
-  if (stubs.length) {
-    h += `<div class="queue"><h2>${stubs.length} need${stubs.length===1?'s':''} copy</h2>` +
-         `<p>Staff can see these. Guests can't, until you name them.</p></div>`;
-  }
   const pick = currentMenu();
   const visible = pick === '*' ? S.items : S.items.filter(i => (i.menus || []).includes(pick));
+
+  /* THE WORK QUEUE. Stubs are the only thing in this tool that is genuinely
+     urgent — an item the POS has and the guest menu does not — so the queue
+     names them and every name is a link to the editor.
+
+     It used to count every stub in the catalog while listing none of them,
+     which meant standing on the Daytime menu being told "1 needs copy" about
+     a wine on the drinks list, with no way to reach it. A warning you cannot
+     act on is worse than no warning: it trains you to ignore the banner.
+     Now the count is what is on THIS menu, and anything parked on another
+     menu is named separately, with the menu to go to. */
+  let h = '';
+  const here = visible.filter(i => i.needsReview);
+  const elsewhere = pick === '*' ? [] : S.items.filter(i => i.needsReview && !visible.includes(i));
+
+  if (here.length || elsewhere.length) {
+    h += `<div class="queue">`;
+    if (here.length) {
+      h += `<h2>${here.length} need${here.length===1?'s':''} copy</h2>` +
+           `<p>Staff can see these. Guests can't, until you name them.</p>` +
+           `<div class="qlist">` + here.map(i =>
+             `<button class="qrow" data-id="${esc(i.id)}">${esc(i.square.posName)}` +
+             `<span class="qsec">${esc(i.section)}</span></button>`).join('') + `</div>`;
+    }
+    if (elsewhere.length) {
+      /* Named, not just counted — otherwise the KPI in the header and this
+         panel disagree and neither explains why. */
+      const where = [...new Set(elsewhere.flatMap(i => i.menus || []))];
+      h += `<p class="qelse">${elsewhere.length} more on ` +
+           `${where.map(m => esc(menuName(m))).join(', ')}.</p>`;
+    }
+    h += `</div>`;
+  }
 
   const bySec = new Map();
   for (const i of visible) {
@@ -242,14 +464,48 @@ function renderList() {
     bySec.get(i.section).push(i);
   }
   if (!bySec.size) h += `<div class="queue"><p>Nothing on this menu yet.</p></div>`;
+  let lastGroup = '';
   for (const [sec, items] of bySec) {
     /* A section on more than one menu is worth saying out loud — editing it
-       here changes it everywhere it appears. */
+       here, or dragging it, changes it everywhere it appears. */
+    const cat = items[0].sectionCategory;
     const on = (items[0].menus || []);
     const alsoOn = pick === '*' ? on : on.filter(m => m !== pick);
-    h += `<div class="sec">${esc(sec)}` +
-         (alsoOn.length ? `<span class="only">${pick === '*' ? 'on ' : 'also on '}` +
-           `${alsoOn.map(esc).join(', ')}</span>` : '') + `</div>`;
+    const shut = collapsed.has(cat);
+
+    /* A folded section still has to be able to say something is wrong inside
+       it, or collapsing everything hides the work queue. */
+    const flags = [
+      items.some(i => i.needsReview) ? '<span class="dot stub" title="needs copy"></span>' : '',
+      items.some(i => !i.square.available) ? '<span class="dot out" title="86&#39;d"></span>' : '',
+      items.some(i => i.square.staleVintage) ? '<span class="dot stale" title="stale vintage"></span>' : '',
+    ].join('');
+
+    /* One heading per run, not per section — sync.mjs keeps a group's
+       sections contiguous, so a change of group is a real boundary. */
+    const grp = items[0].sectionGroup || '';
+    if (grp !== lastGroup) {
+      lastGroup = grp;
+      if (grp) h += `<div class="grp">${esc(grp)}</div>`;
+    }
+
+    h += `<div class="sec${shut ? '' : ' open'}${grp ? ' in-group' : ''}" ` +
+         `draggable="true" data-cat="${esc(cat)}">` +
+           `<span class="grip" title="Drag to reorder" aria-hidden="true">&#10495;</span>` +
+           `<button class="fold" data-fold="${esc(cat)}" aria-expanded="${!shut}" ` +
+             `title="${shut ? 'Expand' : 'Collapse'} ${esc(sec)}">` +
+             `<span class="chev" aria-hidden="true">&rsaquo;</span></button>` +
+           `<input class="label" value="${esc(sec)}" data-cat="${esc(cat)}" ` +
+             `aria-label="Guest label for ${esc(cat)}">` +
+           `<span class="n">${items.length}</span>${flags}` +
+           `<input class="grp-in${grp ? ' has' : ''}" value="${esc(grp)}" ` +
+             `data-grp="${esc(cat)}" placeholder="group" ` +
+             `aria-label="Group heading for ${esc(cat)}" title="Group heading above this section">` +
+           (alsoOn.length ? `<span class="only">${pick === '*' ? 'on ' : 'also '}` +
+             `${alsoOn.map(esc).join(', ')}</span>` : '') +
+         `</div>`;
+
+    if (shut) continue;
     for (const i of items) {
       /* Label the row with the name that actually publishes, so editing it
          is visibly the thing that changes the menu. */
@@ -263,8 +519,81 @@ function renderList() {
     }
   }
   $('#list').innerHTML = h;
-  $('#list').querySelectorAll('.row').forEach(b =>
+  const list = $('#list');
+  list.querySelectorAll('.row').forEach(b =>
     b.addEventListener('click', () => select(b.dataset.id)));
+  list.querySelectorAll('.qrow').forEach(b =>
+    b.addEventListener('click', () => jumpTo(b.dataset.id)));
+
+  const cats = allCats();
+  const lbl = $('#collapseAllLabel');
+  if (lbl) lbl.textContent = cats.length && cats.every(c => collapsed.has(c))
+    ? 'Expand all' : 'Collapse all';
+
+  list.querySelectorAll('[data-fold]').forEach(btn =>
+    btn.addEventListener('click', () => {
+      const c = btn.dataset.fold;
+      collapsed.has(c) ? collapsed.delete(c) : collapsed.add(c);
+      saveCollapsed();
+      renderList();
+    }));
+
+  list.querySelectorAll('.grp-in').forEach(inp => {
+    const was = inp.value;
+    inp.addEventListener('keydown', e => {
+      if (e.key === 'Enter') inp.blur();
+      if (e.key === 'Escape') { inp.value = was; inp.blur(); }
+    });
+    inp.addEventListener('blur', () => {
+      if (inp.value.trim() !== was) groupSection(inp.dataset.grp, inp.value);
+    });
+  });
+
+  /* Rename in place. Enter commits, Escape puts the old label back. */
+  list.querySelectorAll('.sec .label').forEach(inp => {
+    const was = inp.value;
+    inp.addEventListener('keydown', e => {
+      if (e.key === 'Enter') inp.blur();
+      if (e.key === 'Escape') { inp.value = was; inp.blur(); }
+    });
+    inp.addEventListener('blur', () => {
+      if (inp.value !== was) renameSection(inp.dataset.cat, inp.value);
+    });
+  });
+
+  /* Drag is on the grip only — the header is also a fold button and a text
+     field, and making the whole thing draggable turns a mis-aimed click into
+     a reorder. */
+  list.querySelectorAll('.sec').forEach(row => {
+    const grip = row.querySelector('.grip');
+    row.addEventListener('dragstart', e => {
+      if (!grip.matches(':active') && !row.dataset.armed) { e.preventDefault(); return; }
+      dragCat = row.dataset.cat;
+      row.classList.add('dragging');
+      list.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      try { e.dataTransfer.setData('text/plain', dragCat); } catch (_) {}
+    });
+    grip.addEventListener('pointerdown', () => { row.dataset.armed = '1'; });
+    row.addEventListener('dragend', () => {
+      dragCat = null;
+      delete row.dataset.armed;
+      list.classList.remove('dragging');
+      list.querySelectorAll('.sec').forEach(r => r.classList.remove('dragging', 'over'));
+    });
+    row.addEventListener('dragover', e => {
+      if (!dragCat || row.dataset.cat === dragCat) return;
+      e.preventDefault();
+      list.querySelectorAll('.sec').forEach(r => r.classList.remove('over'));
+      row.classList.add('over');
+    });
+    row.addEventListener('drop', e => {
+      e.preventDefault();
+      row.classList.remove('over');
+      const target = row.dataset.cat;
+      if (dragCat && target !== dragCat) moveSection(dragCat, target);
+    });
+  });
 }
 
 function select(id, keepScroll) {
@@ -293,18 +622,71 @@ function select(id, keepScroll) {
 
   const ro = (l, v, cls = '') => `<div class="ro"><span>${esc(l)}</span><span class="${cls}">${v}</span></div>`;
 
-  $('#editor').innerHTML = `<div class="pad">
-    <div class="crumb">${esc(i.section)} &middot; ${esc(i.id)}</div>
-    <h2>${esc(e.menu_name || i.menuName || q.posName)}</h2>
+  /* ---- the alert chips ----
+     Each is: an icon, a colour, and the paragraph it used to be. `kind` picks
+     the palette; the tooltip carries the whole message, so nothing is lost by
+     folding it away — it is one hover from being back.
 
-    ${i.needsReview ? `<div class="banner warn"><b>Held back from the guest menu.</b>
-      This came from the POS with no copy. It's already visible to staff in the service
-      reference. Give it a name below and it publishes on the next rebuild.</div>` : ''}
-    ${i.copyFrom === 'square' ? `<div class="banner info"><b>This copy is coming from Square.</b>
-      The boxes below are filled with what is on the menu right now. Edit and save and it
-      becomes yours; clear a box and save and it falls back to Square again.</div>` : ''}
+     Order is by urgency, not by source: held-back first (the guest menu is
+     missing an item), then 86'd, then the stale vintage, then the merely
+     informational note about where copy is coming from. */
+  const ICON = {
+    warn: '<path d="M8 1.6 15 14H1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>' +
+          '<path d="M8 6.2v3.4M8 11.6v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+    flag: '<circle cx="8" cy="8" r="6.4" fill="none" stroke="currentColor" stroke-width="1.6"/>' +
+          '<path d="M4.2 11.8 11.8 4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+    info: '<circle cx="8" cy="8" r="6.4" fill="none" stroke="currentColor" stroke-width="1.6"/>' +
+          '<path d="M8 7.2v4.2M8 4.7v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+  };
+  const chip = (kind, label, body) =>
+    `<button type="button" class="alert ${kind}" aria-label="${esc(label)}">` +
+      `<svg viewBox="0 0 16 16" aria-hidden="true">${ICON[kind]}</svg>` +
+      `<span class="tip" role="tooltip"><b>${esc(label)}</b> ${body}</span>` +
+    `</button>`;
 
-    <fieldset class="locked"><legend>From Square — edit in the Square dashboard</legend>
+  const alerts = [
+    i.needsReview && chip('warn', 'Held back from the guest menu.',
+      `This came from the POS with no copy. It's already visible to staff in the service
+       reference. Give it a name below and it publishes on the next rebuild.`),
+    !q.available && chip('flag', '86’d in Square.',
+      `The POS has this switched off, so it is struck from the guest menu until the
+       terminal says otherwise. Nothing here can change that.`),
+    q.staleVintage && chip('warn', 'Stale vintage.',
+      `Nobody has confirmed the vintage in a while. Check the bottle before it prints —
+       a wrong year on a wine list is the error a guest notices.`),
+    i.copyFrom === 'square' && chip('info', 'This copy is coming from Square.',
+      `The boxes below are filled with what is on the menu right now. Edit and save and it
+       becomes yours; clear a box and save and it falls back to Square again.`),
+  ].filter(Boolean);
+
+  /* The collapsed summary. Price and availability are the two things anyone
+     glances at, so they stay on the fold line; the rest is one click away. */
+  const sqSummary = [
+    wine
+      ? (q.glass == null ? '' : money(q.glass) + ' / ') + money(q.bottle)
+      : money(q.price),
+    wine ? (q.vintage ?? 'NV') : '',
+    q.available ? '' : '<span class="bad">86’d</span>',
+    q.staleVintage ? '<span class="warnv">stale</span>' : '',
+  ].filter(Boolean).map(s => `<span>${s}</span>`).join('');
+
+  const title = e.menu_name || i.menuName || q.posName;
+
+  $('#editor').innerHTML = `<header class="ed-head">
+    <div class="crumb">
+      <span class="where">${esc(i.section)} &middot; ${esc(i.id)}</span>
+      ${alerts.length ? `<span class="alerts">${alerts.join('')}</span>` : ''}
+    </div>
+    <h2 title="${esc(title)}">${esc(title)}</h2>
+  </header>
+  <div class="pad">
+    <details class="sq"${sqOpen ? ' open' : ''}>
+      <summary>
+        <span class="chev" aria-hidden="true">&rsaquo;</span>
+        From Square
+        <span class="sum">${sqSummary}</span>
+      </summary>
+      <div class="body">
       ${ro('POS button', `<b>${esc(q.posName)}</b>`)}
       ${wine
         ? ro('Glass', q.glass == null ? '—' : money(q.glass) + (q.glassAvailable === false ? ' · 86’d' : ''),
@@ -320,7 +702,8 @@ function select(id, keepScroll) {
       ${ro('Available', q.available ? 'yes' : "86’d", q.available ? '' : 'bad')}
       <p class="hint">Price, availability and vintage are the restaurant's to change, on the
       terminal or in the Square dashboard. This tool never writes to Square.</p>
-    </fieldset>
+      </div>
+    </details>
 
     <fieldset><legend>Menu copy — what guests read</legend>
       <div class="grid">
@@ -336,8 +719,10 @@ function select(id, keepScroll) {
 
     <fieldset><legend>Service only — never shown to guests</legend>
       <div class="grid">
-        ${f('service_note', 'Service note', 'Needs air. Decant if the table is staying.', 'textarea', 'full')}
-        ${f('pairing', 'Pairing', 'Peter Lauer Riesling')}
+        ${f('service_note', 'Service note', wine
+            ? 'Needs air. Decant if the table is staying.'
+            : 'Comes out hot. Warn a table that is still ordering.', 'textarea', 'full')}
+        ${f('pairing', 'Pairing', wine ? 'Serve with the halloumi' : 'Peter Lauer Riesling')}
         ${f('sort_index', 'Order in section', '0')}
       </div>
     </fieldset>
@@ -352,6 +737,46 @@ function select(id, keepScroll) {
     el.addEventListener('input', () => { dirty = true; $('#savedmsg').textContent = ''; }));
   $('#save').addEventListener('click', save);
   $('#revert').addEventListener('click', () => select(selected, true));
+
+  /* The header's drop shadow, on only while there is content scrolled under
+     it. A shadow at rest reads as a seam in a form that has not moved. */
+  const ed = $('#editor');
+  if (!select._scrollShadow) {
+    select._scrollShadow = true;
+    const mark = () => ed.classList.toggle('scrolled', ed.scrollTop > 2);
+    ed.addEventListener('scroll', mark, { passive: true });
+    select._mark = mark;
+  }
+  /* A new item starts at the top; Revert and re-render keep your place, which
+     is what keepScroll has always meant. */
+  if (!keepScroll) ed.scrollTop = 0;
+  select._mark();
+
+  const sq = $('#editor').querySelector('.sq');
+  if (sq) sq.addEventListener('toggle', () => {
+    sqOpen = sq.open;
+    try { localStorage.setItem('mise.sqOpen', sqOpen ? '1' : '0'); } catch {}
+  });
+
+  /* Hover shows the tooltip in CSS. Click pins it, because a touch screen has
+     no hover and a chip you cannot read is worse than the banner it replaced.
+     Only one open at a time, and anything else on the page closes it. */
+  const chips = [...$('#editor').querySelectorAll('.alert')];
+  chips.forEach(c => c.addEventListener('click', (ev) => {
+    ev.stopPropagation();
+    const was = c.getAttribute('aria-expanded') === 'true';
+    chips.forEach(x => x.removeAttribute('aria-expanded'));
+    if (!was) c.setAttribute('aria-expanded', 'true');
+  }));
+  if (chips.length && !select._chipDismiss) {
+    select._chipDismiss = true;
+    document.addEventListener('click', () =>
+      document.querySelectorAll('.alert[aria-expanded]').forEach(x => x.removeAttribute('aria-expanded')));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape')
+        document.querySelectorAll('.alert[aria-expanded]').forEach(x => x.removeAttribute('aria-expanded'));
+    });
+  }
 }
 
 async function save() {
@@ -398,11 +823,13 @@ function refreshPreview() {
     return;
   }
 
-  /* Service is deliberately not split per menu — a server mid-shift wants one
-     searchable document, not four tabs. Same for the index. */
-  const file = view === 'service' ? 'service.html'
-    : view === 'index' ? 'index.html'
-    : slug === '*' ? `${view}-${(S.menus?.[0] || {}).slug || 'drinks'}.html`
+  /* guest, print and service are all per-menu and follow the picker. The index
+     is the one view that is about every menu at once, so it ignores it — and
+     on "All menus" service falls back to the combined sheet, which is exactly
+     what that selection is asking for. */
+  const file = view === 'index' ? 'index.html'
+    : slug === '*' ? (view === 'service' ? 'service.html'
+                                         : `${view}-${(S.menus?.[0] || {}).slug || 'drinks'}.html`)
     : `${view}-${slug}.html`;
 
   $('#frame').src = '/preview/' + file + '?t=' + Date.now();
@@ -468,6 +895,121 @@ function initResizers() {
     g.addEventListener('dblclick', () => { setWidth(which, DEFAULTS[which]); saveWidths(); });
   }
 }
+
+
+/* ---------------------------------------------------------------
+   Section editor — rename and reorder.
+
+   sort_index is GLOBAL per POS category, not per menu, so dragging a
+   section inside one menu moves that category everywhere it appears.
+   Reordering therefore happens on the global list: pull the dragged
+   category out, drop it beside its new neighbour, renumber, and PUT
+   only the ones whose number actually changed. Categories on menus you
+   are not looking at keep their relative order instead of being
+   renumbered out from under you.
+
+   Rows say "also brunch" where a category is shared, so the coupling
+   is visible before you drag rather than surprising afterwards.
+   --------------------------------------------------------------- */
+
+/* Collapsed sections, remembered between visits. Keyed by POS category so it
+   survives a rename. */
+let dragCat = null;
+const COLLAPSE_KEY = 'mise.collapsed';
+let collapsed = new Set();
+try { collapsed = new Set(JSON.parse(localStorage.getItem(COLLAPSE_KEY) || '[]')); } catch (_) {}
+const saveCollapsed = () => {
+  try { localStorage.setItem(COLLAPSE_KEY, JSON.stringify([...collapsed])); } catch (_) {}
+};
+
+/* Every category that reaches a menu, in the order sync.mjs sorts them. */
+function globalOrder() {
+  const seen = new Map();
+  for (const m of (S.menus || []))
+    for (const sec of m.sections)
+      if (!seen.has(sec.category)) seen.set(sec.category, sec);
+  return [...seen.values()].sort((a, b) =>
+    (a.sortIndex - b.sortIndex) || String(a.name).localeCompare(String(b.name)));
+}
+
+const secMsg = t => { const m = $('#secMsg'); if (m) m.textContent = t || ''; };
+
+async function moveSection(cat, beforeCat) {
+  const before = globalOrder();
+  const current = new Map(before.map(x => [x.category, x.sortIndex]));
+  const order = before.map(x => x.category);
+
+  order.splice(order.indexOf(cat), 1);
+  const at = order.indexOf(beforeCat);
+  order.splice(at < 0 ? order.length : at, 0, cat);
+
+  const changes = order
+    .map((c, i) => ({ category: c, sort_index: i }))
+    .filter(x => current.get(x.category) !== x.sort_index);
+
+  await putSections(changes, `Moved ${cat}`);
+}
+
+async function renameSection(cat, value) {
+  const sec = globalOrder().find(x => x.category === cat);
+  if (!sec) { secMsg(''); return; }
+  const next = String(value).trim();
+  /* Typing the POS name back is how you clear an override rather than
+     pinning a rename that happens to match. */
+  const send = (next === cat || next === '') ? '' : next;
+  if (send === (sec.editorial.name || '')) return;
+  await putSections([{ category: cat, name: send }],
+    send ? `Renamed to ${send}` : `Cleared ${cat}`);
+}
+
+async function groupSection(cat, value) {
+  const next = String(value).trim();
+  await putSections([{ category: cat, group: next }],
+    next ? `Grouped under ${next}` : `Ungrouped ${cat}`);
+}
+
+async function putSections(changes, msg) {
+  if (!changes.length) return;
+  const say = secMsg;
+  say('Saving…');
+  let commit = null;
+  for (const c of changes) {
+    const { category, ...patch } = c;
+    const r = await (await fetch('/api/section/' + encodeURIComponent(category), {
+      method: 'PUT', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(patch),
+    })).json();
+    commit = r.commit || commit;
+  }
+  say(`${msg}${commit ? ' · ' + commit : ''} · rebuilding…`);
+  /* Same bargain as saving an item: the repo layer changes nothing a guest
+     can see until the model is rebuilt, so don't make that a second act.
+     rebuild() reloads state and re-renders these rows. */
+  await rebuild();
+  say(`${msg} · live`);
+}
+
+/* Collapse all is what turns the list into the reorder view: dragging a
+   header past forty drink rows is miserable, so give one click that removes
+   them. It flips to Expand all once everything is folded. */
+function allCats() {
+  const pick = currentMenu();
+  const seen = [];
+  for (const i of S.items) {
+    if (pick !== '*' && !(i.menus || []).includes(pick)) continue;
+    if (!seen.includes(i.sectionCategory)) seen.push(i.sectionCategory);
+  }
+  return seen;
+}
+
+$('#collapseAll').addEventListener('click', () => {
+  const cats = allCats();
+  const anyOpen = cats.some(c => !collapsed.has(c));
+  if (anyOpen) cats.forEach(c => collapsed.add(c));
+  else cats.forEach(c => collapsed.delete(c));
+  saveCollapsed();
+  renderList();
+});
 
 $('#menuPick').addEventListener('change', () => { renderList(); refreshPreview(); });
 $('#rebuild').addEventListener('click', rebuild);

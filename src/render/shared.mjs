@@ -63,6 +63,19 @@ export const PARASOL_CSS = `
   h2 { font-family:Archivo,sans-serif; font-size:.64rem; letter-spacing:.22em; text-transform:uppercase;
        font-weight:600; color:var(--ink2); margin:0 0 15px; padding-bottom:8px;
        border-bottom:1px solid var(--rule); text-indent:.22em; }
+  /* A group heading sits ABOVE its sections, so it has to outrank them rather
+     than look like one more of them: display face, larger, no rule. The
+     sections beneath it indent so the hierarchy reads without a box. */
+  h2.group { font-family:var(--display,Georgia),serif; font-size:1.5rem; letter-spacing:0;
+       text-transform:none; font-weight:400; color:var(--ink); text-indent:0;
+       border-bottom:0; margin:40px 0 18px; padding-bottom:0; }
+  h2.group:first-child { margin-top:0; }
+  section.in-group { margin-left:18px; }
+  @media (max-width:560px) { section.in-group { margin-left:10px; } }
+
+  section > .note { font-family:Archivo,sans-serif; font-size:.72rem; color:var(--ink2);
+       margin:-9px 0 14px; letter-spacing:.01em; }
+
   .cols { display:flex; justify-content:flex-end; gap:22px; margin:-9px 0 13px;
           font-family:Archivo,sans-serif; font-size:.56rem; letter-spacing:.16em;
           text-transform:uppercase; color:var(--ink2); }

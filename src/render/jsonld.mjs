@@ -30,9 +30,29 @@ export function renderJsonLd(menu, { menuName = 'Menu' } = {}) {
           if (i.allergens) node.suitableForDiet = undefined; // left for a real mapping
           return node;
         });
-      return items.length ? { '@type': 'MenuSection', name: section.name, hasMenuItem: items } : null;
+      return items.length
+        ? { '@type': 'MenuSection', name: section.name, hasMenuItem: items, _group: section.group || null }
+        : null;
     })
     .filter(Boolean);
+
+  /* schema.org lets a MenuSection contain MenuSections, so a group becomes a
+     real parent node rather than a flattened name prefix. Sections without a
+     group stay at the top level, in place — sync.mjs keeps a group's members
+     contiguous, so walking once and folding runs of the same group preserves
+     the order the menu is actually in. */
+  const nested = [];
+  for (const sec of sections) {
+    const g = sec._group;
+    delete sec._group;
+    if (!g) { nested.push(sec); continue; }
+    const last = nested[nested.length - 1];
+    if (last && last['@type'] === 'MenuSection' && last.name === g && last.hasMenuSection) {
+      last.hasMenuSection.push(sec);
+    } else {
+      nested.push({ '@type': 'MenuSection', name: g, hasMenuSection: [sec] });
+    }
+  }
 
   const doc = {
     '@context': 'https://schema.org',
@@ -47,7 +67,7 @@ export function renderJsonLd(menu, { menuName = 'Menu' } = {}) {
       addressRegion: restaurant.address.region,
       postalCode: restaurant.address.zip,
     },
-    hasMenu: { '@type': 'Menu', name: menuName, hasMenuSection: sections },
+    hasMenu: { '@type': 'Menu', name: menuName, hasMenuSection: nested },
   };
 
   return JSON.stringify(doc, null, 2) + '\n';

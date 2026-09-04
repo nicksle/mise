@@ -5,9 +5,16 @@
  * Renderers read the model and nothing else, so if sync.mjs is correct these
  * cannot publish something wrong.
  *
- * Menus are compositions, so most outputs are rendered PER MENU: a guest page,
- * a print draft and a JSON-LD block each. The service reference is deliberately
- * NOT split — a server mid-shift wants one searchable document, not four tabs.
+ * Menus are compositions, so every output is rendered PER MENU: a guest page,
+ * a print draft, a service reference and a JSON-LD block each.
+ *
+ * The service reference used to be the one exception — one document covering
+ * everything, on the argument that a server mid-shift wants one searchable
+ * page rather than four tabs. That argument still holds for the floor, so
+ * service.html is still built and still covers all menus. But it is wrong for
+ * the person EDITING: standing on the Daytime menu and being shown a service
+ * sheet that opens on the sparkling wines is just a mismatch to squint past.
+ * So both exist now, and the studio previews the scoped one.
  */
 
 import { writeFileSync, mkdirSync } from 'node:fs';
@@ -34,12 +41,17 @@ function buildRef() {
 }
 
 /* A standing line per menu. Hours belong to the restaurant, not to the
-   catalog, so they live here rather than being inferred from the data. */
+   catalog, so they live here rather than being inferred from the data.
+
+   Daytime's is REAL — off the printed menu in the window. The other three are
+   still invented, and marked so. Wrong hours are the worst possible demo bug:
+   they are the one line on the page the restaurant knows by heart, and they
+   make every correct thing next to them look like a guess too. */
 const SUBTITLES = {
-  'drinks':      'Wine, cocktails & more · list rotates weekly',
-  'brunch':      'Saturday & Sunday · 10 to 3',
-  'happy-hour':  'Tuesday to Friday · 4.30 to 6',
-  'dinner':      'Tuesday to Saturday · from 5.30',
+  'drinks':      'Wine, cocktails & more · list rotates weekly',   // PLACEHOLDER
+  'brunch':      'Wednesday to Sunday · 9 to 3',                   // real
+  'happy-hour':  'Tuesday to Friday · 4.30 to 6',                  // PLACEHOLDER
+  'dinner':      'Tuesday to Saturday · from 5.30',                // PLACEHOLDER
 };
 
 /** Stats scoped to one menu, so each page reports its own counts. */
@@ -68,11 +80,13 @@ function renderIndex(model, ref) {
       `<span class="pz">${n}</span>` +
       `</div><div class="dd">` +
       `${m.sections.map(s => esc(s.name)).join(' · ')} &middot; ` +
-      `<a href="print-${esc(m.slug)}.html">print draft</a></div></div>`;
+      `<a href="print-${esc(m.slug)}.html">print draft</a> &middot; ` +
+      `<a href="service-${esc(m.slug)}.html">service</a></div></div>`;
   }).join('');
 
   const skipped = model.stats.menusSkipped || [];
-  const notes = [`built ${esc(ref)}`, `<a href="service.html">service reference</a> covers all menus`];
+  const notes = [`built ${esc(ref)}`,
+    `<a href="service.html">service reference</a> covers all menus at once`];
   if (skipped.length) notes.push(`not published: ${skipped.map(esc).join(', ')} — nothing in the catalog for them`);
 
   return page({
@@ -100,11 +114,17 @@ export function build() {
     const sub = SUBTITLES[m.slug] || '';
     files[`guest-${m.slug}.html`] = renderGuest(view, { heading: m.name, sub });
     files[`print-${m.slug}.html`] = renderPrint(view, { heading: m.name, sub, buildRef: ref });
+    /* Scoped to this menu, and named for it — the heading is the only way to
+       tell two service sheets apart at a glance, and `view` already carries
+       per-menu stats so the KPI row counts this menu, not the catalog. */
+    files[`service-${m.slug}.html`] = renderService(view, { heading: `${m.name} — service` });
     files[`menu-${m.slug}.jsonld`] = renderJsonLd(view, { menuName: m.name });
     files[`head-${m.slug}.html`] = scriptTag(files[`menu-${m.slug}.jsonld`]);
   }
 
-  /* One document for the floor: everything, stubs included, searchable. */
+  /* One document for the floor: everything, stubs included, searchable. Still
+     the right thing to hand a server — they are not thinking in menus, they are
+     looking up the bottle a table just asked about. */
   files['service.html'] = renderService(model);
   files['index.html'] = renderIndex(model, ref);
 
@@ -130,10 +150,11 @@ export function build() {
   for (const m of menus) {
     const n = m.sections.reduce((t, sec) => t + sec.items.length, 0);
     console.log(`      guest-${m.slug}.html`.padEnd(28) +
-      `${n} items · ${m.sections.length} sections · print + JSON-LD alongside`);
+      `${n} items · ${m.sections.length} sections · print + service + JSON-LD alongside`);
   }
   console.log(`
     out/service.html        ${s.published + s.heldBack} items — internal, includes ${s.heldBack} stub(s), all menus
+                            (service-<menu>.html alongside each guest page, scoped to that menu)
     out/guest.html          alias of guest-${primary ? primary.slug : 'none'}.html, for anything still pointed at it
 `);
   return files;

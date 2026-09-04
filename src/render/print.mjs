@@ -39,6 +39,15 @@ const CSS = `
   h2 { font-family:Archivo,sans-serif; font-size:6.5pt; letter-spacing:.22em; text-transform:uppercase;
        font-weight:600; color:var(--ink2); margin:0 0 9pt; padding-bottom:4pt;
        border-bottom:.5pt solid var(--rule); text-indent:.22em; }
+  h2.group { font-family:Georgia,serif; font-size:12pt; letter-spacing:0; text-transform:none;
+       font-weight:400; color:var(--ink); text-indent:0; border-bottom:0;
+       margin:14pt 0 7pt; padding-bottom:0; break-after:avoid; }
+  h2.group:first-child { margin-top:0; }
+  section.in-group { margin-left:10pt; }
+
+  section > .note { font-family:Archivo,sans-serif; font-size:6pt; color:var(--ink2);
+       margin:-6pt 0 8pt; }
+
   .cols { display:flex; justify-content:flex-end; gap:16pt; margin:-6pt 0 8pt;
           font-family:Archivo,sans-serif; font-size:5.5pt; letter-spacing:.16em;
           text-transform:uppercase; color:var(--ink2); }
@@ -67,12 +76,24 @@ const CSS = `
 export function renderPrint(menu, { heading = 'Menu', sub = '', buildRef = '' } = {}) {
   let body = '', lines = 0, first = true;
 
+  let group = null;
+
   for (const section of menu.sections) {
     const items = guestItems(section).filter(i => i.available); // 86'd items never print
     if (!items.length) continue;
 
+    if ((section.group || null) !== group) {
+      group = section.group || null;
+      /* A group heading costs vertical lines too, and the print draft counts
+         them to guess at page breaks. */
+      if (group) { body += `<h2 class="group">${esc(group)}</h2>`; lines += 2; }
+    }
+
     lines += 3;
-    body += `<section><h2>${esc(section.name)}</h2>`;
+    body += `<section${section.group ? ' class="in-group"' : ''}>` +
+            `<h2>${esc(section.name)}</h2>` +
+            (section.note ? `<p class="note">${esc(section.note)}</p>` : '');
+    if (section.note) lines += 1;
     const pours = items.some(i => i.kind === 'pour');
     if (pours && first) { body += `<div class="cols"><span>Glass</span><span>Bottle</span></div>`; lines += 1; }
     if (pours) first = false;
