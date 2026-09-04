@@ -1,19 +1,26 @@
-name: Publish out/ to GitHub Pages
+name: Build and publish to GitHub Pages
 
-# Mise's renderers write plain HTML into out/, and out/ is committed — so
-# there is nothing to build here. This just serves the folder.
+# Runs the real pipeline rather than serving whatever out/ happened to be
+# committed: start the mock POS, sync the catalog into out/menu.json, render
+# every page from it, publish out/.
+#
+# The point is that the published menus always match data/editorial.json. If
+# this only uploaded the committed out/, then editing a dish in Mise Studio —
+# which commits data/editorial.json and nothing else — would change the data
+# and leave the site showing the old copy until someone remembered to commit
+# the rebuild too. That gap is exactly the kind of thing nobody notices until
+# a guest reads a price that is no longer true.
 #
 # BEFORE POINTING THIS AT A REAL SQUARE CATALOG, READ THIS:
 # out/service*.html is the internal reference. It carries service notes,
 # held-back stubs and staff-facing prep detail, and it says "Internal. Not for
 # guests." at the top. On a public Pages site it is one URL away from anyone.
-# That is fine today because the catalog is scripts/mock-catalog.json — every
-# dish, price and note in it is invented. It stops being fine the moment
-# SQUARE_TOKEN is set and a real sync runs.
+# That is fine today because there is no SQUARE_TOKEN here, so config.mjs
+# falls back to the mock and every dish, price and note is invented.
+# It stops being fine the moment a real token reaches this workflow.
 #
 # When that day comes, either make the repo private (Pages on a private repo
-# needs a paid plan) or add an exclusion step here that deletes out/service*
-# before upload.
+# needs a paid plan) or add `rm out/service*.html` before the upload step.
 
 on:
   push:
@@ -30,16 +37,47 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # No npm ci: package.json has no dependencies. The whole pipeline is
+      # node stdlib, which is why it installs in zero seconds and cannot break
+      # on a transitive update.
+
+      # The mock POS, backgrounded, then waited for — `sleep 5` would be a
+      # flake waiting to happen on a slow runner.
+      - name: Start the mock POS
+        run: |
+          node scripts/mock-square.mjs &
+          for i in $(seq 1 40); do
+            curl -sf -o /dev/null http://127.0.0.1:8789/v2/catalog/list && exit 0
+            sleep 0.25
+          done
+          echo "mock POS never came up"; exit 1
+
+      # sync reads the catalog and writes out/menu.json; build renders every
+      # page from that one file. No SQUARE_TOKEN is set, so config.mjs picks
+      # the mock on its own.
+      - run: npm run sync
+      - run: npm run build
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: out
       - id: deployment
         uses: actions/deploy-pages@v4
